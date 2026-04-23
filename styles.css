@@ -934,7 +934,7 @@ textarea:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--coba
 .why-card p { font-size: 15px; color: var(--text); line-height: 1.65; }
 
 @media (max-width: 767px) {
-  .ph-hero-photo { height: 280px; }
+  .ph-hero-photo { height: 280px !important; }
   .ph-hero-text .wrap { flex-direction: column; align-items: flex-start; gap: 20px; }
   .ph-hero-ctas { flex-direction: row; flex-wrap: wrap; min-width: 0; }
   .why-grid { grid-template-columns: 1fr; }
