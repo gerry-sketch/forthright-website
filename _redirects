@@ -1,14 +1,3 @@
-# Clean URL canonicals - .html versions redirect to clean URLs
-/about.html     /about    301!
-/contact.html   /contact  301!
-/services.html  /services 301!
-/projects.html  /projects 301!
-/partners.html  /partners 301!
-
-# Trailing slash cleanup
-/contact/       /contact  301!
-/about/         /about    301!
-
 # www redirect - force canonical https://forthrightvt.com
 http://www.forthrightvt.com/*   https://forthrightvt.com/:splat  301!
 https://www.forthrightvt.com/*  https://forthrightvt.com/:splat  301!
