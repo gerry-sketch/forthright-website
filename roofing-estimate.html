@@ -851,7 +851,19 @@ async function submitForm(){
 }
 
 document.querySelectorAll('.field input').forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
+(function(){
+  var el=document.getElementById('f-phone');if(!el)return;
+  function fmtPhone(raw){
+    var val=raw.replace(/\D/g,'');
+    if(val.length===11&&val.charAt(0)==='1'){val=val.substring(1);}
+    if(val.length>=10){val='('+val.substring(0,3)+') '+val.substring(3,6)+'-'+val.substring(6,10);}
+    return val;
+  }
+  el.addEventListener('input',function(e){e.target.value=fmtPhone(e.target.value);});
+  el.addEventListener('blur',function(e){e.target.value=fmtPhone(e.target.value);});
+})();
 </script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
 </body>
 </html>
+
