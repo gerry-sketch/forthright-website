@@ -363,7 +363,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
       <div class="field"><label>Last Name</label><input type="text" name="lastName" placeholder="Smith" autocomplete="family-name" /></div>
     </div>
     <div class="frow">
-      <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" /></div>
+      <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" /></div>
       <div class="field"><label>Email</label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" /></div>
     </div>
     <div class="field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Burlington VT" autocomplete="street-address" /></div>
@@ -420,7 +420,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
     <div class="field"><label>Last Name</label><input type="text" name="lastName" placeholder="Smith" autocomplete="family-name" /></div>
   </div>
   <div class="frow">
-    <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" /></div>
+    <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" /></div>
     <div class="field"><label>Email</label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" /></div>
   </div>
   <div class="field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Burlington VT" autocomplete="street-address" /></div>
@@ -555,6 +555,20 @@ if (toggle && links) {
     }
   });
 }
+</script>
+<script>
+(function(){
+  function fmtPhone(raw){
+    var val=raw.replace(/\D/g,'');
+    if(val.length===11&&val.charAt(0)==='1'){val=val.substring(1);}
+    if(val.length>=10){val='('+val.substring(0,3)+') '+val.substring(3,6)+'-'+val.substring(6,10);}
+    return val;
+  }
+  document.querySelectorAll('input[name="phone"]').forEach(function(el){
+    el.addEventListener('input',function(e){e.target.value=fmtPhone(e.target.value);});
+    el.addEventListener('blur',function(e){e.target.value=fmtPhone(e.target.value);});
+  });
+})();
 </script>
 </body>
 </html>
