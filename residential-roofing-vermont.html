@@ -129,6 +129,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 }
 </script>
+
+<!-- Residential overlay hero: image fills viewport, copy sits on top -->
+<style>
+.rr-hero { position: relative; }
+.rr-hero .ph-hero-photo {
+  height: 100vh;
+  min-height: 560px;
+  position: relative;
+}
+.rr-hero .ph-hero-photo img { object-position: center 20%; }
+.rr-hero .ph-hero-photo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.05) 25%, rgba(0,0,0,.72) 100%);
+  pointer-events: none;
+}
+.rr-hero .ph-hero-text {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: transparent !important;
+  padding-bottom: 44px !important;
+  z-index: 2;
+}
+.rr-hero .ph-hero-text h1      { color: #fff; }
+.rr-hero .ph-hero-text .eyebrow { color: rgba(255,255,255,.6); }
+.rr-hero .ph-hero-text .ph-sub  { color: rgba(255,255,255,.82); }
+@media (max-width: 860px) {
+  .rr-hero .ph-hero-photo { height: 100svh; min-height: 480px; }
+  .rr-hero .ph-hero-text  { padding-bottom: 28px !important; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -169,8 +200,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </nav>
 
-<div class="ph-hero-photo" style="height:420px">
-  <img src="svc-residential-roofing-v2.jpg" alt="Architectural shingle roofing installation — Vermont residential" width="1400" height="560" loading="eager" style="object-position:center 15%;">
+<div class="rr-hero">
+<div class="ph-hero-photo">
+  <img src="svc-residential-roofing-v2.jpg" alt="Architectural shingle roofing installation — Vermont residential" width="1400" height="560" loading="eager">
 </div>
 <div class="ph-hero-text">
   <div class="wrap">
@@ -181,6 +213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </div>
+</div><!-- /rr-hero -->
 <div class="trust-strip">
   <div class="trust-strip-inner">
     <span class="trust-strip-item">&#10003; Vermont Licensed &amp; Insured</span>
