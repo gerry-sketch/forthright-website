@@ -308,7 +308,7 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 /* ── FOOTER ── */
 .footer  { background: var(--charcoal); padding: 64px 0 28px; }
 .ft-top  {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
   gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.07);
 }
 .ft-brand .logo-box  { border-color: rgba(255,255,255,.25); }
