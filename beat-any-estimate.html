@@ -216,14 +216,7 @@ ul    { list-style: none; }
 .cta-ghost         { background: transparent; color: rgba(255,255,255,.75) !important; border-color: rgba(255,255,255,.3); }
 .cta-ghost:hover   { background: var(--white); color: var(--cobalt) !important; border-color: var(--white); }
 
-/* ── FOOTER ── */
-footer {
-  background: var(--charcoal); border-top: 1px solid rgba(255,255,255,.07);
-  padding: 20px var(--pad-x); text-align: center;
-}
-footer p { font-family: var(--font-cond); font-size: 12px; letter-spacing: .5px; color: rgba(255,255,255,.28); margin-bottom: 4px; }
-footer a  { color: rgba(255,255,255,.28); }
-footer a:hover { color: rgba(255,255,255,.6); }
+/* footer styles via styles.css */
 
 /* ── DESKTOP: split hero ── */
 @media (min-width: 860px) {
@@ -300,8 +293,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
 
   .final-cta { display: flex; align-items: center; justify-content: space-between; text-align: left; flex-wrap: wrap; gap: 24px; }
   .cta-pair { flex-direction: row; }
-  footer { display: flex; align-items: center; justify-content: space-between; text-align: left; }
-  footer p { margin-bottom: 0; }
+
 }
 
 @media (min-width: 860px) and (max-width: 1100px) {
@@ -309,6 +301,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
   .hero-desktop { grid-template-columns: 1fr 400px; }
 }
 </style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -479,6 +472,7 @@ footer a:hover { color: rgba(255,255,255,.6); }
     .hero-desktop      { display: grid; }
   }
 </style>
+<link rel="stylesheet" href="styles.css">
 
 <!-- LOWER: terms + steps -->
 <div class="lower">
@@ -515,9 +509,31 @@ footer a:hover { color: rgba(255,255,255,.6); }
   </div>
 </section>
 
-<footer>
-  <p>© 2026 Forthright Construction — Hinesburg, Vermont · Licensed &amp; Insured</p>
-  <p><a href="privacy-policy.html">Privacy Policy</a></p>
+<footer class="footer" aria-label="Site footer">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <div class="logo-wrap"><div class="logo-box"><span class="logo-main">FORTHRIGHT</span></div><span class="logo-sub">CONSTRUCTION</span></div>
+        <p>Vermont contractor for commercial and residential projects. Accountable by Design.</p>
+      </div>
+      <div class="ft-col"><h4>Company</h4><ul><li><a href="/about">About Us</a></li><li><a href="/contact">Contact</a></li></ul></div>
+      <div class="ft-col"><h4>Services</h4><ul><li><a href="/commercial-roofing-vermont">Commercial Roofing</a></li><li><a href="/commercial-siding-vermont">Commercial Siding</a></li><li><a href="/commercial-framing-vermont">Commercial Framing</a></li><li><a href="/commercial-drywall-vermont">Commercial Drywall</a></li><li><a href="/residential-roofing-vermont">Residential Roofing</a></li><li><a href="/residential-siding-vermont">Residential Siding</a></li><li><a href="/residential-decks-vermont">Residential Decks</a></li></ul></div>
+      <div class="ft-col"><h4>Resources</h4><ul><li><a href="/roofing-faq">Roofing FAQ</a></li><li><a href="/siding-faq">Siding FAQ</a></li><li><a href="/deck-faq">Deck FAQ</a></li></ul></div>
+      <div class="ft-col"><h4>Service Areas</h4><ul>
+<li><a href="/contractor-south-burlington-vt">South Burlington</a></li>
+<li><a href="/contractor-shelburne-vt">Shelburne</a></li>
+<li><a href="/contractor-williston-vt">Williston</a></li>
+<li><a href="/contractor-colchester-vt">Colchester</a></li>
+<li><a href="/contractor-stowe-vt">Stowe</a></li>
+<li><a href="/contractor-montpelier-vt">Montpelier</a></li>
+<li><a href="/contractor-barre-vt">Barre</a></li>
+<li><a href="/contractor-middlebury-vt">Middlebury</a></li>
+<li><a href="/contractor-st-albans-vt">St. Albans</a></li>
+<li><a href="/contractor-hinesburg-vt">Hinesburg</a></li>
+</ul></div><div class="ft-col"><h4>Contact</h4><ul><li><a href="tel:8028481848">802-848-1848</a></li><li><a href="mailto:gerry@forthrightvt.com">gerry@forthrightvt.com</a></li><li><a href="/contact">Free Estimate</a></li></ul></div>
+    </div>
+    <div class="ft-bot"><span>© 2026 Forthright Construction LLC — Hinesburg, Vermont</span><span>Licensed · Fully Insured · <a href="/privacy-policy" style="color:inherit;">Privacy Policy</a></span></div>
+  </div>
 </footer>
 
 <script>
