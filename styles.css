@@ -100,8 +100,13 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
   height: 100%; display: flex; align-items: center; justify-content: space-between;
 }
 .logo      { display: flex; align-items: center; }
-.logo-img  { height: 52px; width: auto; display: block; }
-.logo-img--footer { height: 64px; width: auto; display: block; }
+.logo-img  { height: 68px; width: auto; display: block; }
+.logo-img--footer { height: 72px; width: auto; display: block; }
+
+@media (max-width: 860px) {
+  .logo-img         { height: 36px !important; }
+  .logo-img--footer { height: 48px !important; }
+}
 
 .nav-links { display: flex; align-items: center; gap: 36px; }
 .nav-links a {
