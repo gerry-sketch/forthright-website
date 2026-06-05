@@ -101,7 +101,7 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 }
 .logo      { display: flex; align-items: center; }
 .logo-img  { height: 52px; width: auto; display: block; }
-.logo-img--footer { height: 44px; width: auto; display: block; }
+.logo-img--footer { height: 64px; width: auto; display: block; }
 
 .nav-links { display: flex; align-items: center; gap: 36px; }
 .nav-links a {
