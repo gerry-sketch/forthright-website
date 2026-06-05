@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 14 721 172" width="721" height="172" role="img" aria-label="Forthright Construction">
-  <title>Forthright Construction — Light on Dark Charcoal</title>
-  <rect x="16" y="14" width="721" height="172" fill="#1e1e1e"></rect>
-  <rect x="18.5" y="16.5" width="716" height="128" fill="none" stroke="#666666" stroke-width="4"></rect>
-  <text x="379" y="117" text-anchor="middle" font-family="Arial, Helvetica, &#39;Liberation Sans&#39;, sans-serif" font-weight="700" font-size="105" letter-spacing="0.5" fill="#ffffff">FORTHRIGHT</text>
-  <text x="20" y="184" font-family="Arial, Helvetica, &#39;Liberation Sans&#39;, sans-serif" font-weight="700" font-size="32" letter-spacing="9.5" fill="#999999">CONSTRUCTION</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="16 14 721 172" role="img" aria-label="Forthright Construction">
+  <title>Forthright Construction</title>
+  <rect x="18.5" y="16.5" width="716" height="128" fill="none" stroke="#ffffff" stroke-width="4"></rect>
+  <text x="379" y="117" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="105" letter-spacing="0.5" fill="#ffffff">FORTHRIGHT</text>
+  <text x="20" y="184" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="32" letter-spacing="9.5" fill="rgba(255,255,255,0.5)">CONSTRUCTION</text>
 </svg>
