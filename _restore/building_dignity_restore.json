@@ -1,0 +1,157 @@
+{
+  "title": "Building Dignity Partnership \u2014 Site Content Restore File",
+  "note": "Partnership removed from site as of 2026-06-08. Not live yet. Restore when certified.",
+  "files_with_full_section_backup": [
+    "about.html",
+    "index.html",
+    "partners.html"
+  ],
+  "restoration_instructions": {
+    "trust_strip_pages": "Add back: <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span> to the trust strip in each of the 18 service/location pages listed in snippet_data.",
+    "about.html": "Re-add the full <section> block with the BD partnership h2 + paragraph + mj-diamond emblem between the 'Community' section and the CTA band.",
+    "index.html": "1) Restore BD mention in the 'Fair Labor Standards' why-item paragraph. 2) Re-add the <!-- MJ --> <section class='section bg-dk'> block before the Instant Estimate band.",
+    "partners.html": "Re-add the dark BD box (charcoal background, h2='Building Dignity', 2 paragraphs, Visit BD link) between the 'How We Build Our Team' block and the 'Join Our Network' block. Also restore title/meta tags."
+  },
+  "snippet_data": {
+    "about.html": {
+      "sha": "b21e646d9f8628c4393b99ce8ee2000e0ecc06f2",
+      "bd_lines": {
+        "147": "        <h2>Building Dignity Partnership</h2>",
+        "148": "        <p>Forthright is a certified partner of Building Dignity. Every worker on our projects is paid fairly and treated with respect \u2014 we hold our trade partners to the same standard.</p>"
+      }
+    },
+    "index.html": {
+      "sha": "01a9b9bc8144cc7c61f337d105ab2fca16889608",
+      "bd_lines": {
+        "229": "        <p>Every worker on a Forthright project is treated well and paid fairly. We're a Building Dignity certified partner \u2014 it's a commitment we take seriously.</p>",
+        "251": "        <h2>Building Dignity Partnership</h2>",
+        "252": "        <p>Forthright is a certified partner of Building Dignity, a Vermont organization that advocates for fair wages and safe conditions for workers in the building trades.</p>"
+      }
+    },
+    "partners.html": {
+      "sha": "256d2df782d855b38aeb4ec4ea36dce8e2c4d881",
+      "bd_lines": {
+        "13": "<title>Building Dignity Partner | Forthright Construction \u2014 Vermont</title>",
+        "14": "<meta name=\"description\" content=\"Forthright Construction is a certified Building Dignity partner. Every worker on our Vermont construction projects is treated fairly and compensated properly.\">",
+        "19": "<meta property=\"og:title\" content=\"Building Dignity Partner | Forthright Construction\">",
+        "24": "<meta name=\"twitter:title\" content=\"Building Dignity Partner | Forthright Construction\">",
+        "104": "    <h2 style=\"color:var(--white);margin-bottom:18px\">Building Dignity</h2>",
+        "105": "    <p style=\"color:rgba(255,255,255,.6);max-width:660px;margin-bottom:14px\">Forthright is a certified partner of Building Dignity, a Vermont organization that advocates for fair wages and safe conditions for workers. Our partnership means we've made a real commitment \u2014 not just a statement \u2014 to how workers are treated on our projects.</p>",
+        "107": "    <a href=\"https://buildingdignity.org\" target=\"_blank\" rel=\"noopener\" class=\"btn btn-ghost\">Visit Building Dignity \u2192</a>"
+      }
+    },
+    "commercial-drywall-vermont.html": {
+      "sha": "ba964fa8a9c3c9031906e327dd53e15c26f97863",
+      "bd_lines": {
+        "145": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "commercial-framing-vermont.html": {
+      "sha": "cfa4b9ad262f7a38e9e47db5452b619622ccdfc7",
+      "bd_lines": {
+        "145": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "commercial-roofing-vermont.html": {
+      "sha": "91d1f6a605402a7ad3c6e6f7662eea34a287d758",
+      "bd_lines": {
+        "91": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "commercial-siding-vermont.html": {
+      "sha": "75fb1821234b82bdc93c487017584c48d2acc78d",
+      "bd_lines": {
+        "145": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "commercial-storefronts-vermont.html": {
+      "sha": "a95d17c4c5fceeec2d3982e96c89137ade266e31",
+      "bd_lines": {
+        "134": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-barre-vt.html": {
+      "sha": "7658bbc025cf3162368d949b5cf909f0b91a9ad0",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-colchester-vt.html": {
+      "sha": "62bffcae490ba5bf57bc53668f38322de813def7",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-hinesburg-vt.html": {
+      "sha": "3236b6aabca326ccc12b473a92188f4ceaf715c4",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-middlebury-vt.html": {
+      "sha": "28b77b3f3ab221b8a23fd03442e1149f624dac5b",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-montpelier-vt.html": {
+      "sha": "292edb395b6674426ae1c698ce8cd38f221987da",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-shelburne-vt.html": {
+      "sha": "02e59d6dc794915c1a4fd49bfef9bc10ad001f2a",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-south-burlington-vt.html": {
+      "sha": "15106a31ef07e49a5e8bce7f64bcebb56ed509c2",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-st-albans-vt.html": {
+      "sha": "14c54a67cc68473da1e6c989d9baa6845374b8f7",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-stowe-vt.html": {
+      "sha": "af549ed533a8788da20adb066b26e056f5939a93",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "contractor-williston-vt.html": {
+      "sha": "1869e1af7e9c3a2a42cc8f52d979f8a52ab9fa43",
+      "bd_lines": {
+        "123": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "residential-decks-vermont.html": {
+      "sha": "f91cc706f4c198be6e4d99303d9a0be0a52f4b72",
+      "bd_lines": {
+        "145": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "residential-roofing-vermont.html": {
+      "sha": "9789150adf383fe6d75ffb12346d461754aeab93",
+      "bd_lines": {
+        "220": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    },
+    "residential-siding-vermont.html": {
+      "sha": "edc33a7359ff699a3b6ddee03a4d037efc9c5e1a",
+      "bd_lines": {
+        "145": "    <span class=\"trust-strip-item\">&#10003; Building Dignity Certified</span>"
+      }
+    }
+  },
+  "full_section_content": {
+    "about.html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n})(window,document,'script','dataLayer','GTM-MHGHXGV2');</script>\n<!-- End Google Tag Manager -->\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n<title>About Forthright Construction | Vermont Contractor</title>\n<meta name=\"description\" content=\"Forthright Construction is a Vermont contractor built around clear communication, honest pricing, and skilled trade execution. Licensed and insured.\">\n<link rel=\"canonical\" href=\"https://forthrightvt.com/about\">\n<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://forthrightvt.com/about.html\">\n<meta property=\"og:title\" content=\"About Forthright Construction | Vermont Contractor\">\n<meta property=\"og:description\" content=\"A Vermont construction company built around clear communication, honest estimates, and skilled trade execution.\">\n<meta property=\"og:image\" content=\"https://forthrightvt.com/img-commercial-building-v2.jpg\">\n<meta property=\"og:site_name\" content=\"Forthright Construction\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"About Forthright Construction | Vermont Contractor\">\n<meta name=\"twitter:description\" content=\"A Vermont construction company built around clear communication, honest estimates, and skilled trade execution.\">\n<meta name=\"twitter:image\" content=\"https://forthrightvt.com/img-commercial-building-v2.jpg\">\n<meta name=\"geo.region\" content=\"US-VT\">\n<meta name=\"geo.placename\" content=\"Hinesburg, Vermont\">\n<meta name=\"geo.position\" content=\"44.3364;-73.1143\">\n<meta name=\"ICBM\" content=\"44.3364, -73.1143\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap\" rel=\"stylesheet\">\n<link rel=\"stylesheet\" href=\"styles.css\">\n<meta name=\"geo.region\" content=\"US-VT\">\n<meta name=\"geo.placename\" content=\"Hinesburg, Vermont\">\n<meta name=\"geo.position\" content=\"44.3364;-73.1143\">\n<meta name=\"ICBM\" content=\"44.3364, -73.1143\">\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Person\",\n  \"name\": \"Gerry Howatt\",\n  \"jobTitle\": \"Founder & CEO\",\n  \"worksFor\": {\"@type\":\"Organization\",\"name\":\"Forthright Construction\",\"url\":\"https://forthrightvt.com\"},\n  \"address\": {\"@type\":\"PostalAddress\",\"addressLocality\":\"Hinesburg\",\"addressRegion\":\"VT\",\"addressCountry\":\"US\"}\n}\n</script>\n</head>\n<body>\n<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src=\"https://www.googletagmanager.com/n... [truncated for storage]",
+    "index.html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n})(window,document,'script','dataLayer','GTM-MHGHXGV2');</script>\n<!-- End Google Tag Manager -->\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n<title>Forthright Construction | Vermont Contractor</title>\n<meta name=\"description\" content=\"Vermont commercial and residential contractor. Roofing, siding, framing, drywall, decks, storefronts. Licensed, insured. Call 802-848-1848.\">\n<link rel=\"canonical\" href=\"https://forthrightvt.com/\">\n<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n<link rel=\"icon\" href=\"/favicon.ico\" sizes=\"any\">\n<link rel=\"apple-touch-icon\" href=\"/favicon-180.png\"><meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://forthrightvt.com/\">\n<meta property=\"og:title\" content=\"Forthright Construction | Vermont Contractor\">\n<meta property=\"og:description\" content=\"Vermont commercial and residential contractor. Roofing, siding, framing, drywall, decks, storefronts. Licensed, insured. Call 802-848-1848.\">\n<meta property=\"og:image\" content=\"https://forthrightvt.com/img-commercial-building-v2.jpg\">\n<meta property=\"og:site_name\" content=\"Forthright Construction\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Forthright Construction | Vermont Contractor\">\n<meta name=\"twitter:description\" content=\"Vermont commercial and residential contractor. Roofing, siding, framing, drywall, decks, storefronts. Licensed, insured. Call 802-848-1848.\">\n<meta name=\"twitter:image\" content=\"https://forthrightvt.com/img-commercial-building-v2.jpg\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap\" rel=\"stylesheet\">\n<link rel=\"stylesheet\" href=\"styles.css\">\n<meta name=\"geo.region\" content=\"US-VT\">\n<meta name=\"geo.placename\" content=\"Hinesburg, Vermont\">\n<meta name=\"geo.position\" content=\"44.3364;-73.1143\">\n<meta name=\"ICBM\" content=\"44.3364, -73.1143\">\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"GeneralContractor\",\n  \"name\": \"Forthright Construction\",\n  \"alternateName\": \"Forthright Construction LLC\",\n  \"description\": \"Vermont commercial and residential construction contractor specializing in roofing, siding, framing, drywall, and decks. Serving all of Vermont.\",\n  \"url\": \"https://forthrightvt.com\",\n  \"telephone\": \"+18028481848\",\n  \"email\": \"gerry@forthrightvt.com\",\n  \"image\": \"https://forthrightvt.com/img-commercial-building-v2.jpg\",\n  \"priceRange\": \"$$\",\n  \"address\": {\"@type... [truncated for storage]",
+    "partners.html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n})(window,document,'script','dataLayer','GTM-MHGHXGV2');</script>\n<!-- End Google Tag Manager -->\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\">\n<title>Building Dignity Partner | Forthright Construction \u2014 Vermont</title>\n<meta name=\"description\" content=\"Forthright Construction is a certified Building Dignity partner. Every worker on our Vermont construction projects is treated fairly and compensated properly.\">\n<link rel=\"canonical\" href=\"https://forthrightvt.com/partners.html\">\n<link rel=\"icon\" type=\"image/svg+xml\" href=\"favicon.svg\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:url\" content=\"https://forthrightvt.com/partners.html\">\n<meta property=\"og:title\" content=\"Building Dignity Partner | Forthright Construction\">\n<meta property=\"og:description\" content=\"Forthright Construction is committed to fair labor on every Vermont job site.\">\n<meta property=\"og:image\" content=\"https://forthrightvt.com/img-commercial-building-v2.jpg\">\n<meta property=\"og:site_name\" content=\"Forthright Construction\">\n<meta name=\"twitter:card\" content=\"summary_large_image\">\n<meta name=\"twitter:title\" content=\"Building Dignity Partner | Forthright Construction\">\n<meta name=\"twitter:description\" content=\"Forthright Construction is committed to fair labor on every Vermont job site.\">\n<meta name=\"twitter:image\" content=\"https://forthrightvt.com/img-commercial-building-v2.jpg\">\n<meta name=\"geo.region\" content=\"US-VT\">\n<meta name=\"geo.placename\" content=\"Hinesburg, Vermont\">\n<meta name=\"geo.position\" content=\"44.3364;-73.1143\">\n<meta name=\"ICBM\" content=\"44.3364, -73.1143\">\n<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link href=\"https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap\" rel=\"stylesheet\">\n<link rel=\"stylesheet\" href=\"styles.css\">\n<meta name=\"geo.region\" content=\"US-VT\">\n<meta name=\"geo.placename\" content=\"Hinesburg, Vermont\">\n<meta name=\"geo.position\" content=\"44.3364;-73.1143\">\n<meta name=\"ICBM\" content=\"44.3364, -73.1143\">\n<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"WebPage\",\n  \"name\": \"Partners | Forthright Construction\",\n  \"url\": \"https://forthrightvt.com/partners.html\",\n  \"isPartOf\": {\"@type\": \"WebSite\", \"url\": \"https://forthrightvt.com\"}\n}\n</script>\n</head>\n<body>\n<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-MHGHXGV2\"\nheight=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>\n<!-- End Google Tag Manager (noscript... [truncated for storage]"
+  }
+}
