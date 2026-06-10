@@ -1027,3 +1027,92 @@ textarea:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--coba
 @media (max-width: 860px) {
   .color-card-embed iframe { height: 360px; }
 }
+
+
+/* ── REVIEW BAR ── */
+:root { --review-bar-h: 42px; }
+
+.review-bar {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0; right: 0;
+  z-index: 998;
+  height: var(--review-bar-h);
+  background: var(--cobalt);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.review-bar-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+  animation: reviewScroll 40s linear infinite;
+  will-change: transform;
+}
+
+.review-bar-track:hover { animation-play-state: paused; }
+
+.review-bar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 40px;
+  font-family: var(--font-cond);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.95);
+  letter-spacing: 0.3px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.review-bar-stars {
+  color: #FFD700;
+  font-size: 12px;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.review-bar-name {
+  color: rgba(255,255,255,0.65);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.review-bar-google {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 32px;
+  font-family: var(--font-cond);
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+@keyframes reviewScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Pages with review bar: offset hero/page-hero by bar height */
+body.has-review-bar .hero        { margin-top: calc(var(--nav-h) + var(--review-bar-h)); }
+body.has-review-bar .page-hero   { padding-top: calc(var(--nav-h) + var(--review-bar-h) + 52px); }
+body.has-review-bar .svc-subnav  { top: calc(var(--nav-h) + var(--review-bar-h)); }
+body.has-review-bar .sp-sidebar  { top: calc(var(--nav-h) + var(--review-bar-h) + 24px); }
+body.has-review-bar .faq-sidebar { top: calc(var(--nav-h) + var(--review-bar-h) + 24px); }
+body.has-review-bar .nav-mega    { top: calc(var(--nav-h) + var(--review-bar-h)); }
+
+@media (max-width: 860px) {
+  :root { --review-bar-h: 36px; }
+  .review-bar-item  { font-size: 12px; padding: 0 24px; }
+  .review-bar-stars { font-size: 11px; }
+  body.has-review-bar .page-hero { padding-top: calc(var(--nav-h) + var(--review-bar-h) + 40px); }
+}
