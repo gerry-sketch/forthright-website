@@ -1055,6 +1055,9 @@ textarea:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--coba
 
 .review-bar-track:hover { animation-play-state: paused; }
 
+a.review-bar { text-decoration: none; cursor: pointer; display: flex; }
+a.review-bar:hover .review-bar-track { animation-play-state: paused; }
+
 .review-bar-item {
   display: inline-flex;
   align-items: center;
