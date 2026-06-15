@@ -259,38 +259,6 @@ main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin
 .float-bar .sep{color:var(--border);font-size:20px}
 .float-bar a.back-link{font-family:var(--fc);font-size:14px;color:var(--mid);text-decoration:none}
 
-/* FOOTER */
-.footer{background:var(--charcoal);padding:64px 0 100px;flex-shrink:0}
-.footer .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
-.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.07)}
-.ft-brand .logo-box{border-color:rgba(255,255,255,.25)}
-.ft-brand .logo-main{color:var(--white)}
-.ft-brand .logo-sub{color:rgba(255,255,255,.4)}
-.ft-brand p{color:rgba(255,255,255,.5);font-size:17px;margin-top:18px;line-height:1.9}
-.ft-col h4{font-family:var(--fc);font-size:13px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
-.ft-col ul{list-style:none}
-.ft-col li{margin-bottom:12px}
-.ft-col li a{color:rgba(255,255,255,.55);font-family:var(--fc);font-size:16px;letter-spacing:.5px;text-decoration:none}
-.ft-bot{padding-top:24px;display:flex;justify-content:space-between;font-family:var(--fc);font-size:13px;letter-spacing:.5px;color:rgba(255,255,255,.3)}
-@media(max-width:768px){.ft-top{grid-template-columns:1fr 1fr;gap:36px}.ft-bot{flex-direction:column;gap:8px;text-align:center}}
-@media(max-width:480px){.ft-top{grid-template-columns:1fr}}
-
-@media(max-width:580px){
-  main{padding:0 22px}
-  .hcard-grid{grid-template-columns:1fr 1fr}
-  .card-grid.col2{grid-template-columns:1fr 1fr}
-  .pcard-photo{height:120px}
-  .pcard-desc{display:none}
-  .pcard-body{padding:12px 14px}
-  .tl-grid{grid-template-columns:1fr}
-  .panel-q{font-size:clamp(28px,8vw,40px)}
-  .field-row{grid-template-columns:1fr}
-}
-@media(min-width:768px){
-  .panel{padding:48px 0 64px}
-  .pcard-photo{height:240px}
-  .stile{padding:36px 20px}
-}
 </style>
 <!-- reCAPTCHA v3 - replace RECAPTCHA_SITE_KEY with your key from console.google.com/recaptcha -->
 <script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY" async defer></script>
