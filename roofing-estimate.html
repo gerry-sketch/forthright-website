@@ -78,6 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="robots" content="index,follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -89,16 +90,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 html,body{height:100%}
 body{font-family:var(--fb);background:var(--bg);color:var(--text);display:flex;flex-direction:column;min-height:100vh}
 
-/* HEADER */
-header{background:var(--white);border-bottom:2px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;flex-shrink:0}
-.logo-wrap{display:flex;flex-direction:column;text-decoration:none;line-height:1}
-.logo-box{border:2.5px solid var(--cobalt);padding:5px 10px 4px;display:inline-block}
-.logo-main{font-family:var(--fd);font-size:22px;letter-spacing:2px;color:var(--cobalt);line-height:1;display:block}
-.logo-sub{font-family:var(--fc);font-size:8px;font-weight:700;letter-spacing:5px;text-transform:uppercase;color:var(--cobalt);display:block;margin-top:2px}
-.hdr-cta{font-family:var(--fc);font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white);background:var(--cobalt);padding:11px 18px;text-decoration:none;border-radius:6px;white-space:nowrap}
-
 /* PROGRESS */
-.progress-wrap{background:var(--cobalt-dk);padding:14px 24px;display:flex;justify-content:center;align-items:center;gap:0;border-bottom:3px solid var(--gold);flex-shrink:0}
+.progress-wrap{background:var(--cobalt-dk);padding:14px 24px;display:flex;justify-content:center;align-items:center;gap:0;border-bottom:3px solid var(--gold);flex-shrink:0;margin-top:var(--nav-h,72px)}
 .prog-track{display:flex;align-items:center}
 .pdot{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.2);transition:all .3s;flex-shrink:0}
 .pdot.active{background:var(--gold);transform:scale(1.3)}
@@ -319,13 +312,39 @@ main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<header>
-  <a href="https://forthrightvt.com" class="logo-wrap" aria-label="Forthright Construction">
-    <div class="logo-box"><span class="logo-main">FORTHRIGHT</span></div>
-    <span class="logo-sub">CONSTRUCTION</span>
-  </a>
-  <a href="tel:8028481848" class="hdr-cta">Call Us</a>
-</header>
+<nav class="nav" aria-label="Main navigation" id="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><img src="images/forthright-logo-master.png" alt="Forthright Construction" class="logo-img"></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="about.html">About Us</a></li>
+      <li class="nav-dropdown">
+        <a href="services.html" class="nav-dropdown-trigger">Services <span class="nav-arr">▾</span></a>
+        <div class="nav-mega">
+          <div class="nav-mega-col">
+            <span class="nav-mega-label">Residential</span>
+            <a href="residential-roofing-vermont.html">Residential Roofing</a>
+            <a href="asphalt-shingle-roofing-vermont.html" class="nav-sub">Asphalt Shingles</a>
+            <a href="standing-seam-metal-roofing-vermont.html" class="nav-sub">Standing Seam Metal</a>
+            <a href="epdm-rubber-roofing-vermont.html" class="nav-sub">EPDM Rubber</a>
+            <a href="residential-siding-vermont.html">Residential Siding</a>
+            <a href="residential-decks-vermont.html">Residential Decks</a>
+          </div>
+          <div class="nav-mega-col">
+            <span class="nav-mega-label">Commercial</span>
+            <a href="commercial-roofing-vermont.html">Commercial Roofing</a>
+            <a href="commercial-siding-vermont.html">Commercial Siding</a>
+            <a href="commercial-storefronts-vermont.html">Commercial Storefronts</a>
+            <a href="commercial-framing-vermont.html">Commercial Framing</a>
+            <a href="commercial-drywall-vermont.html">Commercial Drywall</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-phone"><a href="tel:8028481848">802-848-1848</a></li>
+      <li><a class="cta" href="contact.html">Free Estimate</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div class="progress-wrap" role="progressbar" aria-label="Estimator progress">
   <div class="prog-track">
@@ -865,6 +884,8 @@ document.querySelectorAll('.field input').forEach(el=>el.addEventListener('input
 })();
 </script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
+
 
