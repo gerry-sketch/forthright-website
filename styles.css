@@ -118,8 +118,10 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 .nav-links .cta       { background: var(--cobalt); color: var(--white) !important;
                         padding: 14px 28px; font-size: 15px; }
 .nav-links .cta:hover { background: var(--cobalt-dk); }
+.nav-phone            { display: flex; align-items: center; }
 .nav-phone a          { font-family: var(--font-cond); font-size: 16px; font-weight: 700;
-                        letter-spacing: 1.5px; text-transform: uppercase; color: var(--cobalt) !important; white-space: nowrap; }
+                        letter-spacing: 1.5px; text-transform: uppercase; color: var(--cobalt) !important;
+                        white-space: nowrap; line-height: 1; display: flex; align-items: center; }
 .nav-phone a:hover    { color: var(--cobalt-dk) !important; }
 
 .nav-toggle {
