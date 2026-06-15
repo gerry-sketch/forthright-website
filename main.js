@@ -84,3 +84,26 @@ if (servicesTrigger && servicesMega) {
     }
   });
 }
+
+// Desktop mega-menu with linger delay (300ms)
+(function() {
+  const dropdown = document.querySelector('.nav-dropdown');
+  const mega = document.querySelector('.nav-mega');
+  if (!dropdown || !mega) return;
+  let hideTimer = null;
+
+  function showMega() {
+    clearTimeout(hideTimer);
+    dropdown.classList.add('mega-open');
+  }
+  function hideMega() {
+    hideTimer = setTimeout(function() {
+      dropdown.classList.remove('mega-open');
+    }, 300);
+  }
+
+  dropdown.addEventListener('mouseenter', showMega);
+  dropdown.addEventListener('mouseleave', hideMega);
+  mega.addEventListener('mouseenter', showMega);
+  mega.addEventListener('mouseleave', hideMega);
+})();
