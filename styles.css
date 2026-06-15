@@ -104,10 +104,6 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 .logo-img--footer { height: 68px; width: auto; display: block; }
 
 @media (max-width: 860px) {
-  .why-grid              { grid-template-columns: 1fr 1fr; }
-  .why-item              { border-bottom: 1px solid var(--border); }
-  .why-item:nth-child(2n)  { border-right: none; }
-  .why-item:nth-last-child(-n+2) { border-bottom: none; }
   .logo-img         { height: 48px !important; }
   .logo-img--footer { height: 48px !important; }
 }
@@ -240,8 +236,8 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 .why-item:last-child { border-right: none; }
 .why-n    { font-family: var(--font-display); font-size: 36px;
             color: var(--border); line-height: 1; margin-bottom: 6px; }
-.why-item h3 { margin-bottom: 6px; font-size: 16px; }
-.why-item p  { font-size: 14px; line-height: 1.55; }
+.why-item h3 { margin-bottom: 8px; }
+.why-item p  { font-size: 15px; line-height: 1.6; }
 
 /* ── BUILDING DIGNITY / MJ ── */
 .mj-inner { display: grid; grid-template-columns: 1fr auto; gap: 80px; align-items: center; }
@@ -915,27 +911,7 @@ textarea:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--coba
   font-style: italic;
 }
 
-/* why-us 3-col grid */
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 24px 0 40px;
-}
-.why-card {
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 24px 20px;
-  text-align: center;
-  background: #fff;
-}
-.why-card .why-icon { font-size: 28px; margin-bottom: 10px; }
-.why-card h3 {
-  font-family: var(--font-cond);
-  font-size: 17px; font-weight: 700;
-  color: var(--charcoal); margin-bottom: 8px;
-}
-.why-card p { font-size: 15px; color: var(--text); line-height: 1.65; }
+/* why-card styles removed - unused */
 
 @media (max-width: 767px) {
   .ph-hero-photo { height: 280px !important; }
