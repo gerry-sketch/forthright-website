@@ -345,15 +345,16 @@ ul    { list-style: none; }
     </div>
   </div>
   <div class="form-panel" id="form-desktop">
+    <form class="lp-form" id="lpFormDesktop" novalidate>
     <p class="form-title">Get a Free Estimate</p>
     <p class="form-sub">Have a competitor's written quote? Mention it below - we'll beat it by 5%.</p>
     <div class="frow">
-      <div class="field"><label>First Name</label><input type="text" name="firstName" placeholder="Jane" autocomplete="given-name" /></div>
-      <div class="field"><label>Last Name</label><input type="text" name="lastName" placeholder="Smith" autocomplete="family-name" /></div>
+      <div class="field"><label>First Name <span style="color:#E24B4A">*</span></label><input type="text" name="firstName" placeholder="Jane" autocomplete="given-name" required /></div>
+      <div class="field"><label>Last Name <span style="color:#E24B4A">*</span></label><input type="text" name="lastName" placeholder="Smith" autocomplete="family-name" required /></div>
     </div>
     <div class="frow">
-      <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" /></div>
-      <div class="field"><label>Email</label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" /></div>
+      <div class="field"><label>Phone <span style="color:#E24B4A">*</span></label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" required /></div>
+      <div class="field"><label>Email <span style="color:#E24B4A">*</span></label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" required /></div>
     </div>
     <div class="field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Burlington VT" autocomplete="street-address" /></div>
     <div class="frow">
@@ -395,22 +396,28 @@ ul    { list-style: none; }
       <input type="checkbox" id="lp-sms" name="smsConsent" value="yes">
       <label for="lp-sms"><strong>Text me updates on my request.</strong> I agree to receive project-related texts from Forthright Construction. Message &amp; data rates may apply. Reply STOP to opt out.</label>
     </div>
-    <button class="btn-submit" onclick="window.location='contact.html'">Submit - We'll Respond Today</button>
+    <button type="submit" class="btn-submit">Submit - We'll Respond Today</button>
     <p class="form-foot">Or call us: <a href="tel:8028481848">802-848-1848</a></p>
+    </form>
+    <div class="lp-success" id="lpSuccessDesktop" style="display:none">
+      <p class="form-title">Request received.</p>
+      <p class="form-sub">We'll review your estimate and follow up within one business day. Have it handy when we call - the more detail, the faster we can beat it.</p>
+    </div>
   </div>
 </section>
 
 <!-- MOBILE FORM (below headline block) -->
 <div class="form-panel" id="form">
+  <form class="lp-form" id="lpFormMobile" novalidate>
       <p class="form-title">Get a Free Estimate</p>
   <p class="form-sub">Have a competitor's written quote? Mention it below - we'll beat it by 5%.</p>
   <div class="frow">
-    <div class="field"><label>First Name</label><input type="text" name="firstName" placeholder="Jane" autocomplete="given-name" /></div>
-    <div class="field"><label>Last Name</label><input type="text" name="lastName" placeholder="Smith" autocomplete="family-name" /></div>
+    <div class="field"><label>First Name <span style="color:#E24B4A">*</span></label><input type="text" name="firstName" placeholder="Jane" autocomplete="given-name" required /></div>
+    <div class="field"><label>Last Name <span style="color:#E24B4A">*</span></label><input type="text" name="lastName" placeholder="Smith" autocomplete="family-name" required /></div>
   </div>
   <div class="frow">
-    <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" /></div>
-    <div class="field"><label>Email</label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" /></div>
+    <div class="field"><label>Phone <span style="color:#E24B4A">*</span></label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" required /></div>
+    <div class="field"><label>Email <span style="color:#E24B4A">*</span></label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" required /></div>
   </div>
   <div class="field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Burlington VT" autocomplete="street-address" /></div>
   <div class="frow">
@@ -452,8 +459,13 @@ ul    { list-style: none; }
     <input type="checkbox" id="lp-sms-m" name="smsConsent" value="yes">
     <label for="lp-sms-m"><strong>Text me updates on my request.</strong> I agree to receive project-related texts from Forthright Construction. Message &amp; data rates may apply. Reply STOP to opt out.</label>
   </div>
-  <button class="btn-submit" onclick="window.location='contact.html'">Submit - We'll Respond Today</button>
+  <button type="submit" class="btn-submit">Submit - We'll Respond Today</button>
   <p class="form-foot">Or call us: <a href="tel:8028481848">802-848-1848</a></p>
+  </form>
+  <div class="lp-success" id="lpSuccessMobile" style="display:none">
+    <p class="form-title">Request received.</p>
+    <p class="form-sub">We'll review your estimate and follow up within one business day. Have it handy when we call - the more detail, the faster we can beat it.</p>
+  </div>
 </div>
 
 <!-- Hide mobile form on desktop, desktop form on mobile -->
@@ -499,7 +511,7 @@ ul    { list-style: none; }
     <p>Free assessment. No obligation. Response within one business day.</p>
   </div>
   <div class="cta-pair">
-    <a class="cta-primary" href="#form">Get a Free Estimate</a>
+    <a class="cta-primary" href="#form" onclick="event.preventDefault();var t=document.getElementById(window.innerWidth>=860?'form-desktop':'form');if(t)t.scrollIntoView({behavior:'smooth',block:'start'});">Get a Free Estimate</a>
     <a class="cta-ghost" href="tel:8028481848">Call 802-848-1848</a>
   </div>
 </section>
@@ -580,6 +592,77 @@ if (toggle && links) {
     el.addEventListener('input',function(e){e.target.value=fmtPhone(e.target.value);});
     el.addEventListener('blur',function(e){e.target.value=fmtPhone(e.target.value);});
   });
+})();
+</script>
+<script>
+(function(){
+  var HS_PORTAL = '51236142';
+  var HS_RES_FORM = '469e80f1-d4f7-4edf-b366-a7f95997aa1e';
+
+  function fieldsFromForm(formEl){
+    var f = function(name){ return (formEl.querySelector('[name="'+name+'"]')||{}).value || ''; };
+    return [
+      {name:'firstname', value:f('firstName').trim()},
+      {name:'lastname', value:f('lastName').trim()},
+      {name:'email', value:f('email').trim()},
+      {name:'phone', value:f('phone').trim()},
+      {name:'address', value:f('address').trim()},
+      {name:'project_type', value:f('projectType')},
+      {name:'when_are_you_looking_to_start_your_project', value:f('timeframe')},
+      {name:'tell_us_about_the_project', value:('Beat-Any-Estimate landing page lead.\n'+f('message').trim()).trim()},
+      {name:'how_did_you_hear_about_us', value:f('howHeard')}
+    ].filter(function(x){ return x.value; });
+  }
+
+  function wireForm(formId, successId){
+    var formEl = document.getElementById(formId);
+    if(!formEl) return;
+    formEl.addEventListener('submit', function(e){
+      e.preventDefault();
+      var valid = true;
+      formEl.querySelectorAll('[required]').forEach(function(el){
+        if(!el.value.trim()){ el.style.borderColor = '#E24B4A'; valid = false; }
+        else { el.style.borderColor = ''; }
+      });
+      if(!valid) return;
+
+      var btn = formEl.querySelector('button[type="submit"]');
+      var origText = btn.textContent;
+      btn.textContent = 'Sending…'; btn.disabled = true;
+
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/' + HS_RES_FORM, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: fieldsFromForm(formEl),
+          context: { pageUri: window.location.href, pageName: 'Beat Any Estimate Landing Page' }
+        })
+      })
+      .then(function(r){
+        if(!r.ok){
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({'event':'form_submit_error','form_id':formId,'status':r.status});
+        }
+        formEl.style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({'event':'beat_estimate_form_complete'});
+      })
+      .catch(function(){
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({'event':'form_submit_error','form_id':formId,'status':'network_error'});
+        formEl.style.display = 'none';
+        document.getElementById(successId).style.display = 'block';
+        window.dataLayer.push({'event':'beat_estimate_form_complete'});
+      })
+      .finally(function(){
+        btn.textContent = origText; btn.disabled = false;
+      });
+    });
+  }
+
+  wireForm('lpFormDesktop', 'lpSuccessDesktop');
+  wireForm('lpFormMobile', 'lpSuccessMobile');
 })();
 </script>
 </body>
