@@ -302,6 +302,7 @@ ul    { list-style: none; }
 }
 </style>
 <link rel="stylesheet" href="styles.css">
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
 </head>
 <body>
 
@@ -356,7 +357,7 @@ ul    { list-style: none; }
       <div class="field"><label>Phone <span style="color:#E24B4A">*</span></label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" required /></div>
       <div class="field"><label>Email <span style="color:#E24B4A">*</span></label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" required /></div>
     </div>
-    <div class="field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Burlington VT" autocomplete="street-address" /></div>
+    <div class="field"><label>Property Address</label><input type="text" id="lp-d-address" name="address" placeholder="123 Main St, Burlington VT" autocomplete="off" /><input type="hidden" id="lp-d-addressFull"></div>
     <div class="frow">
       <div class="field">
         <label>Project Type</label>
@@ -419,7 +420,7 @@ ul    { list-style: none; }
     <div class="field"><label>Phone <span style="color:#E24B4A">*</span></label><input type="tel" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" required /></div>
     <div class="field"><label>Email <span style="color:#E24B4A">*</span></label><input type="email" name="email" placeholder="jane@email.com" autocomplete="email" required /></div>
   </div>
-  <div class="field"><label>Property Address</label><input type="text" name="address" placeholder="123 Main St, Burlington VT" autocomplete="street-address" /></div>
+  <div class="field"><label>Property Address</label><input type="text" id="lp-m-address" name="address" placeholder="123 Main St, Burlington VT" autocomplete="off" /><input type="hidden" id="lp-m-addressFull"></div>
   <div class="frow">
     <div class="field">
       <label>Project Type</label>
@@ -595,18 +596,34 @@ if (toggle && links) {
 })();
 </script>
 <script>
+function initPlaces(){
+  function attach(inputId,hiddenId){
+    var input=document.getElementById(inputId);if(!input)return;
+    var ac=new google.maps.places.Autocomplete(input,{types:['address'],componentRestrictions:{country:'us'},fields:['formatted_address']});
+    ac.addListener('place_changed',function(){
+      var place=ac.getPlace();
+      if(place.formatted_address){input.value=place.formatted_address;document.getElementById(hiddenId).value=place.formatted_address;}
+    });
+  }
+  attach('lp-d-address','lp-d-addressFull');
+  attach('lp-m-address','lp-m-addressFull');
+}
+</script>
+<script>
 (function(){
   var HS_PORTAL = '51236142';
   var HS_RES_FORM = '469e80f1-d4f7-4edf-b366-a7f95997aa1e';
 
-  function fieldsFromForm(formEl){
+  function fieldsFromForm(formEl, addressFullId){
     var f = function(name){ return (formEl.querySelector('[name="'+name+'"]')||{}).value || ''; };
+    var addressFullEl = addressFullId ? document.getElementById(addressFullId) : null;
+    var addressVal = (addressFullEl && addressFullEl.value) || f('address').trim();
     return [
       {name:'firstname', value:f('firstName').trim()},
       {name:'lastname', value:f('lastName').trim()},
       {name:'email', value:f('email').trim()},
       {name:'phone', value:f('phone').trim()},
-      {name:'address', value:f('address').trim()},
+      {name:'address', value:addressVal},
       {name:'project_type', value:f('projectType')},
       {name:'when_are_you_looking_to_start_your_project', value:f('timeframe')},
       {name:'tell_us_about_the_project', value:('Beat-Any-Estimate landing page lead.\n'+f('message').trim()).trim()},
@@ -614,7 +631,7 @@ if (toggle && links) {
     ].filter(function(x){ return x.value; });
   }
 
-  function wireForm(formId, successId){
+  function wireForm(formId, successId, addressFullId){
     var formEl = document.getElementById(formId);
     if(!formEl) return;
     formEl.addEventListener('submit', function(e){
@@ -634,7 +651,7 @@ if (toggle && links) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fields: fieldsFromForm(formEl),
+          fields: fieldsFromForm(formEl, addressFullId),
           context: { pageUri: window.location.href, pageName: 'Beat Any Estimate Landing Page' }
         })
       })
@@ -661,8 +678,8 @@ if (toggle && links) {
     });
   }
 
-  wireForm('lpFormDesktop', 'lpSuccessDesktop');
-  wireForm('lpFormMobile', 'lpSuccessMobile');
+  wireForm('lpFormDesktop', 'lpSuccessDesktop', 'lp-d-addressFull');
+  wireForm('lpFormMobile', 'lpSuccessMobile', 'lp-m-addressFull');
 })();
 </script>
 </body>
