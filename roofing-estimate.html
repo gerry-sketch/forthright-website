@@ -101,6 +101,16 @@ body{font-family:var(--fb);background:var(--bg);color:var(--text);display:flex;f
 .prog-lbl{font-family:var(--fc);font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.5);margin-left:18px;white-space:nowrap}
 .prog-lbl span{color:var(--white)}
 
+@media (max-width:480px){
+  .progress-wrap{padding:14px 12px;flex-wrap:wrap;row-gap:8px}
+  .pline{width:18px;margin:0 3px}
+  .prog-lbl{margin-left:10px;font-size:12px;letter-spacing:1px}
+}
+@media (max-width:360px){
+  .pline{width:10px;margin:0 2px}
+  .prog-lbl{margin-left:0;width:100%;text-align:center}
+}
+
 /* MAIN */
 main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin:0 auto;padding:0 28px}
 
