@@ -440,6 +440,7 @@ function doSubmit(formEl, successId, tsId, scopeGridId) {
       { name: 'email', value: formEl.querySelector('#res-email').value.trim() },
       { name: 'phone', value: formEl.querySelector('#res-phone').value.trim() },
       { name: 'address', value: document.getElementById('res-addressFull').value || formEl.querySelector('#res-address').value.trim() },
+      { name: 'project_trade', value: formEl.querySelector('#res-projectType').value },
       { name: 'project_type', value: formEl.querySelector('#res-projectType').value },
       { name: 'when_are_you_looking_to_start_your_project', value: formEl.querySelector('#res-timeframe').value },
       { name: 'tell_us_about_the_project', value: formEl.querySelector('#res-scope').value.trim() },
@@ -458,6 +459,7 @@ function doSubmit(formEl, successId, tsId, scopeGridId) {
       { name: 'phone', value: formEl.querySelector('#gc-phone').value.trim() },
       { name: 'company', value: formEl.querySelector('#gc-company').value.trim() },
       { name: 'project_address', value: document.getElementById('gc-addressFull').value || formEl.querySelector('#gc-address').value.trim() },
+      { name: 'project_trade', value: scopeVals[0] || '' },
       { name: 'project_trades', value: scopeVals.join(';') },
       { name: 'project_description', value: (bidVal ? 'Bid deadline: ' + bidVal + '\n' : '') + descVal },
       { name: 'how_did_you_learn_about_us', value: formEl.querySelector('#gc-heard').value }
