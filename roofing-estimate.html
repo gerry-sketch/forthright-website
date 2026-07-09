@@ -179,6 +179,7 @@ main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin
 .field input::placeholder{color:#aaa}
 .field input.err{border-color:#E24B4A}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field-row-3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
 
 /* SMS CONSENT */
 .consent-box{background:var(--white);border:2.5px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:24px}
@@ -435,7 +436,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button class="back-btn" onclick="back(5)">← Back</button>
     <div class="panel-q">Almost there.</div>
     <p class="panel-hint">Enter your info and we'll reveal your estimate right away.</p>
-    <div class="field"><label for="f-addr">Property Address <span style="color:#E24B4A">*</span></label><input type="text" id="f-addr" placeholder="Start typing your address…" autocomplete="off" inputmode="text"><input type="hidden" id="f-street"><input type="hidden" id="f-city"><input type="hidden" id="f-state" value="VT"><input type="hidden" id="f-postal"></div>
+    <div class="field"><label for="f-addr">Property Address <span style="color:#E24B4A">*</span></label><input type="text" id="f-addr" placeholder="Start typing your address…" autocomplete="off" inputmode="text"></div>
+    <div class="field-row-3">
+      <div class="field"><label for="f-city">Town <span style="color:#E24B4A">*</span></label><input type="text" id="f-city" placeholder="Hinesburg" autocomplete="address-level2"></div>
+      <div class="field"><label for="f-state">State</label><input type="text" id="f-state" placeholder="VT" value="VT" autocomplete="address-level1" maxlength="2"></div>
+      <div class="field"><label for="f-zip">Zip</label><input type="text" id="f-zip" placeholder="05461" autocomplete="postal-code" inputmode="numeric" maxlength="10"></div>
+    </div>
     <div class="field-row">
       <div class="field"><label for="f-fname">First Name <span style="color:#E24B4A">*</span></label><input type="text" id="f-fname" placeholder="Jane" autocomplete="given-name"></div>
       <div class="field"><label for="f-lname">Last Name <span style="color:#E24B4A">*</span></label><input type="text" id="f-lname" placeholder="Smith" autocomplete="family-name"></div>
@@ -676,13 +682,14 @@ function initPlaces() {
       if (c.types.includes('administrative_area_level_1')) state = c.short_name;
       if (c.types.includes('postal_code')) postal = c.long_name;
     });
-    document.getElementById('f-street').value = (street_number + ' ' + route).trim();
+    input.value = (street_number + ' ' + route).trim();
     document.getElementById('f-city').value = city;
     document.getElementById('f-state').value = state;
-    document.getElementById('f-postal').value = postal;
+    document.getElementById('f-zip').value = postal;
     setTimeout(() => {
-      document.getElementById('f-fname').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      document.getElementById('f-fname').focus();
+      const cityEl = document.getElementById('f-city');
+      if (!cityEl.value) { cityEl.focus(); }
+      else { document.getElementById('f-fname').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('f-fname').focus(); }
     }, 150);
   });
 }
@@ -713,12 +720,13 @@ function showFork(path) {
       const ln = encodeURIComponent(document.getElementById('f-lname').value.trim());
       const em = encodeURIComponent(document.getElementById('f-email').value.trim());
       const ph = encodeURIComponent(document.getElementById('f-phone').value.trim());
-      const street = encodeURIComponent(document.getElementById('f-street').value || document.getElementById('f-addr').value.trim());
-      const city = encodeURIComponent(document.getElementById('f-city').value || '');
-      const postal = encodeURIComponent(document.getElementById('f-postal').value || '');
+      const street = encodeURIComponent(document.getElementById('f-addr').value.trim());
+      const city = encodeURIComponent(document.getElementById('f-city').value.trim());
+      const postal = encodeURIComponent(document.getElementById('f-zip').value.trim());
+      const state = encodeURIComponent(document.getElementById('f-state').value.trim() || 'VT');
       // Taller so full calendar week is visible without scrolling inside iframe
       iframe.style.height = '820px';
-      iframe.src = `https://meetings.hubspot.com/gerry-howatt?embed=true&firstName=${fn}&lastName=${ln}&email=${em}&phone=${ph}&address=${street}&city=${city}&zip=${postal}&state=VT`;
+      iframe.src = `https://meetings.hubspot.com/gerry-howatt?embed=true&firstName=${fn}&lastName=${ln}&email=${em}&phone=${ph}&address=${street}&city=${city}&zip=${postal}&state=${state}`;
       iframe.title = 'Schedule your free site visit';
       iframe.onload = () => { if (loading) loading.remove(); };
       calWrap.appendChild(iframe);
@@ -754,23 +762,20 @@ function setStep(n){
 
 async function submitForm(){
   const addr=document.getElementById('f-addr').value.trim();
+  const city=document.getElementById('f-city').value.trim();
+  const state=document.getElementById('f-state').value.trim()||'VT';
+  const zip=document.getElementById('f-zip').value.trim();
   const fname=document.getElementById('f-fname').value.trim();
   const lname=document.getElementById('f-lname').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
   const email=document.getElementById('f-email').value.trim();
   let ok=true;
-  [{id:'f-addr',val:addr},{id:'f-fname',val:fname},{id:'f-lname',val:lname},{id:'f-phone',val:phone},{id:'f-email',val:email}].forEach(({id,val})=>{
+  [{id:'f-addr',val:addr},{id:'f-city',val:city},{id:'f-fname',val:fname},{id:'f-lname',val:lname},{id:'f-phone',val:phone},{id:'f-email',val:email}].forEach(({id,val})=>{
     const el=document.getElementById(id);
     if(!val){el.classList.add('err');ok=false;}
   });
   if(!ok)return;
   const btn=document.getElementById('btn5');btn.textContent='Sending...';btn.disabled=true;
-
-  // Structured address from Places hidden fields
-  const street=document.getElementById('f-street').value||addr;
-  const city=document.getElementById('f-city').value||'';
-  const state=document.getElementById('f-state').value||'VT';
-  const postal=document.getElementById('f-postal').value||'';
 
   // reCAPTCHA v3 - invisible, runs silently
   let recaptchaToken = '';
@@ -808,10 +813,10 @@ async function submitForm(){
           {name:'lastname',value:lname},
           {name:'email',value:email},
           {name:'phone',value:phone},
-          {name:'address',value:street},
+          {name:'address',value:addr},
           {name:'city',value:city},
           {name:'state',value:state},
-          {name:'zip',value:postal},
+          {name:'zip',value:zip},
           {name:'message',value:estimateNote},
         ],
         context:{pageUri:'https://forthrightvt.com/roofing-estimate',pageName:'Roofing Estimate Tool'},
@@ -830,7 +835,8 @@ async function submitForm(){
   document.getElementById('m-hisq').textContent=sd.hi;
   document.getElementById('m-hi').textContent=fmt(hiR);
   document.getElementById('m-range').textContent=fmt(loR)+' – '+fmt(hiR);
-  document.getElementById('s-addr').textContent=addr;
+  const fullAddr=[addr,city,state,zip].filter(Boolean).join(', ');
+  document.getElementById('s-addr').textContent=fullAddr||addr;
   document.getElementById('s-mat').textContent=NAMES[S.rooftype]||S.rooftype;
   document.getElementById('s-size').textContent=sd.label;
   document.getElementById('s-tl').textContent=TL[S.timeline]||S.timeline;
