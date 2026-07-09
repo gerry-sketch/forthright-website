@@ -817,7 +817,7 @@ async function submitForm(){
           {name:'city',value:city},
           {name:'state',value:state},
           {name:'zip',value:zip},
-          {name:'project_trade',value:NAMES[S.rooftype]||S.rooftype||''},
+          {name:'project_trade',value:S.rooftype==='metal'?'Standing Seam Roofing':'Shingle Roofing'},
           {name:'message',value:estimateNote},
         ],
         context:{pageUri:'https://forthrightvt.com/roofing-estimate',pageName:'Roofing Estimate Tool'},
