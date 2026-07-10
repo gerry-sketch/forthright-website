@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MHGHXGV2');</script>
+<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>5% Off Your Roof Replacement - Hula Member Exclusive | Forthright Construction</title>
@@ -305,6 +312,8 @@ ul    { list-style: none; }
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHGHXGV2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
@@ -650,12 +659,15 @@ function initPlaces(){
       var origText = btn.textContent;
       btn.textContent = 'Sending…'; btn.disabled = true;
 
+      var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
+      var hsContext = { pageUri: window.location.href, pageName: 'Hula Member Offer Landing Page' };
+      if (hutk) { hsContext.hutk = hutk; }
       fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/' + HS_RES_FORM, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fields: fieldsFromForm(formEl, addressFullId),
-          context: { pageUri: window.location.href, pageName: 'Hula Member Offer Landing Page' }
+          context: hsContext
         })
       })
       .then(function(r){
@@ -685,6 +697,7 @@ function initPlaces(){
   wireForm('lpFormMobile', 'lpSuccessMobile', 'lp-m-addressFull');
 })();
 </script>
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
 </body>
 </html>
 
