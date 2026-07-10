@@ -803,6 +803,7 @@ async function submitForm(){
   ].join('\n');
 
   // Submit to HubSpot Forms API
+  const hutk=(document.cookie.match(/hubspotutk=([^;]+)/)||[])[1];
   try{
     await fetch('https://api.hsforms.com/submissions/v3/integration/submit/51236142/d9ab07f4-3370-4d24-904e-dba6f2365ec0',{
       method:'POST',
@@ -820,7 +821,7 @@ async function submitForm(){
           {name:'project_trade',value:S.rooftype==='metal'?'Standing Seam Roofing':'Shingle Roofing'},
           {name:'message',value:estimateNote},
         ],
-        context:{pageUri:'https://forthrightvt.com/roofing-estimate',pageName:'Roofing Estimate Tool'},
+        context:{pageUri:'https://forthrightvt.com/roofing-estimate',pageName:'Roofing Estimate Tool',...(hutk&&{hutk})},
         ...(recaptchaToken && {captchaToken: recaptchaToken})
       })
     });

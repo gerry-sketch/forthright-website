@@ -382,10 +382,12 @@ function submitToHubSpot(formId, fields, btn, formEl, successId, successEvent) {
   var errBox = document.getElementById(formEl.id + '-error');
   if (errBox) { errBox.style.display = 'none'; }
   btn.textContent = 'Sending…'; btn.disabled = true;
+  var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
   var payload = {
     fields: fields,
     context: { pageUri: window.location.href, pageName: 'Free Estimate' }
   };
+  if (hutk) { payload.context.hutk = hutk; }
   fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/' + formId, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
