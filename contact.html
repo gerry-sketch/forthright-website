@@ -72,6 +72,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .form-success strong{font-family:var(--font-cond);font-size:20px;letter-spacing:.5px;display:block;margin-bottom:8px}
 .form-success p{color:var(--text-mid);font-size:15px;line-height:1.6}
 @media(max-width:560px){.contact-form .frow{grid-template-columns:1fr}.scope-grid{grid-template-columns:repeat(2,1fr)}.track-switch{max-width:100%}}
+.field-error{font-size:13px;color:#E24B4A;margin-top:4px;font-weight:500;display:none}
+.field-error.visible{display:block}
 </style>
 </head>
 <body class="has-review-bar">
@@ -421,15 +423,70 @@ function showFormError(formEl) {
 
 function doSubmit(formEl, successId, tsId, scopeGridId) {
   var valid = true;
+  var firstErr = null;
+
+  // Clear previous error messages
+  formEl.querySelectorAll('.field-error').forEach(function(el) { el.classList.remove('visible'); });
+
+  // Check required fields
   formEl.querySelectorAll('[required]').forEach(function(f) {
-    if (!f.value.trim()) { f.classList.add('err'); valid = false; } else { f.classList.remove('err'); }
+    if (!f.value.trim()) {
+      f.classList.add('err');
+      showFieldError(f, 'This field is required.');
+      valid = false;
+      if (!firstErr) firstErr = f;
+    } else {
+      f.classList.remove('err');
+    }
   });
+
+  // Validate email format
+  var emailField = formEl.querySelector('input[type="email"]');
+  if (emailField && emailField.value.trim()) {
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailField.value.trim())) {
+      emailField.classList.add('err');
+      showFieldError(emailField, 'Please enter a valid email address.');
+      valid = false;
+      if (!firstErr) firstErr = emailField;
+    }
+  }
+
+  // Validate phone has at least 10 digits
+  var phoneField = formEl.querySelector('input[type="tel"]');
+  if (phoneField && phoneField.value.trim()) {
+    var digits = phoneField.value.replace(/\D/g, '');
+    if (digits.length < 10) {
+      phoneField.classList.add('err');
+      showFieldError(phoneField, 'Please enter a 10-digit phone number.');
+      valid = false;
+      if (!firstErr) firstErr = phoneField;
+    }
+  }
+
+  // Check scope checkboxes (GC form)
   if (scopeGridId) {
     var checked = formEl.querySelectorAll('input[name="scope"]:checked');
-    if (checked.length === 0) { document.getElementById(scopeGridId).style.outline = '2px solid #E24B4A'; document.getElementById(scopeGridId).style.borderRadius = '6px'; valid = false; }
-    else { document.getElementById(scopeGridId).style.outline = ''; }
+    if (checked.length === 0) {
+      document.getElementById(scopeGridId).style.outline = '2px solid #E24B4A';
+      document.getElementById(scopeGridId).style.borderRadius = '6px';
+      valid = false;
+      if (!firstErr) firstErr = document.getElementById(scopeGridId);
+    } else {
+      document.getElementById(scopeGridId).style.outline = '';
+    }
   }
-  if (!valid) return;
+
+  if (!valid) {
+    if (firstErr) {
+      firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (firstErr.tagName === 'INPUT' || firstErr.tagName === 'TEXTAREA' || firstErr.tagName === 'SELECT') {
+        setTimeout(function() { firstErr.focus(); }, 400);
+      }
+    }
+    return;
+  }
+
   var btn = formEl.querySelector('button[type="submit"]');
   var isRes = formEl.id === 'resForm';
 
@@ -470,9 +527,22 @@ function doSubmit(formEl, successId, tsId, scopeGridId) {
   }
 }
 
+function showFieldError(inputEl, msg) {
+  var field = inputEl.closest('.field');
+  if (!field) return;
+  var errEl = field.querySelector('.field-error');
+  if (!errEl) {
+    errEl = document.createElement('div');
+    errEl.className = 'field-error';
+    field.appendChild(errEl);
+  }
+  errEl.textContent = msg;
+  errEl.classList.add('visible');
+}
+
 document.getElementById('resForm').addEventListener('submit',function(e){e.preventDefault();doSubmit(this,'res-success','res-submittedAt',null);});
 document.getElementById('gcForm').addEventListener('submit',function(e){e.preventDefault();doSubmit(this,'gc-success','gc-submittedAt','gc-scope-grid');});
-document.querySelectorAll('.contact-form input,.contact-form select,.contact-form textarea').forEach(function(el){el.addEventListener('input',function(){this.classList.remove('err');});});
+document.querySelectorAll('.contact-form input,.contact-form select,.contact-form textarea').forEach(function(el){el.addEventListener('input',function(){this.classList.remove('err');var errEl=this.closest('.field');if(errEl){var fe=errEl.querySelector('.field-error');if(fe)fe.classList.remove('visible');}});});
 </script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
 </body>

@@ -269,6 +269,8 @@ main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin
 .float-bar a.call{font-family:var(--fc);font-size:15px;font-weight:700;letter-spacing:.5px;color:var(--cobalt);text-decoration:none;display:flex;align-items:center;gap:7px;min-height:40px}
 .float-bar .sep{color:var(--border);font-size:20px}
 .float-bar a.back-link{font-family:var(--fc);font-size:14px;color:var(--mid);text-decoration:none}
+.field-error{font-size:13px;color:#E24B4A;margin-top:4px;font-weight:500;display:none}
+.field-error.visible{display:block}
 
 </style>
 <!-- reCAPTCHA v3 - replace RECAPTCHA_SITE_KEY with your key from console.google.com/recaptcha -->
@@ -769,12 +771,32 @@ async function submitForm(){
   const lname=document.getElementById('f-lname').value.trim();
   const phone=document.getElementById('f-phone').value.trim();
   const email=document.getElementById('f-email').value.trim();
+  // Clear previous errors
+  document.querySelectorAll('#p5 .field-error').forEach(e => e.classList.remove('visible'));
+
   let ok=true;
-  [{id:'f-addr',val:addr},{id:'f-city',val:city},{id:'f-fname',val:fname},{id:'f-lname',val:lname},{id:'f-phone',val:phone},{id:'f-email',val:email}].forEach(({id,val})=>{
+  let firstErr=null;
+  [{id:'f-addr',val:addr,msg:'Property address is required.'},{id:'f-city',val:city,msg:'Town is required.'},{id:'f-fname',val:fname,msg:'First name is required.'},{id:'f-lname',val:lname,msg:'Last name is required.'},{id:'f-phone',val:phone,msg:'Phone number is required.'},{id:'f-email',val:email,msg:'Email is required.'}].forEach(({id,val,msg})=>{
     const el=document.getElementById(id);
-    if(!val){el.classList.add('err');ok=false;}
+    if(!val){el.classList.add('err');showEstFieldError(el,msg);ok=false;if(!firstErr)firstErr=el;}
   });
-  if(!ok)return;
+
+  // Validate email format
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    const el=document.getElementById('f-email');
+    el.classList.add('err');showEstFieldError(el,'Please enter a valid email address.');ok=false;if(!firstErr)firstErr=el;
+  }
+
+  // Validate phone (10+ digits)
+  if(phone){
+    const digits=phone.replace(/\D/g,'');
+    if(digits.length<10){const el=document.getElementById('f-phone');el.classList.add('err');showEstFieldError(el,'Please enter a 10-digit phone number.');ok=false;if(!firstErr)firstErr=el;}
+  }
+
+  if(!ok){
+    if(firstErr){firstErr.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>firstErr.focus(),400);}
+    return;
+  }
   const btn=document.getElementById('btn5');btn.textContent='Sending...';btn.disabled=true;
 
   // reCAPTCHA v3 - invisible, runs silently
@@ -856,7 +878,20 @@ async function submitForm(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.querySelectorAll('.field input').forEach(el=>el.addEventListener('input',()=>el.classList.remove('err')));
+function showEstFieldError(inputEl, msg) {
+  var field = inputEl.closest('.field');
+  if (!field) return;
+  var errEl = field.querySelector('.field-error');
+  if (!errEl) {
+    errEl = document.createElement('div');
+    errEl.className = 'field-error';
+    field.appendChild(errEl);
+  }
+  errEl.textContent = msg;
+  errEl.classList.add('visible');
+}
+
+document.querySelectorAll('.field input').forEach(el=>el.addEventListener('input',()=>{el.classList.remove('err');var f=el.closest('.field');if(f){var fe=f.querySelector('.field-error');if(fe)fe.classList.remove('visible');}}));
 (function(){
   var el=document.getElementById('f-phone');if(!el)return;
   function fmtPhone(raw){

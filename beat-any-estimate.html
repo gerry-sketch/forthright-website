@@ -307,6 +307,8 @@ ul    { list-style: none; }
   :root { --pad-x: 32px; }
   .hero-desktop { grid-template-columns: 1fr 400px; }
 }
+.field-error{font-size:13px;color:#E24B4A;margin-top:4px;font-weight:500;display:none}
+.field-error.visible{display:block}
 </style>
 <link rel="stylesheet" href="styles.css">
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
@@ -649,11 +651,54 @@ function initPlaces(){
     formEl.addEventListener('submit', function(e){
       e.preventDefault();
       var valid = true;
+      var firstErr = null;
+
+      // Clear previous errors
+      formEl.querySelectorAll('.field-error').forEach(function(el) { el.classList.remove('visible'); });
+
       formEl.querySelectorAll('[required]').forEach(function(el){
-        if(!el.value.trim()){ el.style.borderColor = '#E24B4A'; valid = false; }
-        else { el.style.borderColor = ''; }
+        if(!el.value.trim()){
+          el.style.borderColor = '#E24B4A';
+          showLpFieldError(el, 'This field is required.');
+          valid = false;
+          if (!firstErr) firstErr = el;
+        } else {
+          el.style.borderColor = '';
+        }
       });
-      if(!valid) return;
+
+      // Validate email format
+      var emailField = formEl.querySelector('input[type="email"], input[name="email"]');
+      if (emailField && emailField.value.trim()) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value.trim())) {
+          emailField.style.borderColor = '#E24B4A';
+          showLpFieldError(emailField, 'Please enter a valid email address.');
+          valid = false;
+          if (!firstErr) firstErr = emailField;
+        }
+      }
+
+      // Validate phone (10+ digits)
+      var phoneField = formEl.querySelector('input[type="tel"], input[name="phone"]');
+      if (phoneField && phoneField.value.trim()) {
+        var digits = phoneField.value.replace(/\D/g, '');
+        if (digits.length < 10) {
+          phoneField.style.borderColor = '#E24B4A';
+          showLpFieldError(phoneField, 'Please enter a 10-digit phone number.');
+          valid = false;
+          if (!firstErr) firstErr = phoneField;
+        }
+      }
+
+      if(!valid) {
+        if (firstErr) {
+          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          if (firstErr.tagName === 'INPUT' || firstErr.tagName === 'TEXTAREA') {
+            setTimeout(function() { firstErr.focus(); }, 400);
+          }
+        }
+        return;
+      }
 
       var btn = formEl.querySelector('button[type="submit"]');
       var origText = btn.textContent;
@@ -672,8 +717,7 @@ function initPlaces(){
       })
       .then(function(r){
         if(!r.ok){
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({'event':'form_submit_error','form_id':formId,'status':r.status});
+          throw new Error('HubSpot ' + r.status);
         }
         formEl.style.display = 'none';
         document.getElementById(successId).style.display = 'block';
@@ -681,16 +725,46 @@ function initPlaces(){
         window.dataLayer.push({'event':'beat_estimate_form_complete'});
       })
       .catch(function(){
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({'event':'form_submit_error','form_id':formId,'status':'network_error'});
-        formEl.style.display = 'none';
-        document.getElementById(successId).style.display = 'block';
-        window.dataLayer.push({'event':'beat_estimate_form_complete'});
-      })
-      .finally(function(){
         btn.textContent = origText; btn.disabled = false;
+        showFormError(formEl);
       });
     });
+
+    // Clear errors on input
+    formEl.querySelectorAll('input, textarea, select').forEach(function(el) {
+      el.addEventListener('input', function() {
+        el.style.borderColor = '';
+        var field = el.closest('.field');
+        if (field) { var fe = field.querySelector('.field-error'); if (fe) fe.classList.remove('visible'); }
+      });
+    });
+  }
+
+  function showLpFieldError(inputEl, msg) {
+    var field = inputEl.closest('.field');
+    if (!field) return;
+    var errEl = field.querySelector('.field-error');
+    if (!errEl) {
+      errEl = document.createElement('div');
+      errEl.className = 'field-error';
+      field.appendChild(errEl);
+    }
+    errEl.textContent = msg;
+    errEl.classList.add('visible');
+  }
+
+  function showFormError(formEl) {
+    var id = formEl.id + '-error';
+    var box = document.getElementById(id);
+    if (!box) {
+      box = document.createElement('div');
+      box.id = id;
+      box.setAttribute('role', 'alert');
+      box.style.cssText = 'margin-top:14px;padding:13px 15px;border:1px solid #E24B4A;border-left:4px solid #E24B4A;background:#FDECEA;color:#8A1F1A;font-size:14px;line-height:1.5';
+      box.innerHTML = 'Something went wrong sending your request. Please try again, or reach us directly at <a href="tel:8028481848" style="color:#8A1F1A;font-weight:600">802-848-1848</a> or <a href="mailto:gerry@forthrightvt.com" style="color:#8A1F1A;font-weight:600">gerry@forthrightvt.com</a>.';
+      formEl.appendChild(box);
+    }
+    box.style.display = 'block';
   }
 
   wireForm('lpFormDesktop', 'lpSuccessDesktop', 'lp-d-addressFull');
