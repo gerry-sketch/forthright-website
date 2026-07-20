@@ -34,24 +34,121 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 {"@context":"https://schema.org","@type":"GeneralContractor","name":"Forthright Construction","telephone":"+18028481848","email":"gerry@forthrightvt.com","address":{"@type":"PostalAddress","addressLocality":"Hinesburg","addressRegion":"VT","addressCountry":"US"},"url":"https://forthrightvt.com","openingHours":"Mo-Fr 07:00-18:00","priceRange":"$$","areaServed":{"@type":"State","name":"Vermont"}}
 </script>
 <style>
+/* ── Toggle ── */
 .track-switch{display:flex;gap:0;border:2px solid var(--cobalt);border-radius:8px;overflow:hidden;margin-bottom:32px;max-width:420px}
 .track-btn{flex:1;padding:13px 16px;font-family:var(--font-cond);font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;cursor:pointer;transition:background .15s,color .15s;background:#fff;color:var(--cobalt);line-height:1.2}
 .track-btn.active{background:var(--cobalt);color:#fff}
 .track-btn:first-child{border-right:1px solid var(--cobalt)}
 .form-track{display:none}
 .form-track.active{display:block}
-/* Strip JobTread logo header */
+
+/* ── Strip JT chrome ── */
 .jtwf .p-4.shadow-line-bottom{display:none}
-/* Make JT form fill the column width */
-.jtwf .mx-auto{max-width:100%}
-.jtwf .shadow-sm{box-shadow:none}
-.jtwf .bg-white{background:transparent}
-.jtwf .rounded-sm{border-radius:6px}
-/* JT input styling to blend with site */
-.jtwf input,.jtwf textarea,.jtwf select{font-family:var(--font-body);font-size:16px;color:var(--charcoal)}
-.jtwf .font-bold{font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cobalt);font-weight:700}
-/* Override JT submit button */
-.jtwf button[data-submit-button]{font-family:var(--font-cond);font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px 28px;border-radius:6px}
+.jtwf .shadow-sm{box-shadow:none !important}
+.jtwf .mx-auto{max-width:100% !important}
+.jtwf>div{background:transparent !important}
+
+/* ── Labels ── */
+.jtwf .font-bold{
+  font-family:var(--font-cond) !important;
+  font-size:12px !important;
+  letter-spacing:2px !important;
+  text-transform:uppercase !important;
+  color:var(--cobalt) !important;
+  font-weight:700 !important;
+  margin-bottom:5px;
+  display:block;
+}
+
+/* ── All inputs / selects / textareas ── */
+.jtwf input:not([type="checkbox"]):not([type="file"]),
+.jtwf select,
+.jtwf textarea{
+  font-family:var(--font-body) !important;
+  font-size:16px !important;
+  color:var(--charcoal) !important;
+  background:#fff !important;
+  border:2px solid var(--border) !important;
+  border-radius:6px !important;
+  padding:10px 13px !important;
+  width:100% !important;
+  outline:none !important;
+  box-shadow:none !important;
+  transition:border-color .15s, box-shadow .15s !important;
+  /* remove JT ring */
+  --tw-ring-shadow:none !important;
+}
+.jtwf input:not([type="checkbox"]):not([type="file"]):focus,
+.jtwf select:focus,
+.jtwf textarea:focus{
+  border-color:var(--cobalt) !important;
+  box-shadow:0 0 0 3px rgba(26,68,194,.1) !important;
+}
+.jtwf input::placeholder,
+.jtwf textarea::placeholder{color:#aaa !important}
+
+/* ── Address field: single line height ── */
+.jtwf textarea[name="location.address"]{
+  min-height:0 !important;
+  height:44px !important;
+  resize:none !important;
+  overflow:hidden !important;
+  line-height:1.4 !important;
+}
+
+/* ── Company name field (GC): also single line ── */
+.jtwf textarea[name="account.custom.22PbFF37nkW3"]{
+  min-height:0 !important;
+  height:44px !important;
+  resize:none !important;
+  overflow:hidden !important;
+}
+
+/* ── Checkbox list ── */
+.jtwf .divide-y>label{
+  padding:9px 10px !important;
+  font-family:var(--font-body) !important;
+  font-size:14px !important;
+  color:var(--charcoal) !important;
+}
+.jtwf .divide-y>label:hover{background:#E8EEFA !important}
+.jtwf input[type="checkbox"]{accent-color:var(--cobalt)}
+
+/* ── File input ── */
+.jtwf input[type="file"]{
+  font-family:var(--font-body) !important;
+  font-size:14px !important;
+  border:2px solid var(--border) !important;
+  border-radius:6px !important;
+  padding:8px 10px !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  --tw-ring-shadow:none !important;
+}
+
+/* ── Submit button ── */
+.jtwf button[data-submit-button]{
+  background-color:var(--cobalt) !important;
+  color:#fff !important;
+  font-family:var(--font-cond) !important;
+  font-size:15px !important;
+  font-weight:700 !important;
+  letter-spacing:1px !important;
+  text-transform:uppercase !important;
+  padding:13px 32px !important;
+  border-radius:6px !important;
+  border:none !important;
+  cursor:pointer !important;
+  transition:background .15s !important;
+}
+.jtwf button[data-submit-button]:hover{background-color:#1538a8 !important}
+
+/* ── Spacing between fields ── */
+.jtwf .space-y-2>*+*{margin-top:16px !important}
+
+/* ── pac-container (Google Places dropdown) sits above everything ── */
+.pac-container{z-index:9999;font-family:var(--font-body);font-size:15px}
+
 @media(max-width:560px){.track-switch{max-width:100%}}
 </style>
 </head>
@@ -134,16 +231,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- RESIDENTIAL -->
       <div class="form-track active" id="track-residential">
-        <style>@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){.jtwf *,.jtwf :before,.jtwf :after,.jtwf ::backdrop{--tw-space-y-reverse:0;--tw-divide-y-reverse:0;--tw-border-style:solid;--tw-font-weight:initial;--tw-shadow:0 0 #0000;--tw-shadow-color:initial;--tw-shadow-alpha:100%;--tw-inset-shadow:0 0 #0000;--tw-inset-shadow-color:initial;--tw-inset-shadow-alpha:100%;--tw-ring-color:initial;--tw-ring-shadow:0 0 #0000;--tw-inset-ring-color:initial;--tw-inset-ring-shadow:0 0 #0000;--tw-ring-inset:initial;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-offset-shadow:0 0 #0000;--tw-blur:initial;--tw-brightness:initial;--tw-contrast:initial;--tw-grayscale:initial;--tw-hue-rotate:initial;--tw-invert:initial;--tw-opacity:initial;--tw-saturate:initial;--tw-sepia:initial;--tw-drop-shadow:initial;--tw-drop-shadow-color:initial;--tw-drop-shadow-alpha:100%;--tw-drop-shadow-size:initial}}}@layer theme{.jtwf{--color-red-500:oklch(63.7% .237 25.331);--color-blue-500:oklch(62.3% .214 259.815);--color-gray-50:oklch(98.5% .002 247.839);--color-gray-200:oklch(92.8% .006 264.531);--color-gray-300:oklch(87.2% .01 258.338);--color-gray-500:oklch(55.1% .027 264.364);--color-white:#fff;--spacing:.25rem;--container-sm:24rem;--text-xl:1.25rem;--text-xl--line-height:calc(1.75 / 1.25);--font-weight-normal:400;--font-weight-bold:700;--radius-sm:.25rem;--default-transition-duration:.25s;--default-transition-timing-function:cubic-bezier(.4, 0, .2, 1)}}@layer base{.jtwf *,.jtwf :after,.jtwf :before,.jtwf ::backdrop{border-color:var(--color-gray-200,currentColor)}.jtwf ::file-selector-button{border-color:var(--color-gray-200,currentColor)}.jtwf *{box-sizing:border-box;border:0 solid #e5e7eb}.jtwf button,.jtwf input,.jtwf optgroup,.jtwf select,.jtwf textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}}@layer components;@layer utilities{.jtwf .mx-auto{margin-inline:auto}.jtwf .block{display:block}.jtwf .flex{display:flex}.jtwf .max-h-24{max-height:calc(var(--spacing) * 24)}.jtwf .w-full{width:100%}.jtwf .max-w-full{max-width:100%}.jtwf .max-w-sm{max-width:var(--container-sm)}.jtwf .min-w-0{min-width:0}.jtwf .shrink-0{flex-shrink:0}.jtwf .grow{flex-grow:1}.jtwf .cursor-pointer{cursor:pointer}.jtwf .appearance-none{appearance:none}.jtwf .items-center{align-items:center}.jtwf .gap-2{gap:calc(var(--spacing) * 2)}.jtwf :where(.space-y-2>:not(:last-child)){--tw-space-y-reverse:0;margin-block-start:calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));margin-block-end:calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)))}.jtwf :where(.divide-y>:not(:last-child)){--tw-divide-y-reverse:0;border-bottom-style:var(--tw-border-style);border-top-style:var(--tw-border-style);border-top-width:calc(1px * var(--tw-divide-y-reverse));border-bottom-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)))}.jtwf .overflow-hidden{overflow:hidden}.jtwf .rounded-sm{border-radius:var(--radius-sm)}.jtwf .border{border-style:var(--tw-border-style);border-width:1px}.jtwf .bg-white{background-color:var(--color-white)}.jtwf .p-2{padding:calc(var(--spacing) * 2)}.jtwf .p-4{padding:calc(var(--spacing) * 4)}.jtwf .px-4{padding-inline:calc(var(--spacing) * 4)}.jtwf .py-2{padding-block:calc(var(--spacing) * 2)}.jtwf .text-center{text-align:center}.jtwf .text-right{text-align:right}.jtwf .text-xl{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}.jtwf .font-bold{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}.jtwf .font-normal{--tw-font-weight:var(--font-weight-normal);font-weight:var(--font-weight-normal)}.jtwf .text-gray-500{color:var(--color-gray-500)}.jtwf .text-red-500{color:var(--color-red-500)}.jtwf .shadow-sm{--tw-shadow:0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .shadow-xs{--tw-shadow:0 1px 2px 0 var(--tw-shadow-color,#0000000d);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .ring{--tw-ring-shadow:var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .ring-gray-200{--tw-ring-color:var(--color-gray-200)}.jtwf .transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.jtwf .focus-within\:bg-white:focus-within{background-color:var(--color-white)}.jtwf .focus-within\:ring-3:focus-within{--tw-ring-shadow:var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .focus-within\:ring-blue-500:focus-within{--tw-ring-color:var(--color-blue-500)}@media (hover:hover){.jtwf .hover\:bg-gray-50:hover{background-color:var(--color-gray-50)}.jtwf .hover\:brightness-95:hover{--tw-brightness:brightness(95%);filter:var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,)}}.jtwf .\[\&\:\:-webkit-date-and-time-value\]\:h-5::-webkit-date-and-time-value{height:calc(var(--spacing) * 5)}@media (hover:hover){.jtwf .hover\:\[\&\:not\(\:focus-within\)\]\:border-gray-300:hover:not(:focus-within){border-color:var(--color-gray-300)}.jtwf .hover\:\[\&\:not\(\:focus-within\)\]\:bg-gray-50:hover:not(:focus-within){background-color:var(--color-gray-50)}}}@property --tw-space-y-reverse{syntax:"*";inherits:false;initial-value:0}@property --tw-divide-y-reverse{syntax:"*";inherits:false;initial-value:0}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-drop-shadow-color{syntax:"*";inherits:false}@property --tw-drop-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-drop-shadow-size{syntax:"*";inherits:false}
-</style>
-        <link rel="preload" as="image" href="https://cdn.jobtread.com/G1QAaBwH7r4T0kdvcARqd17_fmlra55n4vJTDuKhHFKHpa9E3loRgSzKSo5OQvkqxnrtAWlA1UAiqITIkAmAq7XjiVKJebG9brIxmjM.SAyeWJ1Ko2ojroqH0TlZ8aLJf9EGBmmaAM4o-XwVa08?size=1024"/>
         <form class="jtwf" data-jobtread-web-form="true" data-key="22TUKLvybiPS8pDYnDzDBj4cnM7w6JUUga" data-success-url="https://forthrightvt.com/estimate-success">
           <div class="mx-auto min-w-0 max-w-sm rounded-sm shadow-sm bg-white">
             <div class="p-4 shadow-line-bottom"><img class="block max-w-full max-h-24 mx-auto" src="https://cdn.jobtread.com/G1QAaBwH7r4T0kdvcARqd17_fmlra55n4vJTDuKhHFKHpa9E3loRgSzKSo5OQvkqxnrtAWlA1UAiqITIkAmAq7XjiVKJebG9brIxmjM.SAyeWJ1Ko2ojroqH0TlZ8aLJf9EGBmmaAM4o-XwVa08?size=1024"/></div>
-            <div class="p-4 space-y-2"><label class="cursor-pointer block"><div class="font-bold">Name<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" required="" name="contact.name"/></label><label class="cursor-pointer block"><div class="font-bold">Email<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="email" required="" name="contact.custom.22PWNRRPMVk4"/></label><label class="cursor-pointer block"><div class="font-bold">Phone<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="tel" required="" name="contact.custom.22PWNRRPPj9m"/></label><label class="cursor-pointer block"><div class="font-bold">Address<span class="font-normal text-red-500">*</span></div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="location.address" required=""></textarea></label><div class="block"><div class="font-bold">What type of Project are you Interested in?</div><div class="rounded-sm border divide-y overflow-hidden"><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Roofing"/><div class="grow min-w-0">Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Siding"/><div class="grow min-w-0">Siding</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Decks"/><div class="grow min-w-0">Decks</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Addition"/><div class="grow min-w-0">Addition</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Other"/><div class="grow min-w-0">Other</div></label></div></div><label class="cursor-pointer block"><div class="font-bold">Tell us about your project</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" name="job.description"/></label><div class="block"><div class="font-bold">How did you hear about us?</div><select class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PWNRRPJWZZ"><option></option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option><option>Internet Search</option><option>Trade Show</option><option>Website</option><option>Angi</option><option>Home Advisor</option><option>Insurance</option><option>Front Porch Form</option></select></div><label class="cursor-pointer block"><div class="font-bold">Provide some photos of your project (Optional)</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="file" multiple="" name="account.files"/></label><div class="text-right"><button class="text-right px-4 py-2 rounded-sm shadow-xs cursor-pointer hover:brightness-95" data-submit-button="true" style="background-color:#ff5600;color:#ffeee6">Submit</button></div></div>
+            <div class="p-4 space-y-2">
+              <label class="cursor-pointer block"><div class="font-bold">Name<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="text" required="" name="contact.name" autocomplete="name" placeholder="Jane Smith"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Email<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="email" required="" name="contact.custom.22PWNRRPMVk4" autocomplete="email" placeholder="jane@email.com"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Phone<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="tel" required="" name="contact.custom.22PWNRRPPj9m" autocomplete="tel" placeholder="(802) 555-0100"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Address<span class="font-normal text-red-500">*</span></div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" name="location.address" required="" placeholder="Start typing your address..." autocomplete="off"></textarea></label>
+              <div class="block"><div class="font-bold">What type of Project are you Interested in?</div><div class="rounded-sm border divide-y overflow-hidden"><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Roofing"/><div class="grow min-w-0">Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Siding"/><div class="grow min-w-0">Siding</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Decks"/><div class="grow min-w-0">Decks</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Addition"/><div class="grow min-w-0">Addition</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Other"/><div class="grow min-w-0">Other</div></label></div></div>
+              <label class="cursor-pointer block"><div class="font-bold">Tell us about your project</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="text" name="job.description" placeholder="Describe what you're looking to have done"/></label>
+              <div class="block"><div class="font-bold">How did you hear about us?</div><select class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" name="account.custom.22PWNRRPJWZZ"><option></option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option><option>Internet Search</option><option>Trade Show</option><option>Website</option><option>Angi</option><option>Home Advisor</option><option>Insurance</option><option>Front Porch Form</option></select></div>
+              <label class="cursor-pointer block"><div class="font-bold">Provide some photos of your project (Optional)</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="file" multiple="" name="account.files"/></label>
+              <div class="text-right"><button class="text-right px-4 py-2 rounded-sm shadow-xs cursor-pointer" data-submit-button="true" style="background-color:#1A44C2;color:#fff">Submit Request &rarr;</button></div>
+            </div>
           </div>
         </form>
-        <script async src='https://app.jobtread.com/web-form.js'></script>
       </div>
 
       <!-- GC / COMMERCIAL -->
@@ -151,7 +254,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <form class="jtwf" data-jobtread-web-form="true" data-key="22TUKMLyyarLNJ6JckfBVkui5UEkGQs6eQ" data-success-url="https://forthrightvt.com/estimate-success">
           <div class="mx-auto min-w-0 max-w-sm rounded-sm shadow-sm bg-white">
             <div class="p-4 shadow-line-bottom"><img class="block max-w-full max-h-24 mx-auto" src="https://cdn.jobtread.com/G1QAaBwH7r4T0kdvcARqd17_fmlra55n4vJTDuKhHFKHpa9E3loRgSzKSo5OQvkqxnrtAWlA1UAiqITIkAmAq7XjiVKJebG9brIxmjM.SAyeWJ1Ko2ojroqH0TlZ8aLJf9EGBmmaAM4o-XwVa08?size=1024"/></div>
-            <div class="p-4 space-y-2"><label class="cursor-pointer block"><div class="font-bold">Company Name<span class="font-normal text-red-500">*</span></div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PbFF37nkW3" required=""></textarea></label><label class="cursor-pointer block"><div class="font-bold">Name<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" required="" name="contact.name"/></label><label class="cursor-pointer block"><div class="font-bold">Title</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" name="contact.title"/></label><label class="cursor-pointer block"><div class="font-bold">Email<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="email" required="" name="contact.custom.22PWNRRPMVk4"/></label><label class="cursor-pointer block"><div class="font-bold">Phone<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="tel" required="" name="contact.custom.22PWNRRPPj9m"/></label><label class="cursor-pointer block"><div class="font-bold">Project Address</div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="location.address"></textarea></label><div class="block"><div class="font-bold">How did you learn about us?</div><select class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PWNRRPJWZZ"><option></option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option><option>Internet Search</option><option>Trade Show</option><option>Website</option><option>Angi</option><option>Home Advisor</option><option>Insurance</option><option>Front Porch Form</option></select></div><div class="block"><div class="font-bold">Scope of Work</div><div class="rounded-sm border divide-y overflow-hidden"><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Asphalt Roofing"/><div class="grow min-w-0">Asphalt Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Standing Seam Roofing"/><div class="grow min-w-0">Standing Seam Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Rubber Roofing"/><div class="grow min-w-0">Rubber Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Drywall"/><div class="grow min-w-0">Drywall</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Metal Framing"/><div class="grow min-w-0">Metal Framing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Wood Framing"/><div class="grow min-w-0">Wood Framing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Storefront"/><div class="grow min-w-0">Storefront</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Siding"/><div class="grow min-w-0">Siding</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Other"/><div class="grow min-w-0">Other</div></label></div></div><label class="cursor-pointer block"><div class="font-bold">Bid Deadline</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="date" name="account.custom.22PbFFXR3NQM"/></label><label class="cursor-pointer block"><div class="font-bold">Project Description</div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PbFDfMUfzU"></textarea></label><div class="text-right"><button class="text-right px-4 py-2 rounded-sm shadow-xs cursor-pointer hover:brightness-95" data-submit-button="true" style="background-color:#ff5600;color:#ffeee6">Submit</button></div></div>
+            <div class="p-4 space-y-2">
+              <label class="cursor-pointer block"><div class="font-bold">Company Name<span class="font-normal text-red-500">*</span></div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" name="account.custom.22PbFF37nkW3" required="" placeholder="Mud Season Construction"></textarea></label>
+              <label class="cursor-pointer block"><div class="font-bold">Name<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="text" required="" name="contact.name" autocomplete="name" placeholder="Jane Smith"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Title</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="text" name="contact.title" autocomplete="organization-title" placeholder="Project Manager"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Email<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="email" required="" name="contact.custom.22PWNRRPMVk4" autocomplete="email" placeholder="you@company.com"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Phone<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="tel" required="" name="contact.custom.22PWNRRPPj9m" autocomplete="tel" placeholder="(802) 555-0100"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Project Address</div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" name="location.address" placeholder="Start typing the job site address..." autocomplete="off"></textarea></label>
+              <div class="block"><div class="font-bold">How did you learn about us?</div><select class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" name="account.custom.22PWNRRPJWZZ"><option></option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option><option>Internet Search</option><option>Trade Show</option><option>Website</option><option>Angi</option><option>Home Advisor</option><option>Insurance</option><option>Front Porch Form</option></select></div>
+              <div class="block"><div class="font-bold">Scope of Work</div><div class="rounded-sm border divide-y overflow-hidden"><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Asphalt Roofing"/><div class="grow min-w-0">Asphalt Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Standing Seam Roofing"/><div class="grow min-w-0">Standing Seam Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Rubber Roofing"/><div class="grow min-w-0">Rubber Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Drywall"/><div class="grow min-w-0">Drywall</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Metal Framing"/><div class="grow min-w-0">Metal Framing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Wood Framing"/><div class="grow min-w-0">Wood Framing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Storefront"/><div class="grow min-w-0">Storefront</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Siding"/><div class="grow min-w-0">Siding</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Other"/><div class="grow min-w-0">Other</div></label></div></div>
+              <label class="cursor-pointer block"><div class="font-bold">Bid Deadline</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" type="date" name="account.custom.22PbFFXR3NQM"/></label>
+              <label class="cursor-pointer block"><div class="font-bold">Project Description</div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition" name="account.custom.22PbFDfMUfzU" placeholder="Summarize the project scope, building type, and any spec requirements..."></textarea></label>
+              <div class="text-right"><button class="text-right px-4 py-2 rounded-sm shadow-xs cursor-pointer" data-submit-button="true" style="background-color:#1A44C2;color:#fff">Submit Inquiry &rarr;</button></div>
+            </div>
           </div>
         </form>
       </div>
@@ -161,6 +276,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div></section>
 
 <script src="main.js"></script>
+<script async src="https://app.jobtread.com/web-form.js"></script>
 
 <footer class="footer" aria-label="Site footer">
   <div class="wrap">
@@ -190,19 +306,66 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
 
+<!-- Google Places autocomplete on JT address fields -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places" async defer></script>
 <script>
 function switchTrack(track) {
-  document.querySelectorAll('.form-track').forEach(function(el) { el.classList.remove('active'); });
-  document.querySelectorAll('.track-btn').forEach(function(el) { el.classList.remove('active'); el.setAttribute('aria-selected', 'false'); });
-  document.getElementById('track-' + track).classList.add('active');
-  var tabId = track === 'residential' ? 'tab-res' : 'tab-gc';
+  document.querySelectorAll('.form-track').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.track-btn').forEach(function(el){el.classList.remove('active');el.setAttribute('aria-selected','false');});
+  document.getElementById('track-'+track).classList.add('active');
+  var tabId=track==='residential'?'tab-res':'tab-gc';
   document.getElementById(tabId).classList.add('active');
-  document.getElementById(tabId).setAttribute('aria-selected', 'true');
+  document.getElementById(tabId).setAttribute('aria-selected','true');
 }
-(function() {
-  var p = new URLSearchParams(window.location.search).get('type');
-  if (p && (p === 'commercial' || p === 'gc')) switchTrack('gc');
+(function(){
+  var p=new URLSearchParams(window.location.search).get('type');
+  if(p&&(p==='commercial'||p==='gc'))switchTrack('gc');
 })();
+
+// Attach Google Places autocomplete to JT address textareas.
+// Uses MutationObserver because JT script renders fields asynchronously.
+function attachPlaces(textarea){
+  if(textarea._placesAttached)return;
+  textarea._placesAttached=true;
+  // Convert textarea to input-like behavior for Places
+  textarea.rows=1;
+  var ac=new google.maps.places.Autocomplete(textarea,{
+    types:['address'],
+    componentRestrictions:{country:'us'},
+    fields:['formatted_address']
+  });
+  ac.addListener('place_changed',function(){
+    var place=ac.getPlace();
+    if(place&&place.formatted_address){
+      textarea.value=place.formatted_address;
+    }
+  });
+}
+
+function initPlacesObserver(){
+  // Attach to any address textareas already in the DOM
+  document.querySelectorAll('textarea[name="location.address"]').forEach(attachPlaces);
+  // Watch for any added later
+  var observer=new MutationObserver(function(mutations){
+    mutations.forEach(function(m){
+      m.addedNodes.forEach(function(node){
+        if(node.nodeType!==1)return;
+        if(node.matches&&node.matches('textarea[name="location.address"]'))attachPlaces(node);
+        node.querySelectorAll&&node.querySelectorAll('textarea[name="location.address"]').forEach(attachPlaces);
+      });
+    });
+  });
+  observer.observe(document.body,{childList:true,subtree:true});
+}
+
+// Wait for Google Maps to be ready
+if(window.google&&window.google.maps){
+  initPlacesObserver();
+} else {
+  window.addEventListener('load',function(){
+    if(window.google&&window.google.maps)initPlacesObserver();
+  });
+}
 </script>
 </body>
 </html>
