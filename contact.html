@@ -23,7 +23,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contact Forthright Construction | Free Vermont Estimate">
 <meta name="twitter:description" content="Get a free estimate for your Vermont construction project. We'll get back to you within one business day.">
-<meta name="twitter:image" content="https://forthrightvt.com/img-commercial-building-v2.jpg">
 <meta name="geo.region" content="US-VT">
 <meta name="geo.placename" content="Hinesburg, Vermont">
 <meta name="geo.position" content="44.3364;-73.1143">
@@ -41,39 +40,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 .track-btn:first-child{border-right:1px solid var(--cobalt)}
 .form-track{display:none}
 .form-track.active{display:block}
-.contact-form .field{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
-.contact-form .frow{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.contact-form label{font-family:var(--font-cond);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cobalt);display:block;margin-bottom:5px}
-.contact-form .req{color:var(--cobalt);margin-left:2px}
-.contact-form input[type="text"],.contact-form input[type="email"],.contact-form input[type="tel"],.contact-form select,.contact-form textarea{font-family:var(--font-body);font-size:16px;color:var(--charcoal);background:#fff;border:2px solid var(--border);border-radius:6px;padding:10px 13px;width:100%;outline:none;transition:border-color .15s,box-shadow .15s;-webkit-appearance:none}
-.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--cobalt);box-shadow:0 0 0 3px rgba(26,68,194,.1)}
-.contact-form input::placeholder,.contact-form textarea::placeholder{color:#aaa}
-.contact-form input.err,.contact-form select.err,.contact-form textarea.err{border-color:#E24B4A}
-.contact-form select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231A44C2' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px}
-.contact-form textarea{resize:vertical;min-height:96px;line-height:1.5}
-.addr-wrap{position:relative}
-.addr-wrap input{padding-right:36px}
-.addr-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none}
-.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.scope-opt{position:relative}
-.scope-opt input[type="checkbox"]{position:absolute;opacity:0;width:0;height:0}
-.scope-opt label{display:flex;align-items:center;justify-content:center;padding:9px 8px;border:2px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;font-family:var(--font-body);text-transform:none;letter-spacing:0;color:var(--charcoal);transition:border-color .15s,background .15s;text-align:center}
-.scope-opt input:checked+label{border-color:var(--cobalt);background:#E8EEFA;color:var(--cobalt)}
-.scope-opt label:hover{border-color:var(--cobalt);background:#E8EEFA}
-.sms-row{display:flex;align-items:flex-start;gap:10px;background:#E8EEFA;border:1px solid rgba(26,68,194,.15);border-radius:6px;padding:12px 14px;margin-bottom:16px}
-.sms-row input[type="checkbox"]{width:17px;height:17px;min-width:17px;accent-color:var(--cobalt);margin-top:2px;cursor:pointer;padding:0;border:none;box-shadow:none}
-.sms-row label{font-size:13px;font-weight:400;color:var(--text-mid);line-height:1.45;cursor:pointer;text-transform:none;letter-spacing:0}
-.sms-row label strong{font-weight:600;color:var(--charcoal)}
-.field-hint{font-size:11.5px;color:var(--text-mid);margin-top:3px}
-.contact-form .f-sub{width:100%;margin-top:4px}
-.gc-note{background:var(--bg);border-left:3px solid #C8A84B;padding:14px 16px;border-radius:0 6px 6px 0;margin-bottom:20px;font-size:14px;color:var(--text-mid);line-height:1.55}
-.gc-note strong{color:var(--charcoal);font-weight:600}
-.form-success{display:none;padding:28px;background:var(--bg);border:1px solid var(--border);border-left:4px solid var(--cobalt);border-radius:0 6px 6px 0;margin-top:8px}
-.form-success strong{font-family:var(--font-cond);font-size:20px;letter-spacing:.5px;display:block;margin-bottom:8px}
-.form-success p{color:var(--text-mid);font-size:15px;line-height:1.6}
-@media(max-width:560px){.contact-form .frow{grid-template-columns:1fr}.scope-grid{grid-template-columns:repeat(2,1fr)}.track-switch{max-width:100%}}
-.field-error{font-size:13px;color:#E24B4A;margin-top:4px;font-weight:500;display:none}
-.field-error.visible{display:block}
+/* Strip JobTread logo header */
+.jtwf .p-4.shadow-line-bottom{display:none}
+/* Make JT form fill the column width */
+.jtwf .mx-auto{max-width:100%}
+.jtwf .shadow-sm{box-shadow:none}
+.jtwf .bg-white{background:transparent}
+.jtwf .rounded-sm{border-radius:6px}
+/* JT input styling to blend with site */
+.jtwf input,.jtwf textarea,.jtwf select{font-family:var(--font-body);font-size:16px;color:var(--charcoal)}
+.jtwf .font-bold{font-family:var(--font-cond);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cobalt);font-weight:700}
+/* Override JT submit button */
+.jtwf button[data-submit-button]{font-family:var(--font-cond);font-size:15px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:13px 28px;border-radius:6px}
+@media(max-width:560px){.track-switch{max-width:100%}}
 </style>
 </head>
 <body class="has-review-bar">
@@ -89,7 +68,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <ul class="nav-links" id="navLinks">
       <li><a href="about.html">About Us</a></li>
       <li class="nav-dropdown">
-        <a href="services.html" class="nav-dropdown-trigger">Services <span class="nav-arr">▾</span></a>
+        <a href="services.html" class="nav-dropdown-trigger">Services <span class="nav-arr">&#9662;</span></a>
         <div class="nav-mega">
           <div class="nav-mega-col">
             <span class="nav-mega-label">Residential</span>
@@ -115,16 +94,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </ul>
   </div>
 </nav>
-  <!-- REVIEW BAR -->
-  <a href="https://share.google/B7aJIrpmsDvTII15t" target="_blank" rel="noopener" class="review-bar" aria-label="See all Google reviews" style="cursor:pointer;text-decoration:none;">
-    <div class="review-bar-track">
-      <div class="review-bar-google">&#9733; Google Reviews</div>
-      <div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fast, efficient, kept us updated throughout. Very reasonable cost, easy to schedule.&rdquo; <span class="review-bar-name">&mdash; Austin Smith</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Filled out the Instant Estimate, got a ballpark, roof done the following week in one day. Can I give 6 stars?&rdquo; <span class="review-bar-name">&mdash; Nathaniel Walker</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Their price was competitive. Forthright kept me informed with frequent updates and finished on time. I recommend them highly!&rdquo; <span class="review-bar-name">&mdash; Gary Way</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fair price, quality work, no drama. Gerry runs a tight operation. Would hire again without hesitation.&rdquo; <span class="review-bar-name">&mdash; Andrew Mager</span></div>
-      <div class="review-bar-google">&#9733; Google Reviews</div>
-      <div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fast, efficient, kept us updated throughout. Very reasonable cost, easy to schedule.&rdquo; <span class="review-bar-name">&mdash; Austin Smith</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Filled out the Instant Estimate, got a ballpark, roof done the following week in one day. Can I give 6 stars?&rdquo; <span class="review-bar-name">&mdash; Nathaniel Walker</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Their price was competitive. Forthright kept me informed with frequent updates and finished on time. I recommend them highly!&rdquo; <span class="review-bar-name">&mdash; Gary Way</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fair price, quality work, no drama. Gerry runs a tight operation. Would hire again without hesitation.&rdquo; <span class="review-bar-name">&mdash; Andrew Mager</span></div>
-    </div>
-  </a>
-  <!-- END REVIEW BAR -->
+<!-- REVIEW BAR -->
+<a href="https://share.google/B7aJIrpmsDvTII15t" target="_blank" rel="noopener" class="review-bar" aria-label="See all Google reviews" style="cursor:pointer;text-decoration:none;">
+  <div class="review-bar-track">
+    <div class="review-bar-google">&#9733; Google Reviews</div>
+    <div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fast, efficient, kept us updated throughout. Very reasonable cost, easy to schedule.&rdquo; <span class="review-bar-name">&mdash; Austin Smith</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Filled out the Instant Estimate, got a ballpark, roof done the following week in one day. Can I give 6 stars?&rdquo; <span class="review-bar-name">&mdash; Nathaniel Walker</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Their price was competitive. Forthright kept me informed with frequent updates and finished on time. I recommend them highly!&rdquo; <span class="review-bar-name">&mdash; Gary Way</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fair price, quality work, no drama. Gerry runs a tight operation. Would hire again without hesitation.&rdquo; <span class="review-bar-name">&mdash; Andrew Mager</span></div>
+    <div class="review-bar-google">&#9733; Google Reviews</div>
+    <div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fast, efficient, kept us updated throughout. Very reasonable cost, easy to schedule.&rdquo; <span class="review-bar-name">&mdash; Austin Smith</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Filled out the Instant Estimate, got a ballpark, roof done the following week in one day. Can I give 6 stars?&rdquo; <span class="review-bar-name">&mdash; Nathaniel Walker</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Their price was competitive. Forthright kept me informed with frequent updates and finished on time. I recommend them highly!&rdquo; <span class="review-bar-name">&mdash; Gary Way</span></div><div class="review-bar-item"><span class="review-bar-stars">★★★★★</span> &ldquo;Fair price, quality work, no drama. Gerry runs a tight operation. Would hire again without hesitation.&rdquo; <span class="review-bar-name">&mdash; Andrew Mager</span></div>
+  </div>
+</a>
+<!-- END REVIEW BAR -->
 
 <div class="page-hero">
   <div class="wrap">
@@ -155,140 +134,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- RESIDENTIAL -->
       <div class="form-track active" id="track-residential">
-        <form class="contact-form" id="resForm" novalidate>
-          <input type="hidden" name="_subject" value="New Residential Estimate Request - Forthright">
-          <input type="hidden" name="formType" value="residential">
-          <input type="hidden" name="submittedAt" id="res-submittedAt">
-          <div class="frow">
-            <div class="field"><label for="res-firstName">First name <span class="req">*</span></label><input type="text" id="res-firstName" name="firstName" placeholder="Jane" autocomplete="given-name" required></div>
-            <div class="field"><label for="res-lastName">Last name <span class="req">*</span></label><input type="text" id="res-lastName" name="lastName" placeholder="Smith" autocomplete="family-name" required></div>
+        <style>@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){.jtwf *,.jtwf :before,.jtwf :after,.jtwf ::backdrop{--tw-space-y-reverse:0;--tw-divide-y-reverse:0;--tw-border-style:solid;--tw-font-weight:initial;--tw-shadow:0 0 #0000;--tw-shadow-color:initial;--tw-shadow-alpha:100%;--tw-inset-shadow:0 0 #0000;--tw-inset-shadow-color:initial;--tw-inset-shadow-alpha:100%;--tw-ring-color:initial;--tw-ring-shadow:0 0 #0000;--tw-inset-ring-color:initial;--tw-inset-ring-shadow:0 0 #0000;--tw-ring-inset:initial;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-offset-shadow:0 0 #0000;--tw-blur:initial;--tw-brightness:initial;--tw-contrast:initial;--tw-grayscale:initial;--tw-hue-rotate:initial;--tw-invert:initial;--tw-opacity:initial;--tw-saturate:initial;--tw-sepia:initial;--tw-drop-shadow:initial;--tw-drop-shadow-color:initial;--tw-drop-shadow-alpha:100%;--tw-drop-shadow-size:initial}}}@layer theme{.jtwf{--color-red-500:oklch(63.7% .237 25.331);--color-blue-500:oklch(62.3% .214 259.815);--color-gray-50:oklch(98.5% .002 247.839);--color-gray-200:oklch(92.8% .006 264.531);--color-gray-300:oklch(87.2% .01 258.338);--color-gray-500:oklch(55.1% .027 264.364);--color-white:#fff;--spacing:.25rem;--container-sm:24rem;--text-xl:1.25rem;--text-xl--line-height:calc(1.75 / 1.25);--font-weight-normal:400;--font-weight-bold:700;--radius-sm:.25rem;--default-transition-duration:.25s;--default-transition-timing-function:cubic-bezier(.4, 0, .2, 1)}}@layer base{.jtwf *,.jtwf :after,.jtwf :before,.jtwf ::backdrop{border-color:var(--color-gray-200,currentColor)}.jtwf ::file-selector-button{border-color:var(--color-gray-200,currentColor)}.jtwf *{box-sizing:border-box;border:0 solid #e5e7eb}.jtwf button,.jtwf input,.jtwf optgroup,.jtwf select,.jtwf textarea{font-family:inherit;font-size:100%;font-weight:inherit;line-height:inherit;color:inherit;margin:0;padding:0}}@layer components;@layer utilities{.jtwf .mx-auto{margin-inline:auto}.jtwf .block{display:block}.jtwf .flex{display:flex}.jtwf .max-h-24{max-height:calc(var(--spacing) * 24)}.jtwf .w-full{width:100%}.jtwf .max-w-full{max-width:100%}.jtwf .max-w-sm{max-width:var(--container-sm)}.jtwf .min-w-0{min-width:0}.jtwf .shrink-0{flex-shrink:0}.jtwf .grow{flex-grow:1}.jtwf .cursor-pointer{cursor:pointer}.jtwf .appearance-none{appearance:none}.jtwf .items-center{align-items:center}.jtwf .gap-2{gap:calc(var(--spacing) * 2)}.jtwf :where(.space-y-2>:not(:last-child)){--tw-space-y-reverse:0;margin-block-start:calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));margin-block-end:calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)))}.jtwf :where(.divide-y>:not(:last-child)){--tw-divide-y-reverse:0;border-bottom-style:var(--tw-border-style);border-top-style:var(--tw-border-style);border-top-width:calc(1px * var(--tw-divide-y-reverse));border-bottom-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)))}.jtwf .overflow-hidden{overflow:hidden}.jtwf .rounded-sm{border-radius:var(--radius-sm)}.jtwf .border{border-style:var(--tw-border-style);border-width:1px}.jtwf .bg-white{background-color:var(--color-white)}.jtwf .p-2{padding:calc(var(--spacing) * 2)}.jtwf .p-4{padding:calc(var(--spacing) * 4)}.jtwf .px-4{padding-inline:calc(var(--spacing) * 4)}.jtwf .py-2{padding-block:calc(var(--spacing) * 2)}.jtwf .text-center{text-align:center}.jtwf .text-right{text-align:right}.jtwf .text-xl{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}.jtwf .font-bold{--tw-font-weight:var(--font-weight-bold);font-weight:var(--font-weight-bold)}.jtwf .font-normal{--tw-font-weight:var(--font-weight-normal);font-weight:var(--font-weight-normal)}.jtwf .text-gray-500{color:var(--color-gray-500)}.jtwf .text-red-500{color:var(--color-red-500)}.jtwf .shadow-sm{--tw-shadow:0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .shadow-xs{--tw-shadow:0 1px 2px 0 var(--tw-shadow-color,#0000000d);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .ring{--tw-ring-shadow:var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .ring-gray-200{--tw-ring-color:var(--color-gray-200)}.jtwf .transition{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to,opacity,box-shadow,transform,translate,scale,rotate,filter,-webkit-backdrop-filter,backdrop-filter,display,content-visibility,overlay,pointer-events;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.jtwf .focus-within\:bg-white:focus-within{background-color:var(--color-white)}.jtwf .focus-within\:ring-3:focus-within{--tw-ring-shadow:var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);box-shadow:var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)}.jtwf .focus-within\:ring-blue-500:focus-within{--tw-ring-color:var(--color-blue-500)}@media (hover:hover){.jtwf .hover\:bg-gray-50:hover{background-color:var(--color-gray-50)}.jtwf .hover\:brightness-95:hover{--tw-brightness:brightness(95%);filter:var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,)}}.jtwf .\[\&\:\:-webkit-date-and-time-value\]\:h-5::-webkit-date-and-time-value{height:calc(var(--spacing) * 5)}@media (hover:hover){.jtwf .hover\:\[\&\:not\(\:focus-within\)\]\:border-gray-300:hover:not(:focus-within){border-color:var(--color-gray-300)}.jtwf .hover\:\[\&\:not\(\:focus-within\)\]\:bg-gray-50:hover:not(:focus-within){background-color:var(--color-gray-50)}}}@property --tw-space-y-reverse{syntax:"*";inherits:false;initial-value:0}@property --tw-divide-y-reverse{syntax:"*";inherits:false;initial-value:0}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-blur{syntax:"*";inherits:false}@property --tw-brightness{syntax:"*";inherits:false}@property --tw-contrast{syntax:"*";inherits:false}@property --tw-grayscale{syntax:"*";inherits:false}@property --tw-hue-rotate{syntax:"*";inherits:false}@property --tw-invert{syntax:"*";inherits:false}@property --tw-opacity{syntax:"*";inherits:false}@property --tw-saturate{syntax:"*";inherits:false}@property --tw-sepia{syntax:"*";inherits:false}@property --tw-drop-shadow{syntax:"*";inherits:false}@property --tw-drop-shadow-color{syntax:"*";inherits:false}@property --tw-drop-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-drop-shadow-size{syntax:"*";inherits:false}
+</style>
+        <link rel="preload" as="image" href="https://cdn.jobtread.com/G1QAaBwH7r4T0kdvcARqd17_fmlra55n4vJTDuKhHFKHpa9E3loRgSzKSo5OQvkqxnrtAWlA1UAiqITIkAmAq7XjiVKJebG9brIxmjM.SAyeWJ1Ko2ojroqH0TlZ8aLJf9EGBmmaAM4o-XwVa08?size=1024"/>
+        <form class="jtwf" data-jobtread-web-form="true" data-key="22TUKLvybiPS8pDYnDzDBj4cnM7w6JUUga" data-success-url="https://forthrightvt.com/estimate-success">
+          <div class="mx-auto min-w-0 max-w-sm rounded-sm shadow-sm bg-white">
+            <div class="p-4 shadow-line-bottom"><img class="block max-w-full max-h-24 mx-auto" src="https://cdn.jobtread.com/G1QAaBwH7r4T0kdvcARqd17_fmlra55n4vJTDuKhHFKHpa9E3loRgSzKSo5OQvkqxnrtAWlA1UAiqITIkAmAq7XjiVKJebG9brIxmjM.SAyeWJ1Ko2ojroqH0TlZ8aLJf9EGBmmaAM4o-XwVa08?size=1024"/></div>
+            <div class="p-4 space-y-2"><label class="cursor-pointer block"><div class="font-bold">Name<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" required="" name="contact.name"/></label><label class="cursor-pointer block"><div class="font-bold">Email<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="email" required="" name="contact.custom.22PWNRRPMVk4"/></label><label class="cursor-pointer block"><div class="font-bold">Phone<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="tel" required="" name="contact.custom.22PWNRRPPj9m"/></label><label class="cursor-pointer block"><div class="font-bold">Address<span class="font-normal text-red-500">*</span></div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="location.address" required=""></textarea></label><div class="block"><div class="font-bold">What type of Project are you Interested in?</div><div class="rounded-sm border divide-y overflow-hidden"><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Roofing"/><div class="grow min-w-0">Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Siding"/><div class="grow min-w-0">Siding</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Decks"/><div class="grow min-w-0">Decks</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Addition"/><div class="grow min-w-0">Addition</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PX99X2teAh" value="Other"/><div class="grow min-w-0">Other</div></label></div></div><label class="cursor-pointer block"><div class="font-bold">Tell us about your project</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" name="job.description"/></label><div class="block"><div class="font-bold">How did you hear about us?</div><select class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PWNRRPJWZZ"><option></option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option><option>Internet Search</option><option>Trade Show</option><option>Website</option><option>Angi</option><option>Home Advisor</option><option>Insurance</option><option>Front Porch Form</option></select></div><label class="cursor-pointer block"><div class="font-bold">Provide some photos of your project (Optional)</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="file" multiple="" name="account.files"/></label><div class="text-right"><button class="text-right px-4 py-2 rounded-sm shadow-xs cursor-pointer hover:brightness-95" data-submit-button="true" style="background-color:#ff5600;color:#ffeee6">Submit</button></div></div>
           </div>
-          <div class="frow">
-            <div class="field"><label for="res-phone">Phone <span class="req">*</span></label><input type="tel" id="res-phone" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" required></div>
-            <div class="field"><label for="res-email">Email <span class="req">*</span></label><input type="email" id="res-email" name="email" placeholder="jane@email.com" autocomplete="email" required></div>
-          </div>
-          <div class="field">
-            <label for="res-address">Property address <span class="req">*</span></label>
-            <div class="addr-wrap">
-              <input type="text" id="res-address" name="address" placeholder="Start typing your address..." autocomplete="off" required>
-              <svg class="addr-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.75C6.76 7.75 5.75 6.74 5.75 5.5S6.76 3.25 8 3.25s2.25 1.01 2.25 2.25S9.24 7.75 8 7.75z" fill="#1A44C2"/></svg>
-            </div>
-            <input type="hidden" id="res-addressFull" name="addressFull">
-            <div class="field-hint">Select from the dropdown to verify your address.</div>
-          </div>
-          <div class="frow">
-            <div class="field">
-              <label for="res-projectType">Project type <span class="req">*</span></label>
-              <select id="res-projectType" name="projectType" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="Roofing">Roofing</option>
-                <option value="Siding">Siding</option>
-                <option value="Deck">Deck</option>
-                <option value="Gutters">Gutters</option>
-                <option value="Other">Multiple / Unsure</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="res-timeframe">When are you looking to start? <span class="req">*</span></label>
-              <select id="res-timeframe" name="timeframe" required>
-                <option value="" disabled selected>Select one</option>
-                <option value="This month">This month</option>
-                <option value="Next month">Next month</option>
-                <option value="Next season">Later this year</option>
-                <option value="Just exploring">Just exploring</option>
-              </select>
-            </div>
-          </div>
-          <div class="field"><label for="res-scope">Tell us about the project <span class="req">*</span></label><textarea id="res-scope" name="message" placeholder="Describe what you're looking to have done - the more detail, the better." required></textarea></div>
-          <div class="field">
-            <label for="res-heard">How did you hear about us?</label>
-            <select id="res-heard" name="howHeard">
-              <option value="" disabled selected>Select one</option>
-              <option value="Referral">Referral</option>
-              <option value="Radio">Radio</option>
-              <option value="TV">TV</option>
-              <option value="Mailer">Mailer</option>
-              <option value="Social Media">Social Media</option>
-              <option value="Google">Google</option>
-              <option value="Newspaper">Newspaper</option>
-              <option value="Event">Event</option>
-              <option value="HULA">HULA</option>
-              <option value="Other">Other</option>
-              <option value="Company Input">Company Input</option>
-            </select>
-          </div>
-          <div class="sms-row">
-            <input type="checkbox" id="res-sms" name="smsConsent" value="yes">
-            <label for="res-sms"><strong>Text me updates on my request.</strong> I agree to receive project-related texts from Forthright Construction. Message &amp; data rates may apply. Reply STOP to opt out.</label>
-          </div>
-          <button type="submit" class="btn btn-primary f-sub">Submit Request →</button>
         </form>
-        <div class="form-success" id="res-success">
-          <strong>Request received.</strong>
-          <p>Someone from our team will review your project and be in touch directly. We don't auto-book appointments - we'll reach out first to make sure it's a good fit for both of us.</p>
-        </div>
+        <script async src='https://app.jobtread.com/web-form.js'></script>
       </div>
 
       <!-- GC / COMMERCIAL -->
       <div class="form-track" id="track-gc">
-        <form class="contact-form" id="gcForm" novalidate>
-          <input type="hidden" name="_subject" value="New GC / Commercial Inquiry - Forthright">
-          <input type="hidden" name="formType" value="gc_commercial">
-          <input type="hidden" name="submittedAt" id="gc-submittedAt">
-          <div class="field"><label for="gc-company">Company name <span class="req">*</span></label><input type="text" id="gc-company" name="company" placeholder="Mud Season Construction" required></div>
-          <div class="frow">
-            <div class="field"><label for="gc-firstName">First name <span class="req">*</span></label><input type="text" id="gc-firstName" name="firstName" placeholder="Jane" autocomplete="given-name" required></div>
-            <div class="field"><label for="gc-lastName">Last name <span class="req">*</span></label><input type="text" id="gc-lastName" name="lastName" placeholder="Smith" autocomplete="family-name" required></div>
-            <div class="field"><label for="gc-title">Title / role</label><input type="text" id="gc-title" name="title" placeholder="Project Manager"></div>
+        <form class="jtwf" data-jobtread-web-form="true" data-key="22TUKMLyyarLNJ6JckfBVkui5UEkGQs6eQ" data-success-url="https://forthrightvt.com/estimate-success">
+          <div class="mx-auto min-w-0 max-w-sm rounded-sm shadow-sm bg-white">
+            <div class="p-4 shadow-line-bottom"><img class="block max-w-full max-h-24 mx-auto" src="https://cdn.jobtread.com/G1QAaBwH7r4T0kdvcARqd17_fmlra55n4vJTDuKhHFKHpa9E3loRgSzKSo5OQvkqxnrtAWlA1UAiqITIkAmAq7XjiVKJebG9brIxmjM.SAyeWJ1Ko2ojroqH0TlZ8aLJf9EGBmmaAM4o-XwVa08?size=1024"/></div>
+            <div class="p-4 space-y-2"><label class="cursor-pointer block"><div class="font-bold">Company Name<span class="font-normal text-red-500">*</span></div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PbFF37nkW3" required=""></textarea></label><label class="cursor-pointer block"><div class="font-bold">Name<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" required="" name="contact.name"/></label><label class="cursor-pointer block"><div class="font-bold">Title</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="text" name="contact.title"/></label><label class="cursor-pointer block"><div class="font-bold">Email<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="email" required="" name="contact.custom.22PWNRRPMVk4"/></label><label class="cursor-pointer block"><div class="font-bold">Phone<span class="font-normal text-red-500">*</span></div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="tel" required="" name="contact.custom.22PWNRRPPj9m"/></label><label class="cursor-pointer block"><div class="font-bold">Project Address</div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="location.address"></textarea></label><div class="block"><div class="font-bold">How did you learn about us?</div><select class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PWNRRPJWZZ"><option></option><option>Facebook</option><option>Google</option><option>Instagram</option><option>Referral</option><option>Internet Search</option><option>Trade Show</option><option>Website</option><option>Angi</option><option>Home Advisor</option><option>Insurance</option><option>Front Porch Form</option></select></div><div class="block"><div class="font-bold">Scope of Work</div><div class="rounded-sm border divide-y overflow-hidden"><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Asphalt Roofing"/><div class="grow min-w-0">Asphalt Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Standing Seam Roofing"/><div class="grow min-w-0">Standing Seam Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Rubber Roofing"/><div class="grow min-w-0">Rubber Roofing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Drywall"/><div class="grow min-w-0">Drywall</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Metal Framing"/><div class="grow min-w-0">Metal Framing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Wood Framing"/><div class="grow min-w-0">Wood Framing</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Storefront"/><div class="grow min-w-0">Storefront</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Siding"/><div class="grow min-w-0">Siding</div></label><label class="flex gap-2 items-center p-2 hover:bg-gray-50 cursor-pointer block"><input class="shrink-0" type="checkbox" name="account.custom.22PbFFQwGdxn" value="Other"/><div class="grow min-w-0">Other</div></label></div></div><label class="cursor-pointer block"><div class="font-bold">Bid Deadline</div><input class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" type="date" name="account.custom.22PbFFXR3NQM"/></label><label class="cursor-pointer block"><div class="font-bold">Project Description</div><textarea class="rounded-sm ring ring-gray-200 p-2 w-full bg-white appearance-none transition hover:[&:not(:focus-within)]:bg-gray-50 hover:[&:not(:focus-within)]:border-gray-300 focus-within:bg-white focus-within:ring-3 focus-within:ring-blue-500 [&::-webkit-date-and-time-value]:h-5" name="account.custom.22PbFDfMUfzU"></textarea></label><div class="text-right"><button class="text-right px-4 py-2 rounded-sm shadow-xs cursor-pointer hover:brightness-95" data-submit-button="true" style="background-color:#ff5600;color:#ffeee6">Submit</button></div></div>
           </div>
-          <div class="frow">
-            <div class="field"><label for="gc-phone">Phone <span class="req">*</span></label><input type="tel" id="gc-phone" name="phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel" required></div>
-            <div class="field"><label for="gc-email">Email <span class="req">*</span></label><input type="email" id="gc-email" name="email" placeholder="you@company.com" autocomplete="email" required></div>
-          </div>
-          <div class="field">
-            <label for="gc-address">Project address</label>
-            <div class="addr-wrap">
-              <input type="text" id="gc-address" name="address" placeholder="Start typing the job site address..." autocomplete="off">
-              <svg class="addr-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1C5.24 1 3 3.24 3 6c0 3.75 5 9 5 9s5-5.25 5-9c0-2.76-2.24-5-5-5zm0 6.75C6.76 7.75 5.75 6.74 5.75 5.5S6.76 3.25 8 3.25s2.25 1.01 2.25 2.25S9.24 7.75 8 7.75z" fill="#1A44C2"/></svg>
-            </div>
-            <input type="hidden" id="gc-addressFull" name="addressFull">
-            <div class="field-hint">Select from the dropdown to verify the job site address.</div>
-          </div>
-          <div class="field">
-            <label>Scope of work <span class="req">*</span></label>
-            <div class="scope-grid" id="gc-scope-grid">
-              <div class="scope-opt"><input type="checkbox" id="sc-asphalt" name="scope" value="Asphalt Roofing"><label for="sc-asphalt">Asphalt Roofing</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-standing" name="scope" value="Standing Seam Roofing"><label for="sc-standing">Standing Seam Roofing</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-rubber" name="scope" value="Rubber Roofing"><label for="sc-rubber">Rubber Roofing</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-drywall" name="scope" value="Drywall"><label for="sc-drywall">Drywall</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-metal" name="scope" value="Metal Framing"><label for="sc-metal">Metal Framing</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-wood" name="scope" value="Wood Framing"><label for="sc-wood">Wood Framing</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-storefront" name="scope" value="Store Front"><label for="sc-storefront">Store Front</label></div>
-              <div class="scope-opt"><input type="checkbox" id="sc-siding" name="scope" value="Siding"><label for="sc-siding">Siding</label></div>
-            </div>
-          </div>
-          <div class="frow">
-            <div class="field"><label for="gc-deadline">Bid deadline</label><input type="text" id="gc-deadline" name="bidDeadline" placeholder="MM/DD/YYYY or ASAP"></div>
-            <div class="field">
-              <label for="gc-heard">How did you learn about us?</label>
-              <select id="gc-heard" name="howHeard">
-                <option value="" disabled selected>Select one</option>
-                <option value="Referral">Referral</option>
-                <option value="Google / Search">Google / Search</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="HULA">HULA</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-          </div>
-          <div class="field"><label for="gc-scope-desc">Project description <span class="req">*</span></label><textarea id="gc-scope-desc" name="message" placeholder="Summarize the project scope, building type, and any spec requirements…" required></textarea></div>
-          <button type="submit" class="btn btn-primary f-sub">Submit Project Inquiry →</button>
-
         </form>
-        <div class="form-success" id="gc-success">
-          <strong>Project received.</strong>
-          <p>Gerry will follow up directly at the contact info you provided - typically same business day. Need to reach us now? Call <a href="tel:8028481848" style="color:var(--cobalt)">802-848-1848</a> or email <a href="mailto:gerry@forthrightvt.com" style="color:var(--cobalt)">gerry@forthrightvt.com</a>.</p>
-        </div>
       </div>
 
     </div>
@@ -305,22 +170,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Vermont contractor for commercial and residential projects. Accountable by Design.</p>
       </div>
       <div class="ft-col"><h4>Company</h4><ul><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li><li><a href="work-with-us.html">Work with us</a></li></ul></div>
-      <div class="ft-col"><h4>Residential</h4><ul><li><a href="residential-roofing-vermont.html">Roofing</a></li><li><a href="residential-siding-vermont.html">Siding</a></li><li><a href="residential-decks-vermont.html">Decks</a></li></ul></div><div class="ft-col"><h4>Commercial</h4><ul><li><a href="commercial-roofing-vermont.html">Roofing</a></li><li><a href="commercial-siding-vermont.html">Siding</a></li><li><a href="commercial-storefronts-vermont.html">Storefronts</a></li><li><a href="commercial-framing-vermont.html">Framing</a></li><li><a href="commercial-drywall-vermont.html">Drywall</a></li></ul></div>
+      <div class="ft-col"><h4>Residential</h4><ul><li><a href="residential-roofing-vermont.html">Roofing</a></li><li><a href="residential-siding-vermont.html">Siding</a></li><li><a href="residential-decks-vermont.html">Decks</a></li></ul></div>
+      <div class="ft-col"><h4>Commercial</h4><ul><li><a href="commercial-roofing-vermont.html">Roofing</a></li><li><a href="commercial-siding-vermont.html">Siding</a></li><li><a href="commercial-storefronts-vermont.html">Storefronts</a></li><li><a href="commercial-framing-vermont.html">Framing</a></li><li><a href="commercial-drywall-vermont.html">Drywall</a></li></ul></div>
       <div class="ft-col"><h4>Resources</h4><ul><li><a href="roofing-faq.html">Roofing FAQ</a></li><li><a href="siding-faq.html">Siding FAQ</a></li><li><a href="deck-faq.html">Deck FAQ</a></li></ul></div>
-      <div class="ft-col" style="display:none" aria-hidden="true"><h4>Service Areas</h4><ul>
-<li><a href="contractor-south-burlington-vt.html">South Burlington</a></li>
-<li><a href="contractor-shelburne-vt.html">Shelburne</a></li>
-<li><a href="contractor-williston-vt.html">Williston</a></li>
-<li><a href="contractor-colchester-vt.html">Colchester</a></li>
-<li><a href="contractor-stowe-vt.html">Stowe</a></li>
-<li><a href="contractor-montpelier-vt.html">Montpelier</a></li>
-<li><a href="contractor-barre-vt.html">Barre</a></li>
-<li><a href="contractor-middlebury-vt.html">Middlebury</a></li>
-<li><a href="contractor-st-albans-vt.html">St. Albans</a></li>
-<li><a href="contractor-hinesburg-vt.html">Hinesburg</a></li>
-</ul></div><div class="ft-col"><h4>Contact</h4><ul><li><a href="tel:8028481848">802-848-1848</a></li><li><a href="mailto:gerry@forthrightvt.com">gerry@forthrightvt.com</a></li><li><a href="contact.html">Free Estimate</a></li></ul></div>
+      <div class="ft-col"><h4>Contact</h4><ul><li><a href="tel:8028481848">802-848-1848</a></li><li><a href="mailto:gerry@forthrightvt.com">gerry@forthrightvt.com</a></li><li><a href="contact.html">Free Estimate</a></li></ul></div>
     </div>
-    <div class="ft-bot"><span>© 2026 Forthright Construction LLC - Hinesburg, Vermont</span><span>Licensed · Fully Insured · <a href="privacy-policy.html" style="color:inherit;">Privacy Policy</a></span></div>
+    <div class="ft-bot"><span>&copy; 2026 Forthright Construction LLC - Hinesburg, Vermont</span><span>Licensed &middot; Fully Insured &middot; <a href="privacy-policy.html" style="color:inherit;">Privacy Policy</a></span></div>
   </div>
 </footer>
 
@@ -333,219 +188,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="mcb-est" href="contact.html">Free Estimate</a>
 </div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
-<script>
-function switchTrack(track){
-  document.querySelectorAll('.form-track').forEach(function(el){el.classList.remove('active')});
-  document.querySelectorAll('.track-btn').forEach(function(el){el.classList.remove('active');el.setAttribute('aria-selected','false')});
-  document.getElementById('track-'+track).classList.add('active');
-  var tabId=track==='residential'?'tab-res':'tab-gc';
-  document.getElementById(tabId).classList.add('active');
-  document.getElementById(tabId).setAttribute('aria-selected','true');
-}
-
-// Auto-switch from URL param: contact.html?type=commercial
-(function(){
-  var p=new URLSearchParams(window.location.search).get('type');
-  if(p&&(p==='commercial'||p==='gc'))switchTrack('gc');
-})();
-
-function initPlaces(){
-  function attach(inputId,hiddenId){
-    var input=document.getElementById(inputId);if(!input)return;
-    var ac=new google.maps.places.Autocomplete(input,{types:['address'],componentRestrictions:{country:'us'},fields:['formatted_address']});
-    ac.addListener('place_changed',function(){
-      var place=ac.getPlace();
-      if(place.formatted_address){input.value=place.formatted_address;document.getElementById(hiddenId).value=place.formatted_address;}
-    });
-  }
-  attach('res-address','res-addressFull');
-  attach('gc-address','gc-addressFull');
-}
-
-['res-phone','gc-phone'].forEach(function(id){
-  var el=document.getElementById(id);if(!el)return;
-  function fmtPhone(raw){
-    var val=raw.replace(/\D/g,'');
-    if(val.length===11&&val.charAt(0)==='1'){val=val.substring(1);}
-    if(val.length>=10){val='('+val.substring(0,3)+') '+val.substring(3,6)+'-'+val.substring(6,10);}
-    return val;
-  }
-  el.addEventListener('input',function(e){e.target.value=fmtPhone(e.target.value);});
-  el.addEventListener('blur',function(e){e.target.value=fmtPhone(e.target.value);});
-});
-
-var HS_PORTAL = '51236142';
-var HS_RES_FORM = '469e80f1-d4f7-4edf-b366-a7f95997aa1e';
-var HS_GC_FORM = 'c14ed1e9-5828-45de-a9b2-22df830893d6';
-
-function submitToHubSpot(formId, fields, btn, formEl, successId, successEvent) {
-  var btnLabel = btn.textContent;
-  var errBox = document.getElementById(formEl.id + '-error');
-  if (errBox) { errBox.style.display = 'none'; }
-  btn.textContent = 'Sending…'; btn.disabled = true;
-  var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
-  var payload = {
-    fields: fields,
-    context: { pageUri: window.location.href, pageName: 'Free Estimate' }
-  };
-  if (hutk) { payload.context.hutk = hutk; }
-  fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/' + formId, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(function(r) {
-    if (!r.ok) { throw new Error('HubSpot ' + r.status); }
-    formEl.style.display = 'none';
-    document.getElementById(successId).style.display = 'block';
-    if (successEvent) { window.dataLayer = window.dataLayer || []; window.dataLayer.push({'event': successEvent}); }
-  })
-  .catch(function() {
-    btn.textContent = btnLabel; btn.disabled = false;
-    showFormError(formEl);
-  });
-}
-
-function showFormError(formEl) {
-  var id = formEl.id + '-error';
-  var box = document.getElementById(id);
-  if (!box) {
-    box = document.createElement('div');
-    box.id = id;
-    box.setAttribute('role', 'alert');
-    box.style.cssText = 'margin-top:14px;padding:13px 15px;border:1px solid #E24B4A;border-left:4px solid #E24B4A;border-radius:0 6px 6px 0;background:#FDECEA;color:#8A1F1A;font-size:14px;line-height:1.5';
-    box.innerHTML = 'Something went wrong sending your request. Please try again, or reach us directly at <a href="tel:8028481848" style="color:#8A1F1A;font-weight:600">802-848-1848</a> or <a href="mailto:gerry@forthrightvt.com" style="color:#8A1F1A;font-weight:600">gerry@forthrightvt.com</a>.';
-    formEl.appendChild(box);
-  }
-  box.style.display = 'block';
-}
-
-function doSubmit(formEl, successId, tsId, scopeGridId) {
-  var valid = true;
-  var firstErr = null;
-
-  // Clear previous error messages
-  formEl.querySelectorAll('.field-error').forEach(function(el) { el.classList.remove('visible'); });
-
-  // Check required fields
-  formEl.querySelectorAll('[required]').forEach(function(f) {
-    if (!f.value.trim()) {
-      f.classList.add('err');
-      showFieldError(f, 'This field is required.');
-      valid = false;
-      if (!firstErr) firstErr = f;
-    } else {
-      f.classList.remove('err');
-    }
-  });
-
-  // Validate email format
-  var emailField = formEl.querySelector('input[type="email"]');
-  if (emailField && emailField.value.trim()) {
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailField.value.trim())) {
-      emailField.classList.add('err');
-      showFieldError(emailField, 'Please enter a valid email address.');
-      valid = false;
-      if (!firstErr) firstErr = emailField;
-    }
-  }
-
-  // Validate phone has at least 10 digits
-  var phoneField = formEl.querySelector('input[type="tel"]');
-  if (phoneField && phoneField.value.trim()) {
-    var digits = phoneField.value.replace(/\D/g, '');
-    if (digits.length < 10) {
-      phoneField.classList.add('err');
-      showFieldError(phoneField, 'Please enter a 10-digit phone number.');
-      valid = false;
-      if (!firstErr) firstErr = phoneField;
-    }
-  }
-
-  // Check scope checkboxes (GC form)
-  if (scopeGridId) {
-    var checked = formEl.querySelectorAll('input[name="scope"]:checked');
-    if (checked.length === 0) {
-      document.getElementById(scopeGridId).style.outline = '2px solid #E24B4A';
-      document.getElementById(scopeGridId).style.borderRadius = '6px';
-      valid = false;
-      if (!firstErr) firstErr = document.getElementById(scopeGridId);
-    } else {
-      document.getElementById(scopeGridId).style.outline = '';
-    }
-  }
-
-  if (!valid) {
-    if (firstErr) {
-      firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      if (firstErr.tagName === 'INPUT' || firstErr.tagName === 'TEXTAREA' || firstErr.tagName === 'SELECT') {
-        setTimeout(function() { firstErr.focus(); }, 400);
-      }
-    }
-    return;
-  }
-
-  var btn = formEl.querySelector('button[type="submit"]');
-  var isRes = formEl.id === 'resForm';
-
-  if (isRes) {
-    var scopeVals = [];
-    formEl.querySelectorAll('input[name="scope"]:checked').forEach(function(cb) { scopeVals.push(cb.value); });
-    var fields = [
-      { name: 'firstname', value: formEl.querySelector('#res-firstName').value.trim() },
-      { name: 'lastname', value: formEl.querySelector('#res-lastName').value.trim() },
-      { name: 'email', value: formEl.querySelector('#res-email').value.trim() },
-      { name: 'phone', value: formEl.querySelector('#res-phone').value.trim() },
-      { name: 'address', value: document.getElementById('res-addressFull').value || formEl.querySelector('#res-address').value.trim() },
-      { name: 'project_trade', value: formEl.querySelector('#res-projectType').value },
-      { name: 'project_type', value: formEl.querySelector('#res-projectType').value },
-      { name: 'when_are_you_looking_to_start_your_project', value: formEl.querySelector('#res-timeframe').value },
-      { name: 'tell_us_about_the_project', value: formEl.querySelector('#res-scope').value.trim() },
-      { name: 'how_did_you_hear_about_us', value: formEl.querySelector('#res-heard').value }
-    ].filter(function(f) { return f.value; });
-    submitToHubSpot(HS_RES_FORM, fields, btn, formEl, successId, 'residential_form_complete');
-  } else {
-    var scopeVals = [];
-    formEl.querySelectorAll('input[name="scope"]:checked').forEach(function(cb) { scopeVals.push(cb.value); });
-    var bidVal = formEl.querySelector('#gc-deadline').value.trim();
-    var descVal = formEl.querySelector('#gc-scope-desc').value.trim();
-    var fields = [
-      { name: 'firstname', value: formEl.querySelector('#gc-firstName').value.trim() },
-      { name: 'lastname', value: formEl.querySelector('#gc-lastName').value.trim() },
-      { name: 'email', value: formEl.querySelector('#gc-email').value.trim() },
-      { name: 'phone', value: formEl.querySelector('#gc-phone').value.trim() },
-      { name: 'company', value: formEl.querySelector('#gc-company').value.trim() },
-      { name: 'project_address', value: document.getElementById('gc-addressFull').value || formEl.querySelector('#gc-address').value.trim() },
-      { name: 'project_trade', value: scopeVals[0] || '' },
-      { name: 'project_trades', value: scopeVals.join(';') },
-      { name: 'project_description', value: (bidVal ? 'Bid deadline: ' + bidVal + '\n' : '') + descVal },
-      { name: 'how_did_you_learn_about_us', value: formEl.querySelector('#gc-heard').value }
-    ].filter(function(f) { return f.value; });
-    submitToHubSpot(HS_GC_FORM, fields, btn, formEl, successId, 'gc_form_complete');
-  }
-}
-
-function showFieldError(inputEl, msg) {
-  var field = inputEl.closest('.field');
-  if (!field) return;
-  var errEl = field.querySelector('.field-error');
-  if (!errEl) {
-    errEl = document.createElement('div');
-    errEl.className = 'field-error';
-    field.appendChild(errEl);
-  }
-  errEl.textContent = msg;
-  errEl.classList.add('visible');
-}
-
-document.getElementById('resForm').addEventListener('submit',function(e){e.preventDefault();doSubmit(this,'res-success','res-submittedAt',null);});
-document.getElementById('gcForm').addEventListener('submit',function(e){e.preventDefault();doSubmit(this,'gc-success','gc-submittedAt','gc-scope-grid');});
-document.querySelectorAll('.contact-form input,.contact-form select,.contact-form textarea').forEach(function(el){el.addEventListener('input',function(){this.classList.remove('err');var errEl=this.closest('.field');if(errEl){var fe=errEl.querySelector('.field-error');if(fe)fe.classList.remove('visible');}});});
-</script>
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
+
+<script>
+function switchTrack(track) {
+  document.querySelectorAll('.form-track').forEach(function(el) { el.classList.remove('active'); });
+  document.querySelectorAll('.track-btn').forEach(function(el) { el.classList.remove('active'); el.setAttribute('aria-selected', 'false'); });
+  document.getElementById('track-' + track).classList.add('active');
+  var tabId = track === 'residential' ? 'tab-res' : 'tab-gc';
+  document.getElementById(tabId).classList.add('active');
+  document.getElementById(tabId).setAttribute('aria-selected', 'true');
+}
+(function() {
+  var p = new URLSearchParams(window.location.search).get('type');
+  if (p && (p === 'commercial' || p === 'gc')) switchTrack('gc');
+})();
+</script>
 </body>
 </html>
-
-
