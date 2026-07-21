@@ -42,7 +42,7 @@ async function findExistingCustomer(email, phone) {
   const wantPhone = digits(phone);
   let page = null;
   while (true) {
-    const sel = { size: 100, ...(page && { page }) };
+    const sel = { size: 25, ...(page && { page }) }; // >25 with nested contacts trips Pave's 413 limit
     const r = await pave({
       organization: {
         $: { id: ORG_ID },
