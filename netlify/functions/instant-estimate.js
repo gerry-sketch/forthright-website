@@ -17,6 +17,7 @@ const CF = {
   TIMELINE: "22PbJEtZ9tM5",
   ESTIMATE_RANGE: "22PbJEtaHNyE",
   SMS_CONSENT: "22PbJEtbLhJQ",
+  ATTRIBUTION: "22PbJMZYZU3t",
 };
 
 async function pave(query) {
@@ -100,6 +101,7 @@ exports.handler = async (event) => {
     [CF.ESTIMATE_RANGE]: p.estimateRange || "",
     [CF.SMS_CONSENT]: p.smsConsent ? "Yes" : "No",
     [CF.TELL_US]: p.note || "",
+    [CF.ATTRIBUTION]: p.attribution || "",
   };
   // drop empties so we never blank an existing value on dedup-update
   for (const k of Object.keys(customerFields)) if (!customerFields[k]) delete customerFields[k];

@@ -834,6 +834,7 @@ async function submitForm(){
         timeline:TL[S.timeline]||S.timeline,
         estimateRange:fmt(loR)+' – '+fmt(hiR),
         smsConsent:S.smsConsent==='yes',
+        attribution:(function(){try{return sessionStorage.getItem('ft_attribution')||''}catch(e){return ''}})(),
         note:estimateNote
       })
     });
