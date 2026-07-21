@@ -624,25 +624,25 @@ function initPlaces(){
 </script>
 <script>
 (function(){
-  var HS_PORTAL = '51236142';
-  var HS_RES_FORM = '469e80f1-d4f7-4edf-b366-a7f95997aa1e';
 
   function fieldsFromForm(formEl, addressFullId){
     var f = function(name){ return (formEl.querySelector('[name="'+name+'"]')||{}).value || ''; };
     var addressFullEl = addressFullId ? document.getElementById(addressFullId) : null;
     var addressVal = (addressFullEl && addressFullEl.value) || f('address').trim();
-    return [
-      {name:'firstname', value:f('firstName').trim()},
-      {name:'lastname', value:f('lastName').trim()},
-      {name:'email', value:f('email').trim()},
-      {name:'phone', value:f('phone').trim()},
-      {name:'address', value:addressVal},
-      {name:'project_trade', value:f('projectType')},
-      {name:'project_type', value:f('projectType')},
-      {name:'when_are_you_looking_to_start_your_project', value:f('timeframe')},
-      {name:'tell_us_about_the_project', value:('Beat-Any-Estimate landing page lead.\n'+f('message').trim()).trim()},
-      {name:'how_did_you_hear_about_us', value:f('howHeard')}
-    ].filter(function(x){ return x.value; });
+    return {
+      firstname: f('firstName').trim(),
+      lastname: f('lastName').trim(),
+      email: f('email').trim(),
+      phone: f('phone').trim(),
+      address: addressVal,
+      timeline: f('timeframe'),
+      note: ['Beat-Any-Estimate landing page lead.',
+        f('projectType') ? 'Project type: ' + f('projectType') : '',
+        f('howHeard') ? 'How they heard: ' + f('howHeard') : '',
+        f('message').trim()
+      ].filter(Boolean).join('
+')
+    };
   }
 
   function wireForm(formId, successId, addressFullId){
@@ -704,20 +704,14 @@ function initPlaces(){
       var origText = btn.textContent;
       btn.textContent = 'Sending…'; btn.disabled = true;
 
-      var hutk = (document.cookie.match(/hubspotutk=([^;]+)/) || [])[1];
-      var hsContext = { pageUri: window.location.href, pageName: 'Beat Any Estimate Landing Page' };
-      if (hutk) { hsContext.hutk = hutk; }
-      fetch('https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL + '/' + HS_RES_FORM, {
+            fetch('/.netlify/functions/instant-estimate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fields: fieldsFromForm(formEl, addressFullId),
-          context: hsContext
-        })
+        body: JSON.stringify(fieldsFromForm(formEl, addressFullId))
       })
       .then(function(r){
         if(!r.ok){
-          throw new Error('HubSpot ' + r.status);
+          throw new Error('submit ' + r.status);
         }
         formEl.style.display = 'none';
         document.getElementById(successId).style.display = 'block';
@@ -771,7 +765,6 @@ function initPlaces(){
   wireForm('lpFormMobile', 'lpSuccessMobile', 'lp-m-addressFull');
 })();
 </script>
-<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/51236142.js"></script>
 </body>
 </html>
 
