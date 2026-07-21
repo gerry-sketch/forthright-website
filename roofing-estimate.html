@@ -273,8 +273,6 @@ main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin
 .field-error.visible{display:block}
 
 </style>
-<!-- reCAPTCHA v3 - replace RECAPTCHA_SITE_KEY with your key from console.google.com/recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?render=RECAPTCHA_SITE_KEY" async defer></script>
 <!-- Google Places Autocomplete -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
   <meta property="og:title" content="Online Roofing Estimate | Forthright Construction Vermont">
@@ -799,12 +797,6 @@ async function submitForm(){
   }
   const btn=document.getElementById('btn5');btn.textContent='Sending...';btn.disabled=true;
 
-  // reCAPTCHA v3 - invisible, runs silently
-  let recaptchaToken = '';
-  try {
-    recaptchaToken = await grecaptcha.execute('RECAPTCHA_SITE_KEY', {action: 'estimate_submit'});
-  } catch(e) { /* if reCAPTCHA fails, still allow submission */ }
-
   const sd=SIZES[S.size]||SIZES['not-sure'];
   const rate=RATES[S.rooftype]||RATES.asphalt;
   const lo=sd.lo*rate;
@@ -824,27 +816,27 @@ async function submitForm(){
     'SMS consent: '+(S.smsConsent==='yes'?'Yes':'No'),
   ].join('\n');
 
-  // Submit to HubSpot Forms API
-  const hutk=(document.cookie.match(/hubspotutk=([^;]+)/)||[])[1];
+  // Submit to JobTread (via Netlify function)
   try{
-    await fetch('https://api.hsforms.com/submissions/v3/integration/submit/51236142/d9ab07f4-3370-4d24-904e-dba6f2365ec0',{
+    await fetch('/.netlify/functions/instant-estimate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        fields:[
-          {name:'firstname',value:fname},
-          {name:'lastname',value:lname},
-          {name:'email',value:email},
-          {name:'phone',value:phone},
-          {name:'address',value:addr},
-          {name:'city',value:city},
-          {name:'state',value:state},
-          {name:'zip',value:zip},
-          {name:'project_trade',value:S.rooftype==='metal'?'Standing Seam Roofing':'Shingle Roofing'},
-          {name:'message',value:estimateNote},
-        ],
-        context:{pageUri:'https://forthrightvt.com/roofing-estimate',pageName:'Roofing Estimate Tool',...(hutk&&{hutk})},
-        ...(recaptchaToken && {captchaToken: recaptchaToken})
+        firstname:fname,
+        lastname:lname,
+        email:email,
+        phone:phone,
+        address:addr,
+        city:city,
+        state:state,
+        zip:zip,
+        homeType:S.hometype==='sfh'?'Single Family':'Townhouse',
+        roofMaterial:NAMES[S.rooftype]||S.rooftype,
+        homeSize:sd.label,
+        timeline:TL[S.timeline]||S.timeline,
+        estimateRange:fmt(loR)+' – '+fmt(hiR),
+        smsConsent:S.smsConsent==='yes',
+        note:estimateNote
       })
     });
   }catch(e){}
