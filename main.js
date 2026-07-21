@@ -2,11 +2,7 @@
 // read at form submit and pushed into JobTread's Attribution field. Last click wins.
 (function(){
   try{
-    var p = new URLSearchParams(window.location.search);
-    ['gclid','fbclid','msclkid'].forEach(function(k){
-      var v = p.get(k);
-      if (v) sessionStorage.setItem('ft_attribution', k + '=' + v);
-    });
+    var p=new URLSearchParams(location.search);var v='';['gclid','fbclid','msclkid'].forEach(function(k){var x=p.get(k);if(x)v=k+'='+x;});if(!v){var u=['utm_source','utm_medium','utm_campaign'].map(function(k){var x=p.get(k);return x?k+'='+x:''}).filter(Boolean).join('&');if(u)v=u;}if(v)sessionStorage.setItem('ft_attribution',v);
   }catch(e){}
 })();
 
