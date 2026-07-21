@@ -35,45 +35,6 @@ async function pave(query) {
   return body;
 }
 
-const digits = (s) => (s || "").replace(/\D/g, "");
-
-// Find an existing customer by contact email or phone.
-async function findExistingCustomer(email, phone) {
-  const wantEmail = (email || "").trim().toLowerCase();
-  const wantPhone = digits(phone);
-  let page = null;
-  while (true) {
-    const sel = { size: 25, ...(page && { page }) }; // >25 with nested contacts trips Pave's 413 limit
-    const r = await pave({
-      organization: {
-        $: { id: ORG_ID },
-        accounts: {
-          $: sel,
-          nextPage: {},
-          nodes: {
-            id: {}, name: {}, type: {},
-            contacts: { nodes: { id: {}, name: {}, customFieldValues: { nodes: { value: {}, customField: { id: {} } } } } },
-          },
-        },
-      },
-    });
-    const accounts = r.organization.accounts;
-    for (const acct of accounts.nodes) {
-      if (acct.type !== "customer") continue;
-      for (const contact of (acct.contacts?.nodes || [])) {
-        for (const cfv of (contact.customFieldValues?.nodes || [])) {
-          const v = String(cfv.value || "");
-          if (cfv.customField.id === CF.CONTACT_EMAIL && wantEmail && v.trim().toLowerCase() === wantEmail) return acct;
-          if (cfv.customField.id === CF.CONTACT_PHONE && wantPhone && digits(v) === wantPhone) return acct;
-        }
-      }
-    }
-    page = accounts.nextPage;
-    if (!page) break;
-  }
-  return null;
-}
-
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -107,28 +68,27 @@ exports.handler = async (event) => {
   for (const k of Object.keys(customerFields)) if (!customerFields[k]) delete customerFields[k];
 
   try {
-    const existing = await findExistingCustomer(email, phone);
-
-    if (existing) {
-      // Update estimate fields on the existing customer; add location (JT dedupes by address).
-      await pave({ updateAccount: { $: { id: existing.id, customFieldValues: customerFields } } });
-      if (fullAddress) {
-        try {
-          await pave({ createLocation: { $: { accountId: existing.id, address: fullAddress, name: streetLine }, createdLocation: { id: {} } } });
-        } catch (e) { /* duplicate address is fine */ }
+    // Per Carl (7/21): always create a new customer (no dedup), named "Firstname Lastname".
+    // JobTread rejects duplicate customer names, so on collision append (2), (3), ... —
+    // duplicates stay visible for the team to handle internally, but no lead is ever lost.
+    const baseName = [firstname, lastname].filter(Boolean).join(" ") || "Website Lead";
+    let accountId = null;
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const acctName = attempt === 0 ? baseName : `${baseName} (${attempt + 1})`;
+      try {
+        const created = await pave({
+          createAccount: {
+            $: { organizationId: ORG_ID, name: acctName, type: "customer", customFieldValues: customerFields },
+            createdAccount: { id: {} },
+          },
+        });
+        accountId = created.createAccount.createdAccount.id;
+        break;
+      } catch (err) {
+        if (!/already exists/i.test(err.message)) throw err;
       }
-      return { statusCode: 200, body: JSON.stringify({ ok: true, result: "updated-existing", accountId: existing.id }) };
     }
-
-    // New customer
-    const acctName = lastname ? `${lastname} Household` : `${firstname} Household`;
-    const created = await pave({
-      createAccount: {
-        $: { organizationId: ORG_ID, name: acctName, type: "customer", customFieldValues: customerFields },
-        createdAccount: { id: {} },
-      },
-    });
-    const accountId = created.createAccount.createdAccount.id;
+    if (!accountId) throw new Error("could not create customer after name retries");
 
     const contactCfv = {};
     if (email) contactCfv[CF.CONTACT_EMAIL] = email;
