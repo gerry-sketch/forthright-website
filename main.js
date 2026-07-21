@@ -1,3 +1,15 @@
+// Ad click-ID attribution capture (gclid/fbclid/msclkid) -> sessionStorage,
+// read at form submit and pushed into JobTread's Attribution field. Last click wins.
+(function(){
+  try{
+    var p = new URLSearchParams(window.location.search);
+    ['gclid','fbclid','msclkid'].forEach(function(k){
+      var v = p.get(k);
+      if (v) sessionStorage.setItem('ft_attribution', k + '=' + v);
+    });
+  }catch(e){}
+})();
+
 // main.js — Forthright Construction v2
 
 // NAV scroll shadow
