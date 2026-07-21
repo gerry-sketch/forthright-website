@@ -99,7 +99,7 @@ exports.handler = async (event) => {
     [CF.HOME_SIZE]: p.homeSize || "",
     [CF.TIMELINE]: p.timeline || "",
     [CF.ESTIMATE_RANGE]: p.estimateRange || "",
-    [CF.SMS_CONSENT]: p.smsConsent ? "Yes" : "No",
+    ...(p.smsConsent !== undefined && { [CF.SMS_CONSENT]: p.smsConsent ? "Yes" : "No" }),
     [CF.TELL_US]: p.note || "",
     [CF.ATTRIBUTION]: p.attribution || "",
   };
