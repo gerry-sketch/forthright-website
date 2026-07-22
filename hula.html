@@ -641,8 +641,7 @@ function initPlaces(){
         f('projectType') ? 'Project type: ' + f('projectType') : '',
         f('howHeard') ? 'How they heard: ' + f('howHeard') : '',
         f('message').trim()
-      ].filter(Boolean).join('
-')
+      ].filter(Boolean).join('\n')
     };
   }
 
