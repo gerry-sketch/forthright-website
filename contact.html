@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 /* ── All inputs / selects / textareas ── */
-.jtwf input:not([type="checkbox"]):not([type="file"]),
+.jtwf input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
 .jtwf select,
 .jtwf textarea{
   font-family:var(--font-body) !important;
@@ -78,7 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   /* remove JT ring */
   --tw-ring-shadow:none !important;
 }
-.jtwf input:not([type="checkbox"]):not([type="file"]):focus,
+.jtwf input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
 .jtwf select:focus,
 .jtwf textarea:focus{
   border-color:var(--cobalt) !important;
@@ -104,8 +104,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   overflow:hidden !important;
 }
 
-/* ── Checkbox list ── */
-.jtwf .divide-y>label{
+/* ── Radio / Checkbox option rows ── */
+.jtwf .divide-y>label,
+.jtwf .divide-y label{
   display:flex !important;
   flex-direction:row !important;
   align-items:center !important;
@@ -114,20 +115,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   font-family:var(--font-body) !important;
   font-size:14px !important;
   color:var(--charcoal) !important;
+  cursor:pointer !important;
 }
-.jtwf .divide-y>label input[type="checkbox"]{
+.jtwf .divide-y>label input[type="checkbox"],
+.jtwf .divide-y>label input[type="radio"],
+.jtwf .divide-y label input[type="checkbox"],
+.jtwf .divide-y label input[type="radio"]{
   width:17px !important;
   height:17px !important;
   min-width:17px !important;
   margin:0 !important;
   flex-shrink:0 !important;
 }
-.jtwf .divide-y>label .grow{
+.jtwf .divide-y>label .grow,
+.jtwf .divide-y label .grow{
   display:block !important;
   line-height:1.3 !important;
 }
-.jtwf .divide-y>label:hover{background:#E8EEFA !important}
-.jtwf input[type="checkbox"]{accent-color:var(--cobalt)}
+.jtwf .divide-y>label:hover,
+.jtwf .divide-y label:hover{background:#E8EEFA !important}
+.jtwf input[type="checkbox"],
+.jtwf input[type="radio"]{accent-color:var(--cobalt)}
 
 /* ── File input ── */
 .jtwf input[type="file"]{
@@ -172,23 +180,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .jtwf select,
   .jtwf textarea{font-size:16px !important}
   .jtwf .font-bold{font-size:13px !important;letter-spacing:1.5px !important}
-  .jtwf .divide-y>label{font-size:15px !important;padding:11px 10px !important}
+  .jtwf .divide-y>label,
+  .jtwf .divide-y label{font-size:15px !important;padding:11px 10px !important}
 
-  /* Fix checkbox alignment on mobile */
-  .jtwf .divide-y>label{
+  .jtwf .divide-y>label,
+  .jtwf .divide-y label{
     display:flex !important;
     flex-direction:row !important;
     align-items:center !important;
     gap:10px !important;
   }
-  .jtwf .divide-y>label input[type="checkbox"]{
+  .jtwf .divide-y>label input[type="checkbox"],
+  .jtwf .divide-y>label input[type="radio"],
+  .jtwf .divide-y label input[type="checkbox"],
+  .jtwf .divide-y label input[type="radio"]{
     width:18px !important;
     height:18px !important;
     min-width:18px !important;
     margin:0 !important;
     flex-shrink:0 !important;
   }
-  .jtwf .divide-y>label .grow{
+  .jtwf .divide-y>label .grow,
+  .jtwf .divide-y label .grow{
     display:block !important;
     line-height:1.3 !important;
   }
