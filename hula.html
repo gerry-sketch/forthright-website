@@ -636,9 +636,12 @@ function initPlaces(){
       phone: f('phone').trim(),
       address: addressVal,
       timeline: f('timeframe'),
+      projectType: f('projectType'),
+      howHeard: f('howHeard'),
       attribution: (function(){try{return sessionStorage.getItem('ft_attribution')||''}catch(e){return ''}})(),
       note: ['Hula member offer landing page lead.',
         f('projectType') ? 'Project type: ' + f('projectType') : '',
+        f('timeframe') ? 'When to start: ' + f('timeframe') : '',
         f('howHeard') ? 'How they heard: ' + f('howHeard') : '',
         f('message').trim()
       ].filter(Boolean).join('\n')

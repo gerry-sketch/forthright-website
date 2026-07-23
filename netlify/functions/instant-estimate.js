@@ -1,25 +1,48 @@
-// Instant Estimate -> JobTread
-// Creates a JobTread customer (account + contact + location + custom fields)
-// from the roofing estimate tool. Dedupes by email/phone so repeat submitters
-// update their existing customer instead of creating a duplicate.
+// Website forms -> JobTread
+// Creates a JobTread customer (account + contact + location) AND a job from
+// the instant estimate tool and the beat-any-estimate / hula landing pages.
+// Per Carl (7/22, after JobTread's CRM recommendations): jobs are created on
+// every form fill, with project answers mapped to job-level custom fields.
 
 const ORG_ID = "22PWNQm4MwfM";
 const PAVE_URL = "https://api.jobtread.com/pave";
 
-// JobTread custom field IDs (targetType: customer unless noted)
+// JobTread custom field IDs
 const CF = {
   CONTACT_EMAIL: "22PWNRRPMVk4", // customerContact
   CONTACT_PHONE: "22PWNRRPPj9m", // customerContact
-  TELL_US: "22PbFDfMUfzU",
-  HOME_TYPE: "22PbJEtVzgn3",
-  ROOF_MATERIAL: "22PbJEtX5gy3",
-  HOME_SIZE: "22PbJEtY8BZQ",
-  TIMELINE: "22PbJEtZ9tM5",
-  ESTIMATE_RANGE: "22PbJEtaHNyE",
-  SMS_CONSENT: "22PbJEtbLhJQ",
-  ATTRIBUTION: "22PbJMZYZU3t",
-  TRADE: "22PX99X2teAh",
+  LEAD_SOURCE: "22PWNRRPJWZZ", // customer
+  SMS_CONSENT: "22PbJEtbLhJQ", // customer
+  ATTRIBUTION: "22PbJMZYZU3t", // customer
+  JOB_STATUS: "22PWNRRPQrqe", // job
+  JOB_TRADE: "22PbMPk2X4Uu", // job
+  JOB_DETAILS: "22PbMQCpVRmv", // job (Project Details)
+  JOB_SUBTRADE: "22Pb5DsDSgq9", // job (Subtrade Type)
 };
+
+// Dropdown custom fields reject values that aren't configured options, so map
+// form values onto the live option lists and omit anything that doesn't match.
+const TRADE_MAP = {
+  Roofing: "Roofing",
+  Siding: "Siding",
+  Deck: "Decks",
+  Decks: "Decks",
+  Gutters: "Other",
+  Other: "Other",
+};
+const LEAD_SOURCE_MAP = {
+  "Google Search": "Google",
+  Referral: "Referral",
+};
+const SUBTRADE_MAP = {
+  "Architectural Shingles": "Asphalt Roof Replacement",
+  "Standing Seam Metal": "Standing Seam Roof Replacement",
+};
+// Subtrade Type is a REQUIRED job field but only the instant estimate (roof
+// material) and a Deck project type give us an honest value. Anything else
+// gets no subtrade guess; if JobTread then rejects the job, we fall back to
+// customer-only rather than fabricating data or losing the lead.
+const SUBTRADE_BY_PROJECT = { Deck: "Deck", Decks: "Deck" };
 
 async function pave(query) {
   const grantKey = process.env.JOBTREAD_GRANT;
@@ -53,21 +76,22 @@ exports.handler = async (event) => {
   }
 
   const fullAddress = [p.address, p.city, p.state, p.zip].filter(Boolean).join(", ");
-  const streetLine = (p.address || "").split(",")[0].trim().slice(0, 30) || "Home";
+  const streetLine = (p.address || "").split(",")[0].trim().slice(0, 30);
 
   const customerFields = {
-    [CF.HOME_TYPE]: p.homeType || "",
-    [CF.ROOF_MATERIAL]: p.roofMaterial || "",
-    [CF.HOME_SIZE]: p.homeSize || "",
-    [CF.TIMELINE]: p.timeline || "",
-    [CF.ESTIMATE_RANGE]: p.estimateRange || "",
+    [CF.LEAD_SOURCE]: LEAD_SOURCE_MAP[p.howHeard] || "",
     ...(p.smsConsent !== undefined && { [CF.SMS_CONSENT]: p.smsConsent ? "Yes" : "No" }),
-    [CF.TELL_US]: p.note || "",
     [CF.ATTRIBUTION]: p.attribution || "",
-    [CF.TRADE]: p.trade || "",
   };
-  // drop empties so we never blank an existing value on dedup-update
   for (const k of Object.keys(customerFields)) if (!customerFields[k]) delete customerFields[k];
+
+  const jobFields = {
+    [CF.JOB_STATUS]: "New Lead",
+    [CF.JOB_TRADE]: TRADE_MAP[p.trade || p.projectType] || "",
+    [CF.JOB_DETAILS]: p.note || "",
+    [CF.JOB_SUBTRADE]: SUBTRADE_MAP[p.roofMaterial] || SUBTRADE_BY_PROJECT[p.projectType] || "",
+  };
+  for (const k of Object.keys(jobFields)) if (!jobFields[k]) delete jobFields[k];
 
   try {
     // Per Carl (7/21): always create a new customer (no dedup), named "Firstname Lastname".
@@ -80,7 +104,7 @@ exports.handler = async (event) => {
       try {
         const created = await pave({
           createAccount: {
-            $: { organizationId: ORG_ID, name: acctName, type: "customer", customFieldValues: customerFields },
+            $: { organizationId: ORG_ID, name: acctName, type: "customer", ...(Object.keys(customerFields).length && { customFieldValues: customerFields }) },
             createdAccount: { id: {} },
           },
         });
@@ -102,11 +126,33 @@ exports.handler = async (event) => {
       },
     });
 
-    if (fullAddress) {
-      await pave({ createLocation: { $: { accountId, address: fullAddress, name: streetLine }, createdLocation: { id: {} } } });
+    // Job creation needs a location, so create one even when no address was
+    // given rather than dropping the job.
+    const loc = await pave({
+      createLocation: {
+        $: { accountId, address: fullAddress || "Address not provided", name: streetLine || "Home" },
+        createdLocation: { id: {} },
+      },
+    });
+    const locationId = loc.createLocation.createdLocation.id;
+
+    let jobId = null;
+    try {
+      const job = await pave({
+        createJob: {
+          $: { locationId, name: streetLine || baseName, ...(Object.keys(jobFields).length && { customFieldValues: jobFields }) },
+          createdJob: { id: {} },
+        },
+      });
+      jobId = job.createJob.createdJob.id;
+    } catch (err) {
+      // Job-level required fields (Trade / Subtrade Type) can be unsatisfiable
+      // for forms that don't collect them. The customer is already in
+      // JobTread at this point — keep the lead, skip the job.
+      console.error("instant-estimate: job creation skipped:", err.message);
     }
 
-    return { statusCode: 200, body: JSON.stringify({ ok: true, result: "created", accountId }) };
+    return { statusCode: 200, body: JSON.stringify({ ok: true, result: "created", accountId, jobId }) };
   } catch (err) {
     console.error("instant-estimate error:", err.message);
     return { statusCode: 502, body: JSON.stringify({ ok: false, error: "jobtread-push-failed" }) };
