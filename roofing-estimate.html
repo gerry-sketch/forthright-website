@@ -815,8 +815,9 @@ async function submitForm(){
   ].join('\n');
 
   // Submit to JobTread (via Netlify function)
+  var submitOk = false;
   try{
-    await fetch('/.netlify/functions/instant-estimate',{
+    const jtRes = await fetch('/.netlify/functions/instant-estimate',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
@@ -839,7 +840,8 @@ async function submitForm(){
         note:estimateNote
       })
     });
-  }catch(e){}
+    submitOk = jtRes.ok;
+  }catch(e){ submitOk = false; }
 
   // Populate success screen
   // name display removed
@@ -864,9 +866,13 @@ async function submitForm(){
   document.getElementById('prog-num').textContent='✓';
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('p-success').classList.add('active');
-  // Google Ads conversion - Instant Estimate
+  // Conversion - only on confirmed submit
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({'event': 'instant_estimate_complete'});
+  if(submitOk){
+    window.dataLayer.push({'event': 'instant_estimate_complete'});
+  }else{
+    window.dataLayer.push({'event':'form_submit_error','form_id':'instant_estimate','status':'submit_failed'});
+  }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 

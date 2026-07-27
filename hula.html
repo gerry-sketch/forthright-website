@@ -670,21 +670,20 @@ function initPlaces(){
         body: JSON.stringify(fieldsFromForm(formEl, addressFullId))
       })
       .then(function(r){
+        window.dataLayer = window.dataLayer || [];
         if(!r.ok){
-          window.dataLayer = window.dataLayer || [];
           window.dataLayer.push({'event':'form_submit_error','form_id':formId,'status':r.status});
+        } else {
+          window.dataLayer.push({'event':'hula_form_complete'});
         }
         formEl.style.display = 'none';
         document.getElementById(successId).style.display = 'block';
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({'event':'hula_form_complete'});
       })
       .catch(function(){
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({'event':'form_submit_error','form_id':formId,'status':'network_error'});
         formEl.style.display = 'none';
         document.getElementById(successId).style.display = 'block';
-        window.dataLayer.push({'event':'hula_form_complete'});
       })
       .finally(function(){
         btn.textContent = origText; btn.disabled = false;
