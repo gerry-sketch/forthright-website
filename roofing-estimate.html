@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
 <title>Online Roofing Estimate | Instant Pricing Calculator | Vermont</title>
-<meta name="description" content="Get an instant online roofing estimate for your Vermont home. Asphalt shingle or standing seam metal pricing in under 2 minutes. No signup required.">>
+<meta name="description" content="Get an instant online roofing estimate for your Vermont home. Asphalt shingle or standing seam metal pricing in under 2 minutes. No signup required.">
 <link rel="canonical" href="https://forthrightvt.com/roofing-estimate.html">
 <script type="application/ld+json">
 {
@@ -816,11 +816,7 @@ async function submitForm(){
 
   // Submit to JobTread (via Netlify function)
   var submitOk = false;
-  try{
-    const jtRes = await fetch('/.netlify/functions/instant-estimate',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
+  window.__jtPayload = {
         firstname:fname,
         lastname:lname,
         email:email,
@@ -838,7 +834,12 @@ async function submitForm(){
         trade:'Roofing',
         attribution:(function(){try{return sessionStorage.getItem('ft_attribution')||''}catch(e){return ''}})(),
         note:estimateNote
-      })
+  };
+  try{
+    const jtRes = await fetch('/.netlify/functions/instant-estimate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(window.__jtPayload)
     });
     submitOk = jtRes.ok;
   }catch(e){ submitOk = false; }
@@ -872,8 +873,45 @@ async function submitForm(){
     window.dataLayer.push({'event': 'instant_estimate_complete'});
   }else{
     window.dataLayer.push({'event':'form_submit_error','form_id':'instant_estimate','status':'submit_failed'});
+    showEstSubmitError();
   }
   window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// The estimate is computed client-side, so the visitor still gets it even when
+// the backend push fails — but never pretend the request reached us. Surface a
+// visible error on the success panel with a retry that re-sends the same payload.
+function showEstSubmitError(){
+  var panel=document.getElementById('p-success');
+  if(!panel)return;
+  var box=document.getElementById('est-submit-error');
+  if(!box){
+    box=document.createElement('div');
+    box.id='est-submit-error';
+    box.setAttribute('role','alert');
+    box.style.cssText='margin:0 0 18px;padding:14px 16px;border:1px solid #E24B4A;border-left:4px solid #E24B4A;background:#FDECEA;color:#8A1F1A;font-size:15px;line-height:1.5';
+    box.innerHTML='Your estimate is shown below, but we couldn\'t send your request to our team. '+
+      '<button id="est-retry-btn" style="margin:0 4px;padding:6px 14px;border:none;background:#8A1F1A;color:#fff;border-radius:4px;cursor:pointer;font-size:14px">Try again</button> '+
+      'or reach us directly at <a href="tel:8028481848" style="color:#8A1F1A;font-weight:600">802-848-1848</a> / <a href="mailto:gerry@forthrightvt.com" style="color:#8A1F1A;font-weight:600">gerry@forthrightvt.com</a>.';
+    panel.insertBefore(box,panel.firstChild);
+    document.getElementById('est-retry-btn').addEventListener('click',async function(){
+      var b=this;b.textContent='Sending...';b.disabled=true;
+      var ok=false;
+      try{
+        var r=await fetch('/.netlify/functions/instant-estimate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(window.__jtPayload)});
+        ok=r.ok;
+      }catch(e){}
+      if(ok){
+        box.style.cssText='margin:0 0 18px;padding:14px 16px;border:1px solid #3C763D;border-left:4px solid #3C763D;background:#EAF6EA;color:#2B542C;font-size:15px;line-height:1.5';
+        box.textContent='Got it — your request is in. We\'ll be in touch within one business day.';
+        window.dataLayer=window.dataLayer||[];
+        window.dataLayer.push({'event':'instant_estimate_complete'});
+      }else{
+        b.textContent='Try again';b.disabled=false;
+      }
+    });
+  }
+  box.style.display='block';
 }
 
 function showEstFieldError(inputEl, msg) {

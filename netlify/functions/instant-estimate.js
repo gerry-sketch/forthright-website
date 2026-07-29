@@ -62,6 +62,27 @@ async function pave(query) {
   return body;
 }
 
+// JobTread custom fields get deleted/renamed without notice (3 breaks in 8
+// days as of 2026-07-29), and a single dead field ID in a create call used to
+// destroy the whole lead. When Pave rejects a call naming a field it can't
+// find (or a value that's no longer a valid option), drop that field and
+// retry with the rest.
+const DEAD_FIELD_RE = /Could not find custom field with ID or name "([^"]+)"/;
+async function paveDroppingDeadFields(buildQuery, fields) {
+  const cfv = { ...fields };
+  for (let i = 0; i <= Object.keys(fields).length; i++) {
+    try {
+      return await pave(buildQuery(cfv));
+    } catch (err) {
+      const m = err.message.match(DEAD_FIELD_RE);
+      if (!m || !(m[1] in cfv)) throw err;
+      console.error(`instant-estimate: dropping dead custom field ${m[1]} and retrying`);
+      delete cfv[m[1]];
+    }
+  }
+  throw new Error("dead-field retries exhausted");
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -104,12 +125,22 @@ exports.handler = async (event) => {
     for (let attempt = 0; attempt < 6; attempt++) {
       const acctName = attempt === 0 ? baseName : `${baseName} (${attempt + 1})`;
       try {
-        const created = await pave({
+        const buildCreate = (cfv) => ({
           createAccount: {
-            $: { organizationId: ORG_ID, name: acctName, type: "customer", ...(Object.keys(customerFields).length && { customFieldValues: customerFields }) },
+            $: { organizationId: ORG_ID, name: acctName, type: "customer", ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
             createdAccount: { id: {} },
           },
         });
+        let created;
+        try {
+          created = await paveDroppingDeadFields(buildCreate, customerFields);
+        } catch (err) {
+          // Last resort: a customer with core contact data only still beats a
+          // destroyed lead. (Not for name collisions — those need a new name.)
+          if (/already exists/i.test(err.message)) throw err;
+          console.error("instant-estimate: createAccount failed with custom fields, retrying bare:", err.message.slice(0, 200));
+          created = await pave(buildCreate({}));
+        }
         accountId = created.createAccount.createdAccount.id;
         break;
       } catch (err) {
@@ -121,12 +152,12 @@ exports.handler = async (event) => {
     const contactCfv = {};
     if (email) contactCfv[CF.CONTACT_EMAIL] = email;
     if (phone) contactCfv[CF.CONTACT_PHONE] = phone;
-    await pave({
+    await paveDroppingDeadFields((cfv) => ({
       createContact: {
-        $: { accountId, name: [firstname, lastname].filter(Boolean).join(" "), ...(Object.keys(contactCfv).length && { customFieldValues: contactCfv }) },
+        $: { accountId, name: [firstname, lastname].filter(Boolean).join(" "), ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
         createdContact: { id: {} },
       },
-    });
+    }), contactCfv);
 
     // Job creation needs a location, so create one even when no address was
     // given rather than dropping the job.
@@ -140,12 +171,12 @@ exports.handler = async (event) => {
 
     let jobId = null;
     try {
-      const job = await pave({
+      const job = await paveDroppingDeadFields((cfv) => ({
         createJob: {
-          $: { locationId, name: streetLine || baseName, ...(Object.keys(jobFields).length && { customFieldValues: jobFields }) },
+          $: { locationId, name: streetLine || baseName, ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
           createdJob: { id: {} },
         },
-      });
+      }), jobFields);
       jobId = job.createJob.createdJob.id;
     } catch (err) {
       // Job-level required fields (Trade / Subtrade Type) can be unsatisfiable
