@@ -12,7 +12,10 @@ const CF = {
   CONTACT_EMAIL: "22PWNRRPMVk4", // customerContact
   CONTACT_PHONE: "22PWNRRPPj9m", // customerContact
   LEAD_SOURCE: "22PWNRRPJWZZ", // customer
-  SMS_CONSENT: "22PbJEtbLhJQ", // customer
+  // SMS_CONSENT (was 22PbJEtbLhJQ) removed 2026-07-29: the field was deleted
+  // in JobTread, which made createAccount 400 and destroy every instant
+  // estimate lead. SMS consent still reaches JobTread inside the note ->
+  // Project Details. Only restore with a verified live field ID.
   ATTRIBUTION: "22PbJMZYZU3t", // customer
   JOB_STATUS: "22PWNRRPQrqe", // job
   JOB_TRADE: "22PbMPk2X4Uu", // job
@@ -80,7 +83,6 @@ exports.handler = async (event) => {
 
   const customerFields = {
     [CF.LEAD_SOURCE]: LEAD_SOURCE_MAP[p.howHeard] || "",
-    ...(p.smsConsent !== undefined && { [CF.SMS_CONSENT]: p.smsConsent ? "Yes" : "No" }),
     [CF.ATTRIBUTION]: p.attribution || "",
   };
   for (const k of Object.keys(customerFields)) if (!customerFields[k]) delete customerFields[k];
