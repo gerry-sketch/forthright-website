@@ -37,14 +37,21 @@ const LEAD_SOURCE_MAP = {
   "Google Search": "Google",
   Referral: "Referral",
 };
+// Verified against JobTread Settings > Custom Fields > Subtrade Type on
+// 2026-08-03. Full live option list:
+//   Asphalt Roofing, Standing Seam Roofing, EPDM Roofing, Vinyl Siding,
+//   LP Siding, Hardie Siding, Window/Door Replacement, Deck,
+//   Construction/Addition, Maintenance / Repair
+// The previous values ("Asphalt Roof Replacement" / "Standing Seam Roof
+// Replacement") were never valid options, so JobTread rejected createJob and
+// every instant estimate landed as a customer with no job.
 const SUBTRADE_MAP = {
-  "Architectural Shingles": "Asphalt Roof Replacement",
-  "Standing Seam Metal": "Standing Seam Roof Replacement",
+  "Architectural Shingles": "Asphalt Roofing",
+  "Standing Seam Metal": "Standing Seam Roofing",
 };
-// Subtrade Type is a REQUIRED job field but only the instant estimate (roof
-// material) and a Deck project type give us an honest value. Anything else
-// gets no subtrade guess; if JobTread then rejects the job, we fall back to
-// customer-only rather than fabricating data or losing the lead.
+// Subtrade Type is NOT required in JobTread ("Require a value" is off), so
+// omitting it is always safe. Only set it where the form gives an honest
+// answer; never guess.
 const SUBTRADE_BY_PROJECT = { Deck: "Deck", Decks: "Deck" };
 
 async function pave(query) {
@@ -68,19 +75,38 @@ async function pave(query) {
 // find (or a value that's no longer a valid option), drop that field and
 // retry with the rest.
 const DEAD_FIELD_RE = /Could not find custom field with ID or name "([^"]+)"/;
+// JobTread also rejects dropdown values that aren't configured options. This
+// killed every asphalt-shingle job from the instant estimate until 8/3, because
+// the message wording differs from the missing-field one above and fell through
+// to the job-skip catch.
+const BAD_OPTION_RE = /"([^"]+)" is not a valid option for the "([^"]+)" custom field/;
 async function paveDroppingDeadFields(buildQuery, fields) {
   const cfv = { ...fields };
   for (let i = 0; i <= Object.keys(fields).length; i++) {
     try {
       return await pave(buildQuery(cfv));
     } catch (err) {
-      const m = err.message.match(DEAD_FIELD_RE);
-      if (!m || !(m[1] in cfv)) throw err;
-      console.error(`instant-estimate: dropping dead custom field ${m[1]} and retrying`);
-      delete cfv[m[1]];
+      const dead = err.message.match(DEAD_FIELD_RE);
+      if (dead && dead[1] in cfv) {
+        console.error(`instant-estimate: dropping dead custom field ${dead[1]} and retrying`);
+        delete cfv[dead[1]];
+        continue;
+      }
+      // The error names the rejected VALUE and the field's DISPLAY name, not
+      // the field ID, so match on the value to work out which key to drop.
+      const bad = err.message.match(BAD_OPTION_RE);
+      if (bad) {
+        const key = Object.keys(cfv).find((k) => cfv[k] === bad[1]);
+        if (key) {
+          console.error(`instant-estimate: dropping invalid option "${bad[1]}" for field "${bad[2]}" (${key}) and retrying`);
+          delete cfv[key];
+          continue;
+        }
+      }
+      throw err;
     }
   }
-  throw new Error("dead-field retries exhausted");
+  throw new Error("custom field retries exhausted");
 }
 
 exports.handler = async (event) => {
