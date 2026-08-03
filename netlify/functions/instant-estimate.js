@@ -140,7 +140,7 @@ exports.handler = async (event) => {
     [CF.JOB_TRADE]: TRADE_MAP[p.trade || p.projectType] || "",
     [CF.JOB_DETAILS]: p.note || "",
     [CF.JOB_SUBTRADE]: SUBTRADE_MAP[p.roofMaterial] || SUBTRADE_BY_PROJECT[p.projectType] || "",
-    [CF.JOB_SALES_REP]: "Gerry Howatt",
+    [CF.JOB_SALES_REP]: "Carl Grumbine",
   };
   for (const k of Object.keys(jobFields)) if (!jobFields[k]) delete jobFields[k];
 
