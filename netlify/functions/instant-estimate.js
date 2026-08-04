@@ -22,6 +22,7 @@ const CF = {
   JOB_DETAILS: "22PbMQCpVRmv", // job (Project Details)
   JOB_SUBTRADE: "22Pb5DsDSgq9", // job (Subtrade Type)
   JOB_SALES_REP: "22PbFE4kMzTE", // job (Sales Rep, required picklist)
+  JOB_TYPE: "22PbMQ8G6wMy", // job (Job Type picklist: Residential/Commercial/Property Management)
 };
 
 // Dropdown custom fields reject values that aren't configured options, so map
@@ -141,6 +142,7 @@ exports.handler = async (event) => {
     [CF.JOB_DETAILS]: p.note || "",
     [CF.JOB_SUBTRADE]: SUBTRADE_MAP[p.roofMaterial] || SUBTRADE_BY_PROJECT[p.projectType] || "",
     [CF.JOB_SALES_REP]: "Carl Grumbine",
+    [CF.JOB_TYPE]: "Residential",
   };
   for (const k of Object.keys(jobFields)) if (!jobFields[k]) delete jobFields[k];
 
