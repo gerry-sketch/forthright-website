@@ -42,9 +42,9 @@ const LEAD_SOURCE_MAP = {
   Referral: "Referral",
 };
 // Job-level Lead Source has its own option list (Google, Social Media,
-// Front Porch Forum, Trucks/Signs, Event, Referral, Other). An explicit
-// how-did-you-hear answer wins; otherwise infer from the attribution string's
-// click ID / UTM source.
+// Front Porch Forum, Trucks/Signs, Event, Referral, Other). Per Carl (8/4):
+// Lead Source is the customer's own how-did-you-hear answer ONLY — the
+// technical click ID belongs in Attribution, never inferred into Lead Source.
 const JOB_LEAD_SOURCE_MAP = {
   "Google Search": "Google",
   Referral: "Referral",
@@ -53,13 +53,7 @@ const JOB_LEAD_SOURCE_MAP = {
   Other: "Other",
 };
 function jobLeadSource(p) {
-  const mapped = JOB_LEAD_SOURCE_MAP[p.howHeard];
-  if (mapped) return mapped;
-  const attr = p.attribution || "";
-  if (/gclid=/.test(attr)) return "Google";
-  if (/fbclid=/.test(attr)) return "Social Media";
-  if (/frontporchforum|front[ +]?porch[ +]?fou?rum/i.test(attr)) return "Front Porch Forum";
-  return "";
+  return JOB_LEAD_SOURCE_MAP[p.howHeard] || "";
 }
 // Verified against JobTread Settings > Custom Fields > Subtrade Type on
 // 2026-08-03. Full live option list:
