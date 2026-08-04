@@ -6,6 +6,45 @@
 
 const ORG_ID = "22PWNQm4MwfM";
 const PAVE_URL = "https://api.jobtread.com/pave";
+// Per Carl (8/4): every form fill also appends a row to the backup Google
+// Sheet ("Forthright Website Leads - Backup") via an Apps Script webhook,
+// independent of JobTread, so a lead is always recoverable even when the
+// CRM push breaks. Fire-and-forget: a webhook failure must never block or
+// fail the lead.
+const SHEET_WEBHOOK =
+  process.env.SHEET_WEBHOOK_URL ||
+  "https://script.google.com/macros/s/AKfycbzugtzFawSWelo3-uDHsYYrWfSPOrIlJxv09inPh-dmOBGhGVrAR3yH5dWrSsgbXJOFRg/exec";
+
+function formName(note) {
+  const n = note || "";
+  if (n.startsWith("Source: Roofing Estimate Tool")) return "Instant Estimate";
+  if (n.startsWith("Beat-Any-Estimate")) return "5% Off";
+  if (n.startsWith("Hula")) return "HULA";
+  return "Website";
+}
+
+async function backupToSheet(p, fullAddress) {
+  try {
+    await fetch(SHEET_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      redirect: "manual", // Apps Script 302s after executing; no need to follow
+      signal: AbortSignal.timeout(4000),
+      body: JSON.stringify({
+        form: formName(p.note),
+        firstname: p.firstname || "",
+        lastname: p.lastname || "",
+        email: p.email || "",
+        phone: p.phone || "",
+        address: fullAddress,
+        howHeard: p.howHeard || "",
+        attribution: p.attribution || "",
+      }),
+    });
+  } catch (err) {
+    console.error("instant-estimate: sheet backup failed:", err.message);
+  }
+}
 
 // JobTread custom field IDs
 const CF = {
@@ -145,6 +184,9 @@ exports.handler = async (event) => {
 
   const fullAddress = [p.address, p.city, p.state, p.zip].filter(Boolean).join(", ");
   const streetLine = (p.address || "").split(",")[0].trim().slice(0, 30);
+
+  // Backup first, so the sheet catches the lead even if JobTread rejects it.
+  await backupToSheet(p, fullAddress);
 
   const customerFields = {
     [CF.LEAD_SOURCE]: LEAD_SOURCE_MAP[p.howHeard] || "",
