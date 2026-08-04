@@ -23,6 +23,8 @@ const CF = {
   JOB_SUBTRADE: "22Pb5DsDSgq9", // job (Subtrade Type)
   JOB_SALES_REP: "22PbFE4kMzTE", // job (Sales Rep, required picklist)
   JOB_TYPE: "22PbMQ8G6wMy", // job (Job Type picklist: Residential/Commercial/Property Management)
+  JOB_LEAD_SOURCE: "22PbsL2APXu5", // job (Lead Source picklist)
+  JOB_ATTRIBUTION: "22PbsQTCbbmz", // job (Attribution, free text)
 };
 
 // Dropdown custom fields reject values that aren't configured options, so map
@@ -39,6 +41,26 @@ const LEAD_SOURCE_MAP = {
   "Google Search": "Google",
   Referral: "Referral",
 };
+// Job-level Lead Source has its own option list (Google, Social Media,
+// Front Porch Forum, Trucks/Signs, Event, Referral, Other). An explicit
+// how-did-you-hear answer wins; otherwise infer from the attribution string's
+// click ID / UTM source.
+const JOB_LEAD_SOURCE_MAP = {
+  "Google Search": "Google",
+  Referral: "Referral",
+  Radio: "Other",
+  HULA: "Other",
+  Other: "Other",
+};
+function jobLeadSource(p) {
+  const mapped = JOB_LEAD_SOURCE_MAP[p.howHeard];
+  if (mapped) return mapped;
+  const attr = p.attribution || "";
+  if (/gclid=/.test(attr)) return "Google";
+  if (/fbclid=/.test(attr)) return "Social Media";
+  if (/frontporchforum|front[ +]?porch[ +]?fou?rum/i.test(attr)) return "Front Porch Forum";
+  return "";
+}
 // Verified against JobTread Settings > Custom Fields > Subtrade Type on
 // 2026-08-03. Full live option list:
 //   Asphalt Roofing, Standing Seam Roofing, EPDM Roofing, Vinyl Siding,
@@ -143,6 +165,8 @@ exports.handler = async (event) => {
     [CF.JOB_SUBTRADE]: SUBTRADE_MAP[p.roofMaterial] || SUBTRADE_BY_PROJECT[p.projectType] || "",
     [CF.JOB_SALES_REP]: "Carl Grumbine",
     [CF.JOB_TYPE]: "Residential",
+    [CF.JOB_LEAD_SOURCE]: jobLeadSource(p),
+    [CF.JOB_ATTRIBUTION]: p.attribution || "",
   };
   for (const k of Object.keys(jobFields)) if (!jobFields[k]) delete jobFields[k];
 
