@@ -341,6 +341,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }catch(e){}
 })();
 </script>
+<script>
+(function(){
+  try{
+    if(!sessionStorage.getItem('ft_lead_id')){
+      var id = (window.crypto && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : 'ft-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);
+      sessionStorage.setItem('ft_lead_id', id);
+    }
+  }catch(e){}
+})();
+</script>
 <script async src="https://app.jobtread.com/web-form.js"></script>
 
 <footer class="footer" aria-label="Site footer">
