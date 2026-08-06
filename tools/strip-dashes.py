@@ -37,11 +37,13 @@ RANGE_REPLACEMENT = "-"
 # Spaced ranges inside strings: "$12,000 – $18,000"
 SPACED_RANGE_REPLACEMENT = " to "
 
-# work-with-us.html form <option> values ("Roofing – Shingle", "2–5 years").
-# These strings are submitted with the form, so changing them changes what
-# lands downstream. Leave True only after confirming nothing keys on the
-# exact value.
-FIX_FORM_VALUES = True
+# work-with-us.html form <option> and checkbox values ("Roofing – Shingle",
+# "2–5 years"). These strings are submitted with the form (JS reads cb.value /
+# select.value), so changing them changes what lands downstream. They are kept
+# in their original en-dash form inside the value attribute, while the visible
+# label shows a clean hyphen. Off: the tool leaves this file's values alone and
+# --check treats those en dashes as intentional (see ALLOWED_DASH_LITERALS).
+FIX_FORM_VALUES = False
 
 # styles.css uses content: '—' as a decorative list bullet. Changing it is a
 # design change, not a copy change, so it is off by default.
@@ -56,6 +58,23 @@ LITERAL_OVERRIDES = {
     "Framing \u2013 Wood": "Framing - Wood",
     "Framing \u2013 Metal": "Framing - Metal",
 }
+
+# Form values whose exact strings are consumed downstream (JobTread / the
+# applications spreadsheet). The submitted value keeps the original en dash; the
+# visible label shows a clean hyphen. These are exempt from the --check scan so
+# the checker still catches any *new* stray dash without flagging these.
+ALLOWED_DASH_LITERALS = (
+    'value="Roofing – Shingle"',
+    'value="Roofing – Standing Seam"',
+    'value="Roofing – EPDM Rubber"',
+    'value="Framing – Wood"',
+    'value="Framing – Metal"',
+    'value="2–5 years"',
+    'value="6–10 years"',
+    'value="1–2"',
+    'value="3–5"',
+    'value="6–10"',
+)
 
 INCLUDE_EXT = (".html", ".js", ".css")
 SKIP_DIRS = {".git", "node_modules", "_archive", "_restore", "images"}
@@ -163,6 +182,8 @@ def main():
             text = open(path, encoding="utf-8", errors="replace").read()
             if not FIX_CSS_BULLET:
                 text = CSS_BULLET.sub("", text)
+            for literal in ALLOWED_DASH_LITERALS:
+                text = text.replace(literal, "")
             hits = ANY_DASH.findall(text)
             if hits:
                 remaining.append((path, len(hits)))
