@@ -882,7 +882,7 @@ async function submitForm(){
   // Conversion - only on confirmed submit
   window.dataLayer = window.dataLayer || [];
   if(submitOk){
-    window.dataLayer.push({'event': 'instant_estimate_complete'});
+    window.dataLayer.push({'event': 'instant_estimate_complete','lead_id':(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'ft-'+Date.now()+'-'+Math.random().toString(36).slice(2,10)});
   }else{
     window.dataLayer.push({'event':'form_submit_error','form_id':'instant_estimate','status':'submit_failed'});
     showEstSubmitError();
@@ -917,7 +917,7 @@ function showEstSubmitError(){
         box.style.cssText='margin:0 0 18px;padding:14px 16px;border:1px solid #3C763D;border-left:4px solid #3C763D;background:#EAF6EA;color:#2B542C;font-size:15px;line-height:1.5';
         box.textContent='Got it, your request is in. We\'ll be in touch within one business day.';
         window.dataLayer=window.dataLayer||[];
-        window.dataLayer.push({'event':'instant_estimate_complete'});
+        window.dataLayer.push({'event':'instant_estimate_complete','lead_id':(window.crypto&&crypto.randomUUID)?crypto.randomUUID():'ft-'+Date.now()+'-'+Math.random().toString(36).slice(2,10)});
       }else{
         b.textContent='Try again';b.disabled=false;
       }
