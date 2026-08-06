@@ -82,7 +82,7 @@ const LEAD_SOURCE_MAP = {
 };
 // Job-level Lead Source has its own option list (Google, Social Media,
 // Front Porch Forum, Trucks/Signs, Event, Referral, Other). Per Carl (8/4):
-// Lead Source is the customer's own how-did-you-hear answer ONLY — the
+// Lead Source is the customer's own how-did-you-hear answer ONLY, the
 // technical click ID belongs in Attribution, never inferred into Lead Source.
 const JOB_LEAD_SOURCE_MAP = {
   "Google Search": "Google",
@@ -208,7 +208,7 @@ exports.handler = async (event) => {
 
   try {
     // Per Carl (7/21): always create a new customer (no dedup), named "Firstname Lastname".
-    // JobTread rejects duplicate customer names, so on collision append (2), (3), ... —
+    // JobTread rejects duplicate customer names, so on collision append (2), (3), ...,
     // duplicates stay visible for the team to handle internally, but no lead is ever lost.
     const baseName = [firstname, lastname].filter(Boolean).join(" ") || "Website Lead";
     let accountId = null;
@@ -226,7 +226,7 @@ exports.handler = async (event) => {
           created = await paveDroppingDeadFields(buildCreate, customerFields);
         } catch (err) {
           // Last resort: a customer with core contact data only still beats a
-          // destroyed lead. (Not for name collisions — those need a new name.)
+          // destroyed lead. (Not for name collisions, those need a new name.)
           if (/already exists/i.test(err.message)) throw err;
           console.error("instant-estimate: createAccount failed with custom fields, retrying bare:", err.message.slice(0, 200));
           created = await pave(buildCreate({}));
@@ -271,7 +271,7 @@ exports.handler = async (event) => {
     } catch (err) {
       // Job-level required fields (Trade / Subtrade Type) can be unsatisfiable
       // for forms that don't collect them. The customer is already in
-      // JobTread at this point — keep the lead, skip the job.
+      // JobTread at this point, keep the lead, skip the job.
       console.error("instant-estimate: job creation skipped:", err.message);
     }
 

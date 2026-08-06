@@ -394,19 +394,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="panel-hint">Best estimate is fine - we verify on-site.</p>
     <div class="size-grid" id="size-grid" role="radiogroup">
       <div class="stile" onclick="pickSize('800-1200',this)">
-        <div class="stile-range">800–1,200</div><div class="stile-unit">Sq Ft</div>
+        <div class="stile-range">800-1,200</div><div class="stile-unit">Sq Ft</div>
       </div>
       <div class="stile" onclick="pickSize('1200-1600',this)">
-        <div class="stile-range">1,200–1,600</div><div class="stile-unit">Sq Ft</div>
+        <div class="stile-range">1,200-1,600</div><div class="stile-unit">Sq Ft</div>
       </div>
       <div class="stile" onclick="pickSize('1600-2200',this)">
-        <div class="stile-range">1,600–2,200</div><div class="stile-unit">Sq Ft</div>
+        <div class="stile-range">1,600-2,200</div><div class="stile-unit">Sq Ft</div>
       </div>
       <div class="stile" onclick="pickSize('2200-3000',this)">
-        <div class="stile-range">2,200–3,000</div><div class="stile-unit">Sq Ft</div>
+        <div class="stile-range">2,200-3,000</div><div class="stile-unit">Sq Ft</div>
       </div>
       <div class="stile" onclick="pickSize('3000-4000',this)">
-        <div class="stile-range">3,000–4,000</div><div class="stile-unit">Sq Ft</div>
+        <div class="stile-range">3,000-4,000</div><div class="stile-unit">Sq Ft</div>
       </div>
       <div class="stile" onclick="pickSize('4000+',this)">
         <div class="stile-range">4,000+</div><div class="stile-unit">Sq Ft</div>
@@ -528,7 +528,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="math-row"><span>Your range</span><span id="m-range"> - </span></div>
       </div>
 
-      <div class="disclaimer">Final pricing depends on roof pitch, decking condition, existing layers, and flashing complexity. Tear-off of existing layers adds $50–$100 per square.</div>
+      <div class="disclaimer">Final pricing depends on roof pitch, decking condition, existing layers, and flashing complexity. Tear-off of existing layers adds $50-$100 per square.</div>
 
       <div class="summary-box">
         <h3>Your Project</h3>
@@ -600,11 +600,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 const S={hometype:null,rooftype:null,size:null,timeline:null,smsConsent:null};
 
 const SIZES={
-  '800-1200':  {lo:9,  hi:13, label:'800–1,200 sq ft'},
-  '1200-1600': {lo:12, hi:17, label:'1,200–1,600 sq ft'},
-  '1600-2200': {lo:15, hi:22, label:'1,600–2,200 sq ft'},
-  '2200-3000': {lo:20, hi:28, label:'2,200–3,000 sq ft'},
-  '3000-4000': {lo:26, hi:36, label:'3,000–4,000 sq ft'},
+  '800-1200':  {lo:9,  hi:13, label:'800-1,200 sq ft'},
+  '1200-1600': {lo:12, hi:17, label:'1,200-1,600 sq ft'},
+  '1600-2200': {lo:15, hi:22, label:'1,600-2,200 sq ft'},
+  '2200-3000': {lo:20, hi:28, label:'2,200-3,000 sq ft'},
+  '3000-4000': {lo:26, hi:36, label:'3,000-4,000 sq ft'},
   '4000+':     {lo:32, hi:46, label:'4,000+ sq ft'},
   'not-sure':  {lo:15, hi:25, label:'Unknown'},
 };
@@ -820,8 +820,8 @@ async function submitForm(){
     'Roof material: '+(NAMES[S.rooftype]||S.rooftype),
     'Home size: '+sd.label,
     'Timeline: '+(TL[S.timeline]||S.timeline),
-    'Estimate range: '+fmt(loR)+' – '+fmt(hiR),
-    'Est. squares: '+sd.lo+'–'+sd.hi,
+    'Estimate range: '+fmt(loR)+' to '+fmt(hiR),
+    'Est. squares: '+sd.lo+'-'+sd.hi,
     'SMS consent: '+(S.smsConsent==='yes'?'Yes':'No'),
   ].join('\n');
 
@@ -840,7 +840,7 @@ async function submitForm(){
         roofMaterial:NAMES[S.rooftype]||S.rooftype,
         homeSize:sd.label,
         timeline:TL[S.timeline]||S.timeline,
-        estimateRange:fmt(loR)+' – '+fmt(hiR),
+        estimateRange:fmt(loR)+' to '+fmt(hiR),
         smsConsent:S.smsConsent==='yes',
         trade:'Roofing',
         attribution:(function(){try{return sessionStorage.getItem('ft_attribution')||''}catch(e){return ''}})(),
@@ -857,14 +857,14 @@ async function submitForm(){
 
   // Populate success screen
   // name display removed
-  document.getElementById('est-range').textContent=fmt(loR)+' – '+fmt(hiR);
+  document.getElementById('est-range').textContent=fmt(loR)+' to '+fmt(hiR);
   document.getElementById('m-homesize').textContent=sd.label;
-  document.getElementById('m-squares').textContent=sd.lo+'–'+sd.hi+' squares';
+  document.getElementById('m-squares').textContent=sd.lo+'-'+sd.hi+' squares';
   document.getElementById('m-losq').textContent=sd.lo;
   document.getElementById('m-lo').textContent=fmt(loR);
   document.getElementById('m-hisq').textContent=sd.hi;
   document.getElementById('m-hi').textContent=fmt(hiR);
-  document.getElementById('m-range').textContent=fmt(loR)+' – '+fmt(hiR);
+  document.getElementById('m-range').textContent=fmt(loR)+' to '+fmt(hiR);
   const fullAddr=[addr,city,state,zip].filter(Boolean).join(', ');
   document.getElementById('s-addr').textContent=fullAddr||addr;
   document.getElementById('s-mat').textContent=NAMES[S.rooftype]||S.rooftype;
@@ -890,7 +890,7 @@ async function submitForm(){
 }
 
 // The estimate is computed client-side, so the visitor still gets it even when
-// the backend push fails — but never pretend the request reached us. Surface a
+// the backend push fails, but never pretend the request reached us. Surface a
 // visible error on the success panel with a retry that re-sends the same payload.
 function showEstSubmitError(){
   var panel=document.getElementById('p-success');
@@ -914,7 +914,7 @@ function showEstSubmitError(){
       }catch(e){}
       if(ok){
         box.style.cssText='margin:0 0 18px;padding:14px 16px;border:1px solid #3C763D;border-left:4px solid #3C763D;background:#EAF6EA;color:#2B542C;font-size:15px;line-height:1.5';
-        box.textContent='Got it — your request is in. We\'ll be in touch within one business day.';
+        box.textContent='Got it, your request is in. We\'ll be in touch within one business day.';
         window.dataLayer=window.dataLayer||[];
         window.dataLayer.push({'event':'instant_estimate_complete'});
       }else{

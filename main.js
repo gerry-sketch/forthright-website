@@ -6,7 +6,7 @@
   }catch(e){}
 })();
 
-// main.js — Forthright Construction v2
+// main.js, Forthright Construction v2
 
 // NAV scroll shadow
 const nav = document.getElementById('nav');
@@ -54,7 +54,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.12 });
 document.querySelectorAll('[data-fade]').forEach(el => observer.observe(el));
 
-// Contact form — Google Apps Script submission
+// Contact form, Google Apps Script submission
 const form = document.getElementById('quoteForm');
 if (form) {
   form.addEventListener('submit', async e => {
@@ -72,7 +72,7 @@ if (form) {
       form.style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
     } catch (err) {
-      btn.textContent = 'Something went wrong — please call 802-734-2572';
+      btn.textContent = 'Something went wrong, please call 802-734-2572';
       btn.style.background = '#b94a48';
       btn.disabled = false;
     }
