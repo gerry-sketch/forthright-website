@@ -25,7 +25,7 @@ import sys
 # Set to "- " to keep a visible separator, or "" to drop the dash entirely.
 ATTRIBUTION_PREFIX = "- "
 
-# Footer: "Forthright Construction LLC &mdash; Hinesburg, Vermont"
+# Footer: "Forthright Construction Inc. &mdash; Hinesburg, Vermont"
 FOOTER_SEPARATOR = ", "
 
 # Prose em dash used as punctuation: "into the trades — which means"
@@ -122,7 +122,7 @@ def transform(path, text):
     )
 
     # 2. Footer copyright line.
-    text = re.sub(r"LLC[ \t]*" + DASH + r"[ \t]*Hinesburg", "LLC" + FOOTER_SEPARATOR + "Hinesburg", text)
+    text = re.sub(r"Inc\.[ \t]*" + DASH + r"[ \t]*Hinesburg", "Inc." + FOOTER_SEPARATOR + "Hinesburg", text)
 
     # 3. Spaced ranges inside display strings: "$12,000 – $18,000".
     text = re.sub(r"[ \t]" + DASH + r"[ \t](?=\$|\d|'\+)", SPACED_RANGE_REPLACEMENT, text)
