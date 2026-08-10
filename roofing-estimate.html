@@ -679,6 +679,13 @@ function pickSMS(val,el){
 
 // Listen for HubSpot booking confirmation and show our own branded confirmation
 window.addEventListener('message', function(e) {
+  // Booking conversion event: stricter than the UI condition below, because
+  // hsFormCallback can arrive for non-booking iframe activity. Fire once.
+  if (e.data && e.data.meetingBookSucceeded === true && !window.__ftBookingTracked) {
+    window.__ftBookingTracked = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event: 'estimate_booking_confirmed'});
+  }
   if (e.data && (e.data.meetingBookSucceeded === true || e.data.type === 'hsFormCallback')) {
     const calWrap = document.getElementById('cal-wrap');
     const confirmed = document.getElementById('booking-confirmed');
@@ -793,6 +800,12 @@ function showFork(path, skipScroll) {
     }
     if (!skipScroll) calWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
+    // Call-me-instead path: fire its own conversion event, once per page.
+    if (!window.__ftCallbackTracked) {
+      window.__ftCallbackTracked = true;
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({event: 'estimate_callback_requested'});
+    }
     calWrap.style.display = 'none';
     if (skipLink) skipLink.style.display = 'none';
     if (bookSec) bookSec.style.display = 'none';
