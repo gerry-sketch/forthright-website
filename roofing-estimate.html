@@ -496,7 +496,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="uncert-h">Why this one is rough</div>
           <ul>
             <li>Roof pitch and how many facets</li>
-            <li>How many layers are up there now</li>
+            <li>How many additional layers are on your roof</li>
             <li>Decking condition underneath</li>
             <li>Chimneys, skylights, flashing detail</li>
           </ul>
@@ -546,7 +546,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="math-row"><span>High end (<span id="m-hisq"> - </span> sq)</span><span id="m-hi"> - </span></div>
             <div class="math-row"><span>Your range</span><span id="m-range"> - </span></div>
           </div>
-          <div class="disclaimer">Final pricing depends on roof pitch, decking condition, existing layers, and flashing complexity. Tear-off of existing layers adds $50-$100 per square.</div>
+          <div class="disclaimer">Final pricing depends on roof pitch, decking condition, existing layers, and flashing complexity. Tear-off of additional layers adds $75-$150 per square depending on the material on the roof.</div>
         </div>
       </details>
 
@@ -930,7 +930,7 @@ async function submitForm(){
   document.getElementById('est-range').textContent=fmt(loR)+' to '+fmt(hiR);
   var sizeTxt = (S.size==='not-sure') ? 'Size confirmed on site' : sd.label;
   document.getElementById('est-lbl').textContent='Rough estimate · '+(NAMES[S.rooftype]||'')+' · '+sizeTxt;
-  document.getElementById('est-sub').textContent='Based on '+sd.lo+' to '+sd.hi+' roofing squares at Vermont material and labor rates.';
+  document.getElementById('est-sub').textContent='Based on '+sd.lo+' to '+sd.hi+' roofing squares.';
   document.getElementById('m-homesize').textContent=sd.label;
   document.getElementById('m-squares').textContent=sd.lo+'-'+sd.hi+' squares';
   document.getElementById('m-losq').textContent=sd.lo;
