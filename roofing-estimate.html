@@ -812,23 +812,51 @@ function showFork(path, skipScroll) {
     calWrap.classList.add('visible');
     if (skipLink) skipLink.style.display = 'block';
     if (bookSec) bookSec.style.display = '';
-    if (!calWrap.querySelector('iframe')) {
+    if (!window.__calEmbedded) {
+      window.__calEmbedded = true;
       const loading = document.getElementById('cal-loading');
-      const iframe = document.createElement('iframe');
-      const fn = encodeURIComponent(document.getElementById('f-fname').value.trim());
-      const ln = encodeURIComponent(document.getElementById('f-lname').value.trim());
-      const em = encodeURIComponent(document.getElementById('f-email').value.trim());
-      const ph = encodeURIComponent(document.getElementById('f-phone').value.trim());
-      const street = encodeURIComponent(document.getElementById('f-addr').value.trim());
-      const city = encodeURIComponent(document.getElementById('f-city').value.trim());
-      const postal = encodeURIComponent(document.getElementById('f-zip').value.trim());
-      const state = encodeURIComponent(document.getElementById('f-state').value.trim() || 'VT');
-      // Taller so full calendar week is visible without scrolling inside iframe
-      iframe.style.height = '820px';
-      iframe.src = `https://meetings.hubspot.com/gerry-howatt?embed=true&firstName=${fn}&lastName=${ln}&email=${em}&phone=${ph}&address=${street}&city=${city}&zip=${postal}&state=${state}`;
-      iframe.title = 'Schedule your free site visit';
-      iframe.onload = () => { if (loading) loading.remove(); };
-      calWrap.appendChild(iframe);
+      const fn = document.getElementById('f-fname').value.trim();
+      const ln = document.getElementById('f-lname').value.trim();
+      const em = document.getElementById('f-email').value.trim();
+      const ph = document.getElementById('f-phone').value.trim();
+      const street = document.getElementById('f-addr').value.trim();
+      const city = document.getElementById('f-city').value.trim();
+      // Cal.com official embed loader
+      (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+      Cal("init", { origin: "https://cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#cal-wrap",
+        calLink: "carl-grumbine-psl4td/site-visit",
+        config: {
+          name: (fn + " " + ln).trim(),
+          email: em,
+          notes: ["Phone: " + ph, "Address: " + street + (city ? ", " + city : "")].join(" | ")
+        }
+      });
+      Cal("on", { action: "linkReady", callback: function () { if (loading) loading.remove(); } });
+      Cal("on", {
+        action: "bookingSuccessful",
+        callback: function (e) {
+          // Reuse the existing confirmation UI + conversion tracking path.
+          window.postMessage({ meetingBookSucceeded: true }, "*");
+          // Attach the appointment to the JobTread job created at estimate submit.
+          try {
+            const d = (e && e.detail && e.detail.data) || {};
+            fetch('/.netlify/functions/cal-booking', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                jobId: (window.__jtIds || {}).jobId || '',
+                accountId: (window.__jtIds || {}).accountId || '',
+                name: (fn + ' ' + ln).trim(),
+                email: em,
+                start: (d.booking && d.booking.startTime) || d.date || '',
+                title: (d.eventType && d.eventType.title) || 'Site Visit'
+              })
+            });
+          } catch (err) {}
+        }
+      });
     }
     if (!skipScroll) calWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
@@ -955,6 +983,11 @@ async function submitForm(){
       body:JSON.stringify(window.__jtPayload)
     });
     submitOk = jtRes.ok;
+    // Keep the JobTread ids so a booking can be attached to this job later.
+    try {
+      const jtData = await jtRes.json();
+      window.__jtIds = { accountId: jtData.accountId || '', jobId: jtData.jobId || '' };
+    } catch (e) {}
   }catch(e){ submitOk = false; }
 
   // Populate success screen
