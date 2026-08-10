@@ -272,6 +272,40 @@ main{flex:1;display:flex;flex-direction:column;width:100%;max-width:720px;margin
 .field-error{font-size:13px;color:#E24B4A;margin-top:4px;font-weight:500;display:none}
 .field-error.visible{display:block}
 
+/* ---- REWORK: success screen ---- */
+.est-box{background:var(--white);border:3px solid var(--cobalt);border-radius:var(--r);padding:22px 20px 0;text-align:center;margin-bottom:0}
+.est-lbl{font-family:var(--fc);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px;line-height:1.5}
+.est-range{font-family:var(--fd);font-size:clamp(34px,6vw,58px);color:var(--cobalt);line-height:1.05;margin-bottom:4px}
+.est-sub{font-size:14px;color:var(--mid);line-height:1.5;margin-bottom:20px}
+.uncert{border-top:1px solid var(--border);background:#FAFAF8;margin:0 -20px;padding:18px 20px;text-align:left;border-radius:0 0 7px 7px}
+.uncert-h{font-family:var(--fc);font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--charcoal);margin-bottom:10px}
+.uncert ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
+.uncert li{font-size:15px;color:var(--mid);line-height:1.4;display:flex;gap:8px;align-items:flex-start}
+.uncert li::before{content:"";flex:0 0 6px;height:6px;margin-top:7px;background:var(--gold);border-radius:1px}
+.uncert-close{margin:14px 0 0;font-size:15px;color:var(--charcoal);font-weight:600;line-height:1.55}
+@media (max-width:640px){
+  .uncert ul{grid-template-columns:1fr}
+  .est-box{padding:18px 16px 0}
+  .uncert{margin:0 -16px;padding:16px}
+}
+
+.book-sec{margin-top:26px;text-align:left}
+.book-h{font-family:var(--fc);font-size:24px;font-weight:700;color:var(--charcoal);line-height:1.2;margin-bottom:4px}
+.book-sub{font-size:16px;color:var(--mid);line-height:1.5;margin-bottom:14px}
+
+.alt-path{text-align:center;margin:16px 0 8px}
+.alt-btn{background:none;border:none;border-bottom:2px solid var(--cobalt);color:var(--cobalt);font-family:var(--fb);font-size:16px;font-weight:600;line-height:1.4;padding:6px 2px 4px;cursor:pointer;touch-action:manipulation;min-height:44px}
+.alt-btn:active{opacity:.7}
+
+details.acc{background:var(--white);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;text-align:left}
+details.acc>summary{list-style:none;cursor:pointer;padding:16px 18px;font-family:var(--fc);font-size:17px;font-weight:700;color:var(--charcoal);display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:54px;touch-action:manipulation}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"+";color:var(--cobalt);font-family:var(--fb);font-size:22px;font-weight:600;line-height:1;flex-shrink:0}
+details.acc[open]>summary::after{content:"\2212"}
+details.acc .acc-body{padding:0 18px 18px}
+details.acc .math-box,details.acc .summary-box,details.acc .disclaimer{margin-bottom:0;border:none;padding-left:0;padding-right:0;background:transparent;border-radius:0}
+details.acc .disclaimer{border-left:3px solid var(--gold);padding:12px 14px;background:var(--bg);margin-top:14px;border-radius:0 var(--r) var(--r) 0}
+
 </style>
 <!-- Google Places Autocomplete -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
@@ -341,29 +375,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
   <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Online Roofing Estimate - Instant Pricing Calculator for Vermont Homeowners</h1>
 
-  <!-- STEP 1: Home Type -->
+  <!-- STEP 1: Roof Type -->
   <div class="panel active" id="p1">
-    <div class="panel-q">What style of home?</div>
-    <p class="panel-hint">Helps us understand your roof's layout.</p>
-    <div class="hcard-grid" role="radiogroup">
-      <div class="hcard" onclick="pickH('sfh',this)">
-        <div class="hcard-icon">🏠</div>
-        <div class="hcard-name">Single Family</div>
-        <div class="hcard-desc">House, cape, colonial, ranch</div>
-        <div class="hcard-check"><svg viewBox="0 0 16 16" fill="none"><polyline points="3,8 6.5,11.5 13,4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-      <div class="hcard" onclick="pickH('town',this)">
-        <div class="hcard-icon">🏘️</div>
-        <div class="hcard-name">Townhouse</div>
-        <div class="hcard-desc">Attached or row home</div>
-        <div class="hcard-check"><svg viewBox="0 0 16 16" fill="none"><polyline points="3,8 6.5,11.5 13,4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEP 2: Roof Type -->
-  <div class="panel" id="p2">
-    <button class="back-btn" onclick="back(2)">← Back</button>
     <div class="panel-q">What type of roof?</div>
     <p class="panel-hint">Both installed by our own Vermont crew.</p>
     <div class="card-grid col2" role="radiogroup">
@@ -388,9 +401,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- STEP 3: Size -->
-  <div class="panel" id="p3">
-    <button class="back-btn" onclick="back(3)">← Back</button>
+  <!-- STEP 2: Size -->
+  <div class="panel" id="p2">
+    <button class="back-btn" onclick="back(2)">← Back</button>
     <div class="panel-q">How big is your home?</div>
     <p class="panel-hint">Best estimate is fine - we verify on-site.</p>
     <div class="size-grid" id="size-grid" role="radiogroup">
@@ -419,30 +432,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <!-- STEP 4: Timeline -->
-  <div class="panel" id="p4">
-    <button class="back-btn" onclick="back(4)">← Back</button>
+  <!-- STEP 3: Timeline -->
+  <div class="panel" id="p3">
+    <button class="back-btn" onclick="back(3)">← Back</button>
     <div class="panel-q">When are you looking to start?</div>
-    <p class="panel-hint">No pressure - we'll match our follow-up to your timeline.</p>
+    <p class="panel-hint">We'll match our follow-up to your timeline.</p>
     <div class="tl-grid" role="radiogroup">
       <div class="ttile" onclick="pickTL('asap',this)"><div class="ttile-icon">🔥</div><div><div class="ttile-label">ASAP</div><div class="ttile-sub">Urgent or emergency</div></div></div>
       <div class="ttile" onclick="pickTL('month',this)"><div class="ttile-icon">📅</div><div><div class="ttile-label">This month</div><div class="ttile-sub">Ready to move soon</div></div></div>
-      <div class="ttile" onclick="pickTL('season',this)"><div class="ttile-icon">🌿</div><div><div class="ttile-label">This season</div><div class="ttile-sub">Spring/summer project</div></div></div>
-      <div class="ttile" onclick="pickTL('exploring',this)"><div class="ttile-icon">🔍</div><div><div class="ttile-label">Just exploring</div><div class="ttile-sub">No timeline yet</div></div></div>
+      <div class="ttile" onclick="pickTL('season',this)"><div class="ttile-icon">🗓️</div><div><div class="ttile-label">Next month</div><div class="ttile-sub">Planning it out now</div></div></div>
+      <div class="ttile" onclick="pickTL('exploring',this)"><div class="ttile-icon">❄️</div><div><div class="ttile-label">Before winter</div><div class="ttile-sub">On the calendar this year</div></div></div>
     </div>
   </div>
 
-  <!-- STEP 5: Contact -->
-  <div class="panel" id="p5">
-    <button class="back-btn" onclick="back(5)">← Back</button>
-    <div class="panel-q">Almost there.</div>
-    <p class="panel-hint">Enter your info and we'll reveal your estimate right away.</p>
+  <!-- STEP 4: Address -->
+  <div class="panel" id="p4">
+    <button class="back-btn" onclick="back(4)">← Back</button>
+    <div class="panel-q">Where is the roof?</div>
+    <p class="panel-hint">So we know which town rates to use.</p>
     <div class="field"><label for="f-addr">Property Address <span style="color:#E24B4A">*</span></label><input type="text" id="f-addr" placeholder="Start typing your address…" autocomplete="off" inputmode="text"></div>
     <div class="field-row-3">
       <div class="field"><label for="f-city">Town <span style="color:#E24B4A">*</span></label><input type="text" id="f-city" placeholder="Hinesburg" autocomplete="address-level2"></div>
       <div class="field"><label for="f-state">State</label><input type="text" id="f-state" placeholder="VT" value="VT" autocomplete="address-level1" maxlength="2"></div>
       <div class="field"><label for="f-zip">Zip</label><input type="text" id="f-zip" placeholder="05461" autocomplete="postal-code" inputmode="numeric" maxlength="10"></div>
     </div>
+    <button class="btn btn-primary" id="btn4" onclick="nextFromAddress()" style="margin-top:28px">Continue →</button>
+    <p class="btn-hint">Free · No obligation · Vermont registered &amp; insured</p>
+  </div>
+
+  <!-- STEP 5: Contact -->
+  <div class="panel" id="p5">
+    <button class="back-btn" onclick="back(5)">← Back</button>
+    <div class="panel-q">Where do we send it?</div>
+    <p class="panel-hint">Your rough estimate shows on the next screen.</p>
     <div class="field-row">
       <div class="field"><label for="f-fname">First Name <span style="color:#E24B4A">*</span></label><input type="text" id="f-fname" placeholder="Jane" autocomplete="given-name"></div>
       <div class="field"><label for="f-lname">Last Name <span style="color:#E24B4A">*</span></label><input type="text" id="f-lname" placeholder="Smith" autocomplete="family-name"></div>
@@ -457,38 +479,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="copt" onclick="pickSMS('no',this)"><div class="copt-radio"></div><div class="copt-label">No thanks</div></div>
       </div>
     </div>
-    <button class="btn btn-primary" id="btn5" onclick="submitForm()" style="margin-top:28px">Get My Instant Estimate →</button>
+    <button class="btn btn-primary" id="btn5" onclick="submitForm()" style="margin-top:28px">See My Rough Estimate →</button>
     <p class="btn-hint">Free · No obligation · Vermont registered &amp; insured</p>
   </div>
 
   <!-- SUCCESS -->
   <div class="panel" id="p-success">
     <div class="success">
-      <h2>Your Ballpark Estimate.</h2>
+      <h2>Rough estimate. Then your proposal.</h2>
 
       <div class="est-box">
+        <div class="est-lbl" id="est-lbl">Rough estimate</div>
         <div class="est-range" id="est-range"> - </div>
+        <p class="est-sub" id="est-sub"></p>
+        <div class="uncert">
+          <div class="uncert-h">Why this one is rough</div>
+          <ul>
+            <li>Roof pitch and how many facets</li>
+            <li>How many layers are up there now</li>
+            <li>Decking condition underneath</li>
+            <li>Chimneys, skylights, flashing detail</li>
+          </ul>
+          <p class="uncert-close">We can't see any of that from a form. A twenty minute site visit turns this range into a free detailed proposal, with no obligation.</p>
+        </div>
       </div>
 
-      <div class="visit-confirm">
-        <div class="vc-reason-box">
-          <p class="vc-reason">Schedule a free on-site visit with a Forthright estimator to finalize your estimate.</p>
-        </div>
-        <div class="vc-choose-badge">CHOOSE</div>
-        <div class="vc-arrows">
-          <svg class="vc-arr" style="transform:rotate(135deg)" viewBox="0 0 50 50" fill="currentColor" aria-hidden="true">
-            <rect x="0" y="19" width="32" height="12"/>
-            <polygon points="24,5 50,25 24,45"/>
-          </svg>
-          <svg class="vc-arr" style="transform:rotate(45deg)" viewBox="0 0 50 50" fill="currentColor" aria-hidden="true">
-            <rect x="0" y="19" width="32" height="12"/>
-            <polygon points="24,5 50,25 24,45"/>
-          </svg>
-        </div>
-      </div>
-      <div class="next-fork">
-        <button class="fork-btn fork-schedule" id="btn-fork-schedule" onclick="showFork('schedule')">I'll Schedule a Time Now</button>
-        <button class="fork-btn fork-contact" id="btn-fork-contact" onclick="showFork('contact')">Contact Me to Set It Up</button>
+      <div class="book-sec">
+        <div class="book-h">Book your free on-site visit</div>
+        <p class="book-sub">Pick a day and a time. Takes about twenty minutes and you get your detailed proposal.</p>
       </div>
 
       <!-- Calendar path -->
@@ -505,11 +523,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="bc-detail">We'll see you on-site</div>
       </div>
 
-      <!-- Secondary: skip scheduling -->
-      <div id="skip-link" style="text-align:center;margin:16px 0 8px;">
-        <button onclick="document.getElementById('cal-wrap').style.display='none';document.getElementById('next-steps').classList.add('visible');document.getElementById('skip-link').style.display='none';document.getElementById('next-steps').scrollIntoView({behavior:'smooth',block:'start'});" style="background:none;border:none;color:#888;font-size:14px;cursor:pointer;text-decoration:underline;padding:8px;">
-          Can't schedule now? We'll reach out to set up your visit.
-        </button>
+      <!-- Secondary: have us call instead -->
+      <div id="skip-link" class="alt-path">
+        <button type="button" class="alt-btn" onclick="showFork('contact')">None of these work? We will call you to schedule.</button>
       </div>
 
       <!-- Contact path confirmation -->
@@ -519,28 +535,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>We have your info and your estimate. We'll reach out within 1 business day to set up your free on-site visit.</p>
       </div>
 
-      <div id="post-booking-details">
-      <div class="math-box">
-        <h4>How we calculated this</h4>
-        <div class="math-row"><span>Home size selected</span><span id="m-homesize"> - </span></div>
-        <div class="math-row"><span>Estimated roof squares</span><span id="m-squares"> - </span></div>
-        <div class="math-row"><span>Low end (<span id="m-losq"> - </span> sq)</span><span id="m-lo"> - </span></div>
-        <div class="math-row"><span>High end (<span id="m-hisq"> - </span> sq)</span><span id="m-hi"> - </span></div>
-        <div class="math-row"><span>Your range</span><span id="m-range"> - </span></div>
-      </div>
+      <div id="post-booking-details" style="margin-top:26px">
+      <details class="acc">
+        <summary>How we calculated this</summary>
+        <div class="acc-body">
+          <div class="math-box">
+            <div class="math-row"><span>Home size selected</span><span id="m-homesize"> - </span></div>
+            <div class="math-row"><span>Estimated roof squares</span><span id="m-squares"> - </span></div>
+            <div class="math-row"><span>Low end (<span id="m-losq"> - </span> sq)</span><span id="m-lo"> - </span></div>
+            <div class="math-row"><span>High end (<span id="m-hisq"> - </span> sq)</span><span id="m-hi"> - </span></div>
+            <div class="math-row"><span>Your range</span><span id="m-range"> - </span></div>
+          </div>
+          <div class="disclaimer">Final pricing depends on roof pitch, decking condition, existing layers, and flashing complexity. Tear-off of existing layers adds $50-$100 per square.</div>
+        </div>
+      </details>
 
-      <div class="disclaimer">Final pricing depends on roof pitch, decking condition, existing layers, and flashing complexity. Tear-off of existing layers adds $50-$100 per square.</div>
-
-      <div class="summary-box">
-        <h3>Your Project</h3>
-        <div class="sum-row"><span>Property</span><span id="s-addr"> - </span></div>
-        <div class="sum-row"><span>Material</span><span id="s-mat"> - </span></div>
-        <div class="sum-row"><span>Home size</span><span id="s-size"> - </span></div>
-        <div class="sum-row"><span>Timeline</span><span id="s-tl"> - </span></div>
-      </div>
+      <details class="acc">
+        <summary>Your project details</summary>
+        <div class="acc-body">
+          <div class="summary-box">
+            <div class="sum-row"><span>Property</span><span id="s-addr"> - </span></div>
+            <div class="sum-row"><span>Material</span><span id="s-mat"> - </span></div>
+            <div class="sum-row"><span>Home size</span><span id="s-size"> - </span></div>
+            <div class="sum-row"><span>Timeline</span><span id="s-tl"> - </span></div>
+          </div>
+        </div>
+      </details>
 
       <a href="tel:8028481848" class="call-banner">
-        <div><div class="call-banner-lbl">Skip the wait - call now</div><div class="call-banner-num">802-848-1848</div></div>
+        <div><div class="call-banner-lbl">Rather just talk</div><div class="call-banner-num">802-848-1848</div></div>
       </a>
       <a href="https://forthrightvt.com" class="btn btn-outline" style="margin-top:12px">Back to ForthrightVT.com</a>
       </div><!-- /post-booking-details -->
@@ -599,7 +622,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script>
-const S={hometype:null,rooftype:null,size:null,timeline:null,smsConsent:null};
+// hometype question was removed from the flow. The key stays on S so the
+// JobTread payload shape is byte-for-byte unchanged. Do not delete it.
+const S={hometype:'sfh',rooftype:null,size:null,timeline:null,smsConsent:null};
 
 const SIZES={
   '800-1200':  {lo:9,  hi:13, label:'800-1,200 sq ft'},
@@ -612,35 +637,32 @@ const SIZES={
 };
 const RATES={asphalt:575, metal:1650};
 const NAMES={asphalt:'Architectural Shingles', metal:'Standing Seam Metal'};
-const TL={asap:'ASAP / Urgent', month:'This month', season:'This season', exploring:'Just exploring'};
+// Keys match the tile onclick values and must not change without also updating
+// the tiles. Values are the strings JobTread receives. If Step 0b showed that
+// timeline maps to a picklist, revert these two values until the options exist.
+const TL={asap:'ASAP / Urgent', month:'This month', season:'Next month', exploring:'Before winter'};
 
 function autoAdvance(step){
   setTimeout(()=>setStep(step+1), 180);
 }
 
-function pickH(val,el){
-  S.hometype=val;
-  document.querySelectorAll('.hcard').forEach(c=>c.classList.remove('selected'));
-  el.classList.add('selected');
-  autoAdvance(1);
-}
 function pick(type,val,el){
   S[type]=val;
   el.closest('[role="radiogroup"]').querySelectorAll('.pcard').forEach(c=>c.classList.remove('selected'));
   el.classList.add('selected');
-  if(type==='rooftype') autoAdvance(2);
+  if(type==='rooftype') autoAdvance(1);
 }
 function pickSize(val,el){
   S.size=val;
   document.getElementById('size-grid').querySelectorAll('.stile').forEach(t=>t.classList.remove('selected'));
   el.classList.add('selected');
-  autoAdvance(3);
+  autoAdvance(2);
 }
 function pickTL(val,el){
   S.timeline=val;
   document.querySelectorAll('.ttile').forEach(t=>t.classList.remove('selected'));
   el.classList.add('selected');
-  autoAdvance(4);
+  autoAdvance(3);
 }
 function pickSMS(val,el){
   S.smsConsent=val;
@@ -699,31 +721,50 @@ function initPlaces() {
     document.getElementById('f-zip').value = postal;
     setTimeout(() => {
       const cityEl = document.getElementById('f-city');
+      // f-fname now lives on step 5 and is hidden, so never focus it from here.
       if (!cityEl.value) { cityEl.focus(); }
-      else { document.getElementById('f-fname').scrollIntoView({ behavior: 'smooth', block: 'center' }); document.getElementById('f-fname').focus(); }
+      else { cityEl.blur(); const b = document.getElementById('btn4'); if (b) b.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
     }, 150);
   });
 }
 
-function showFork(path) {
+// Step 4 gate. Address and town are validated here so the person is not sent
+// back across a screen boundary later.
+function nextFromAddress(){
+  const addr = document.getElementById('f-addr');
+  const city = document.getElementById('f-city');
+  document.querySelectorAll('#p4 .field-error').forEach(e => e.classList.remove('visible'));
+  let ok = true, firstErr = null;
+  [{el:addr, msg:'Property address is required.'},{el:city, msg:'Town is required.'}].forEach(function(f){
+    if(!f.el.value.trim()){ f.el.classList.add('err'); showEstFieldError(f.el, f.msg); ok = false; if(!firstErr) firstErr = f.el; }
+  });
+  if(!ok){
+    firstErr.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(()=>firstErr.focus(), 400);
+    return;
+  }
+  setStep(5);
+}
+
+// path 'schedule' opens the calendar, which is now the default on arrival.
+// path 'contact' is the "have us call you" fallback.
+// skipScroll is passed on the automatic open so it does not fight the
+// window.scrollTo at the end of submitForm.
+function showFork(path, skipScroll) {
   const calWrap = document.getElementById('cal-wrap');
   const nextSteps = document.getElementById('next-steps');
-  const btnSchedule = document.getElementById('btn-fork-schedule');
-  const btnContact = document.getElementById('btn-fork-contact');
   const skipLink = document.getElementById('skip-link');
+  const bookSec = document.querySelector('.book-sec');
 
-  // Reset
   calWrap.classList.remove('visible');
   calWrap.style.display = '';
   nextSteps.classList.remove('visible');
   document.getElementById('booking-confirmed').classList.remove('visible');
-  if (btnSchedule) btnSchedule.classList.remove('active');
-  if (btnContact) btnContact.classList.remove('active');
 
   if (path === 'schedule') {
-    if (btnSchedule) btnSchedule.classList.add('active');
     calWrap.classList.add('visible');
     if (skipLink) skipLink.style.display = 'block';
+    if (bookSec) bookSec.style.display = '';
     if (!calWrap.querySelector('iframe')) {
       const loading = document.getElementById('cal-loading');
       const iframe = document.createElement('iframe');
@@ -742,10 +783,11 @@ function showFork(path) {
       iframe.onload = () => { if (loading) loading.remove(); };
       calWrap.appendChild(iframe);
     }
-    calWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!skipScroll) calWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
-    if (btnContact) btnContact.classList.add('active');
+    calWrap.style.display = 'none';
     if (skipLink) skipLink.style.display = 'none';
+    if (bookSec) bookSec.style.display = 'none';
     nextSteps.classList.add('visible');
     nextSteps.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -781,7 +823,7 @@ async function submitForm(){
   const phone=document.getElementById('f-phone').value.trim();
   const email=document.getElementById('f-email').value.trim();
   // Clear previous errors
-  document.querySelectorAll('#p5 .field-error').forEach(e => e.classList.remove('visible'));
+  document.querySelectorAll('#p4 .field-error, #p5 .field-error').forEach(e => e.classList.remove('visible'));
 
   let ok=true;
   let firstErr=null;
@@ -803,7 +845,12 @@ async function submitForm(){
   }
 
   if(!ok){
-    if(firstErr){firstErr.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>firstErr.focus(),400);}
+    if(firstErr){
+      // Address fields live on step 4. Jump back before scrolling, or the
+      // scroll targets a hidden panel and the button appears to do nothing.
+      if(firstErr.closest('#p4')) setStep(4);
+      setTimeout(()=>{firstErr.scrollIntoView({behavior:'smooth',block:'center'});firstErr.focus();}, 400);
+    }
     return;
   }
   const btn=document.getElementById('btn5');btn.textContent='Sending...';btn.disabled=true;
@@ -860,6 +907,9 @@ async function submitForm(){
   // Populate success screen
   // name display removed
   document.getElementById('est-range').textContent=fmt(loR)+' to '+fmt(hiR);
+  var sizeTxt = (S.size==='not-sure') ? 'Size confirmed on site' : sd.label;
+  document.getElementById('est-lbl').textContent='Rough estimate · '+(NAMES[S.rooftype]||'')+' · '+sizeTxt;
+  document.getElementById('est-sub').textContent='Based on '+sd.lo+' to '+sd.hi+' roofing squares at Vermont material and labor rates.';
   document.getElementById('m-homesize').textContent=sd.label;
   document.getElementById('m-squares').textContent=sd.lo+'-'+sd.hi+' squares';
   document.getElementById('m-losq').textContent=sd.lo;
@@ -880,6 +930,9 @@ async function submitForm(){
   document.getElementById('prog-num').textContent='✓';
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('p-success').classList.add('active');
+  // Calendar opens by default. skipScroll=true so it does not fight the
+  // window.scrollTo at the end of this function.
+  showFork('schedule', true);
   // Conversion - only on confirmed submit
   window.dataLayer = window.dataLayer || [];
   if(submitOk){
