@@ -504,7 +504,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
 
-      <div class="book-sec">
+      <div class="book-sec" id="book-sec">
         <div class="book-h">Book your free on-site visit</div>
         <p class="book-sub">Pick a day and a time. Takes about twenty minutes and you get your detailed proposal.</p>
       </div>
@@ -646,6 +646,12 @@ function autoAdvance(step){
   setTimeout(()=>setStep(step+1), 180);
 }
 
+// back() was called from steps 2-5 but never defined anywhere in this file
+// or in main.js, so every back button was dead. Defined here.
+function back(step){
+  setStep(Math.max(1, step-1));
+}
+
 function pick(type,val,el){
   S[type]=val;
   el.closest('[role="radiogroup"]').querySelectorAll('.pcard').forEach(c=>c.classList.remove('selected'));
@@ -680,6 +686,7 @@ window.addEventListener('message', function(e) {
     const nextFork = document.querySelector('.next-fork');
     const skipLink = document.getElementById('skip-link');
     const postDetails = document.getElementById('post-booking-details');
+    const bookSec = document.getElementById('book-sec');
     if (calWrap && confirmed && !confirmed.classList.contains('visible')) {
       calWrap.style.transition = 'opacity .3s';
       calWrap.style.opacity = '0';
@@ -689,6 +696,7 @@ window.addEventListener('message', function(e) {
         if (nextFork) nextFork.style.display = 'none';
         if (skipLink) skipLink.style.display = 'none';
         if (postDetails) postDetails.style.display = 'none';
+        if (bookSec) bookSec.style.display = 'none';
         confirmed.classList.add('visible');
         confirmed.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 300);
