@@ -306,6 +306,19 @@ details.acc .acc-body{padding:0 18px 18px}
 details.acc .math-box,details.acc .summary-box,details.acc .disclaimer{margin-bottom:0;border:none;padding-left:0;padding-right:0;background:transparent;border-radius:0}
 details.acc .disclaimer{border-left:3px solid var(--gold);padding:12px 14px;background:var(--bg);margin-top:14px;border-radius:0 var(--r) var(--r) 0}
 
+.rev-proof{margin-top:26px;padding-top:22px;border-top:1px solid var(--border);text-align:left}
+.rev-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.rev-stars{color:#F0B429;font-size:17px;letter-spacing:2px;line-height:1}
+.rev-score{font-family:var(--fc);font-size:15px;font-weight:700;letter-spacing:.5px;color:var(--charcoal)}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.rev-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px}
+.rev-q{font-size:15px;line-height:1.6;color:var(--charcoal);margin:0 0 12px}
+.rev-who{font-family:var(--fc);font-size:14px;font-weight:700;letter-spacing:.5px;color:var(--mid)}
+@media (max-width:640px){
+  .rev-grid{grid-template-columns:1fr;gap:12px}
+  .rev-q{font-size:14.5px}
+}
+
 </style>
 <!-- Google Places Autocomplete -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdUhGjzvTnewhOfEO7Fxl_wEAGYG87Ihc&libraries=places&callback=initPlaces" async defer></script>
@@ -463,8 +476,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- STEP 5: Contact -->
   <div class="panel" id="p5">
     <button class="back-btn" onclick="back(5)">← Back</button>
-    <div class="panel-q">Where do we send it?</div>
-    <p class="panel-hint">Your rough estimate shows on the next screen.</p>
+    <div class="panel-q">Your estimate is ready.</div>
+    <p class="panel-hint">Add your name and number and we'll show it right now.</p>
     <div class="field-row">
       <div class="field"><label for="f-fname">First Name <span style="color:#E24B4A">*</span></label><input type="text" id="f-fname" placeholder="Jane" autocomplete="given-name"></div>
       <div class="field"><label for="f-lname">Last Name <span style="color:#E24B4A">*</span></label><input type="text" id="f-lname" placeholder="Smith" autocomplete="family-name"></div>
@@ -526,6 +539,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Secondary: have us call instead -->
       <div id="skip-link" class="alt-path">
         <button type="button" class="alt-btn" onclick="showFork('contact')">None of these work? We will call you to schedule.</button>
+      </div>
+
+      <div class="rev-proof" id="rev-proof">
+        <div class="rev-head">
+          <span class="rev-stars" aria-hidden="true">★★★★★</span>
+          <span class="rev-score">5.0 on Google</span>
+        </div>
+        <div class="rev-grid">
+          <div class="rev-card">
+            <p class="rev-q">"I reached out to multiple companies to have my roof quoted and replaced. Gerry at Forthright Construction was incredibly responsive, knowledgeable and fair with regards to pricing. … Forthright Construction took the time to walk me through each of my questions and concerns until I was ready to move forward with the project."</p>
+            <div class="rev-who">Willojah E. · Jericho</div>
+          </div>
+          <div class="rev-card">
+            <p class="rev-q">"Roof replacement and installation. Great communication and nice people."</p>
+            <div class="rev-who">Libby B. · Ferrisburgh</div>
+          </div>
+        </div>
       </div>
 
       <!-- Contact path confirmation -->
@@ -704,6 +734,8 @@ window.addEventListener('message', function(e) {
         if (skipLink) skipLink.style.display = 'none';
         if (postDetails) postDetails.style.display = 'none';
         if (bookSec) bookSec.style.display = 'none';
+        const revProof = document.getElementById('rev-proof');
+        if (revProof) revProof.style.display = 'none';
         confirmed.classList.add('visible');
         confirmed.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }, 300);
