@@ -821,6 +821,9 @@ function showFork(path, skipScroll) {
       const ph = document.getElementById('f-phone').value.trim();
       const street = document.getElementById('f-addr').value.trim();
       const city = document.getElementById('f-city').value.trim();
+      const state = document.getElementById('f-state').value.trim() || 'VT';
+      const zip = document.getElementById('f-zip').value.trim();
+      const fullAddr = [street, city, state + (zip ? ' ' + zip : '')].filter(Boolean).join(', ');
       // Cal.com official embed loader
       (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
       Cal("init", { origin: "https://cal.com" });
@@ -830,7 +833,11 @@ function showFork(path, skipScroll) {
         config: {
           name: (fn + " " + ln).trim(),
           email: em,
-          notes: ["Phone: " + ph, "Address: " + street + (city ? ", " + city : "")].join(" | ")
+          // Fills the "In Person (Attendee's Address)" location once that
+          // option is enabled on the Cal.com event type — puts the job site
+          // address into the calendar event's Location field.
+          location: JSON.stringify({ value: "attendeeInPerson", optionValue: fullAddr }),
+          notes: ["Phone: " + ph, "Address: " + fullAddr].join(" | ")
         }
       });
       Cal("on", { action: "linkReady", callback: function () { if (loading) loading.remove(); } });
