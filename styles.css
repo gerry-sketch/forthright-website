@@ -309,8 +309,8 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 /* ── FOOTER ── */
 .footer  { background: var(--charcoal); padding: 64px 0 28px; }
 .ft-top  {
-  display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.07);
+  display: grid; grid-template-columns: 1.8fr repeat(6, 1fr);
+  gap: 32px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.07);
 }
 .ft-brand .logo-box  { border-color: rgba(255,255,255,.25); }
 .ft-brand .logo-main { color: var(--white); }
@@ -325,6 +325,13 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 }
 .ft-social a:hover { color: var(--white); }
 .ft-social svg { width: 22px; height: 22px; display: block; }
+.ft-affil { margin-top: 28px; }
+.ft-affil-label {
+  display: block; font-family: var(--font-cond); font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,.35); margin-bottom: 10px;
+}
+.ft-affil-logo { width: 140px; height: auto; display: block; }
 .ft-col h4 {
   font-family: var(--font-cond); font-size: 13px; font-weight: 700;
   letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 18px;
