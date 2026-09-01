@@ -316,6 +316,11 @@ p  { color: var(--text-mid); line-height: 1.8; font-size: 19px; }
 .ft-brand .logo-main { color: var(--white); }
 .ft-brand .logo-sub  { color: rgba(255,255,255,.4); }
 .ft-brand p          { color: rgba(255,255,255,.5); font-size: 17px; margin-top: 18px; line-height: 1.9; }
+.ft-brand p.ft-tagline {
+  font-family: var(--font-cond); font-size: 15px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,.85); margin-top: 14px; line-height: 1.4;
+}
 .ft-social {
   display: flex; gap: 18px; margin-top: 24px;
 }
