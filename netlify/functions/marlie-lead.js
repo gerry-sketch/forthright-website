@@ -40,9 +40,14 @@ const TRADE_MAP = {
   decks: "Decks",
   porch: "Decks",
 };
-function mapTrade(projectType) {
-  const t = (projectType || "").toLowerCase();
-  for (const k of Object.keys(TRADE_MAP)) if (t.includes(k)) return TRADE_MAP[k];
+// Marlie's Category field classifies call intent (lead_or_booking, ...), not
+// the trade, so scan the call summary too — it reliably names the project
+// ("The caller asked about replacing the siding...").
+function mapTrade(projectType, summary) {
+  for (const text of [projectType, summary]) {
+    const t = (text || "").toLowerCase();
+    for (const k of Object.keys(TRADE_MAP)) if (t.includes(k)) return TRADE_MAP[k];
+  }
   return "Other";
 }
 
@@ -151,7 +156,7 @@ exports.handler = async (event) => {
   const customerFields = { [CF.LEAD_SOURCE]: "Phone Call" };
   const jobFields = {
     [CF.JOB_STATUS]: "New Lead",
-    [CF.JOB_TRADE]: mapTrade(p.projectType),
+    [CF.JOB_TRADE]: mapTrade(p.projectType, p.summary),
     [CF.JOB_DETAILS]: details,
     [CF.JOB_SALES_REP]: "Carl Grumbine",
     [CF.JOB_TYPE]: "Residential",
