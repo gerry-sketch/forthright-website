@@ -259,21 +259,33 @@ exports.handler = async (event) => {
     });
     const locationId = loc.createLocation.createdLocation.id;
 
+    // Job names can collide when the same street line already exists
+    // (resubmissions, neighbors, repeat customers) — retry with a (2), (3)
+    // suffix like accounts do, so a name clash never costs the job. Historic
+    // customer-only records (Jul 24 – Aug 30) all matched this pattern.
     let jobId = null;
-    try {
-      const job = await paveDroppingDeadFields((cfv) => ({
-        createJob: {
-          $: { locationId, name: streetLine || baseName, ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
-          createdJob: { id: {} },
-        },
-      }), jobFields);
-      jobId = job.createJob.createdJob.id;
-    } catch (err) {
-      // Job-level required fields (Trade / Subtrade Type) can be unsatisfiable
-      // for forms that don't collect them. The customer is already in
-      // JobTread at this point, keep the lead, skip the job.
-      console.error("instant-estimate: job creation skipped:", err.message);
+    const baseJobName = streetLine || baseName;
+    for (let attempt = 0; attempt < 4 && !jobId; attempt++) {
+      const jobName = attempt === 0 ? baseJobName : `${baseJobName} (${attempt + 1})`;
+      try {
+        const job = await paveDroppingDeadFields((cfv) => ({
+          createJob: {
+            $: { locationId, name: jobName, ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
+            createdJob: { id: {} },
+          },
+        }), jobFields);
+        jobId = job.createJob.createdJob.id;
+      } catch (err) {
+        if (/already exists/i.test(err.message)) continue;
+        // Job-level required fields can be unsatisfiable for forms that
+        // don't collect them. The customer is already in JobTread at this
+        // point, keep the lead, skip the job — but log loudly enough to
+        // diagnose from Netlify logs.
+        console.error(`instant-estimate: JOB LOST for account ${accountId} ("${baseName}"):`, err.message);
+        break;
+      }
     }
+    if (!jobId) console.error(`instant-estimate: no job created for account ${accountId} ("${baseName}") — customer-only record`);
 
     return { statusCode: 200, body: JSON.stringify({ ok: true, result: "created", accountId, jobId }) };
   } catch (err) {

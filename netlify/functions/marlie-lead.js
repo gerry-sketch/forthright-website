@@ -20,12 +20,14 @@ const CF = {
   CONTACT_EMAIL: "22PWNRRPMVk4", // customerContact
   CONTACT_PHONE: "22PWNRRPPj9m", // customerContact
   LEAD_SOURCE: "22PWNRRPJWZZ", // customer
+  ATTRIBUTION: "22PbJMZYZU3t", // customer (free text)
   JOB_STATUS: "22PWNRRPQrqe", // job
   JOB_TRADE: "22PbMPk2X4Uu", // job
   JOB_DETAILS: "22PbMQCpVRmv", // job (Project Details)
   JOB_SALES_REP: "22PbFE4kMzTE", // job (Sales Rep, required picklist)
   JOB_TYPE: "22PbMQ8G6wMy", // job
   JOB_LEAD_SOURCE: "22PbsL2APXu5", // job (Lead Source picklist)
+  JOB_ATTRIBUTION: "22PbsQTCbbmz", // job (Attribution, free text)
 };
 
 // Marlie's project-type answer is free speech, so map generously onto the
@@ -153,7 +155,12 @@ exports.handler = async (event) => {
   detailsParts.push(`Source: Marlie phone call${phone ? ` from ${phone}` : ""}${p.conversationId ? ` (${p.conversationId})` : ""}`);
   const details = detailsParts.join("\n\n");
 
+  // Phone calls carry no ad click IDs; the call reference is the attribution.
+  // Per Gerry (9/8): attribution goes on the job (and the customer).
+  const attribution = p.conversationId ? `marlie:${String(p.conversationId).trim()}` : "";
+
   const customerFields = { [CF.LEAD_SOURCE]: "Phone Call" };
+  if (attribution) customerFields[CF.ATTRIBUTION] = attribution;
   const jobFields = {
     [CF.JOB_STATUS]: "New Lead",
     [CF.JOB_TRADE]: mapTrade(p.projectType, p.summary),
@@ -162,6 +169,7 @@ exports.handler = async (event) => {
     [CF.JOB_TYPE]: "Residential",
     [CF.JOB_LEAD_SOURCE]: "Phone Call",
   };
+  if (attribution) jobFields[CF.JOB_ATTRIBUTION] = attribution;
 
   try {
     // Same convention as website leads: always a new customer, name collisions
@@ -211,18 +219,28 @@ exports.handler = async (event) => {
     });
     const locationId = loc.createLocation.createdLocation.id;
 
+    // Job names can collide when the same street line already exists (repeat
+    // callers, resubmissions) — retry with a (2), (3) suffix like accounts do,
+    // so a name clash never costs the job. (Gerry's 9/8 "#2" hardening.)
     let jobId = null;
-    try {
-      const job = await paveDroppingDeadFields((cfv) => ({
-        createJob: {
-          $: { locationId, name: streetLine || baseName, ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
-          createdJob: { id: {} },
-        },
-      }), jobFields);
-      jobId = job.createJob.createdJob.id;
-    } catch (err) {
-      console.error("marlie-lead: job creation skipped:", err.message);
+    const baseJobName = streetLine || baseName;
+    for (let attempt = 0; attempt < 4 && !jobId; attempt++) {
+      const jobName = attempt === 0 ? baseJobName : `${baseJobName} (${attempt + 1})`;
+      try {
+        const job = await paveDroppingDeadFields((cfv) => ({
+          createJob: {
+            $: { locationId, name: jobName, ...(Object.keys(cfv).length && { customFieldValues: cfv }) },
+            createdJob: { id: {} },
+          },
+        }), jobFields);
+        jobId = job.createJob.createdJob.id;
+      } catch (err) {
+        if (/already exists/i.test(err.message)) continue;
+        console.error(`marlie-lead: JOB LOST for account ${accountId} ("${baseName}"):`, err.message);
+        break;
+      }
     }
+    if (!jobId) console.error(`marlie-lead: no job created for account ${accountId} ("${baseName}") — customer-only record`);
 
     console.log(`marlie-lead: created account ${accountId}, job ${jobId || "none"}`);
     return { statusCode: 200, body: JSON.stringify({ ok: true, result: "created", accountId, jobId }) };
