@@ -1166,3 +1166,84 @@ body.has-review-bar .nav-mega    { top: calc(var(--nav-h) + var(--review-bar-h))
   .review-bar-stars { font-size: 11px; }
   body.has-review-bar .page-hero { padding-top: calc(var(--nav-h) + var(--review-bar-h) + 40px); }
 }
+
+/* ═══ 2026-09 REDESIGN: font, type scale, homepage ═══ */
+:root{
+  --font-display:'Outfit',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --font-cond:var(--font-display);
+  --font-body:var(--font-display);
+}
+h1{font-size:clamp(46px,5.6vw,76px);font-weight:800;line-height:1.02;letter-spacing:-1.2px}
+h2{font-size:clamp(34px,3.8vw,52px);font-weight:700;line-height:1.08;letter-spacing:-.6px}
+h3{font-size:clamp(22px,1.9vw,26px);font-weight:600;line-height:1.25;letter-spacing:-.2px}
+.eyebrow{font-size:14px;font-weight:600;letter-spacing:2.5px}
+.btn{font-size:16px;font-weight:600;letter-spacing:.3px;text-transform:none}
+.nav-links a{font-size:17px;font-weight:600;letter-spacing:0;text-transform:none}
+.nav-links .cta{font-size:16px;padding:13px 24px}
+.nav-phone a{font-size:17px;letter-spacing:0;text-transform:none}
+.strip-n,.stat-n,.why-n,.ph h3,.proj-card h3,.est-preview-range,.team-photo span{font-weight:700;letter-spacing:-.5px}
+.svc-card h3{font-size:24px}
+
+/* hero: headline up top, button toward bottom */
+.hero-left-inner{align-self:stretch;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:104px 0 96px}
+.hero-left-inner h1.hero-tagline{font-family:var(--font-display);font-size:clamp(52px,5.6vw,80px);font-weight:800;color:var(--charcoal);line-height:1.02;letter-spacing:-1.2px;margin:0}
+.hero-btns .btn{padding:17px 34px}
+
+/* recent projects */
+.rp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.rp-review{grid-row:span 2;background:var(--cobalt);padding:34px 30px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.rp-stars{color:#FFD24A;font-size:22px;letter-spacing:3px}
+.rp-review blockquote{font-size:clamp(22px,2vw,27px);font-weight:500;line-height:1.35;color:#fff;margin-top:18px}
+.rp-who{font-size:17px;font-weight:600;color:#fff;line-height:1.4}
+.rp-who span{display:block;font-weight:400;font-size:15px;color:rgba(255,255,255,.75)}
+.rp-review a{font-size:15px;font-weight:600;color:#fff;text-decoration:underline;text-underline-offset:3px}
+.rp-item img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.rp-item figcaption{padding:12px 0 10px;border-bottom:1px solid var(--border);font-size:19px;font-weight:600;color:var(--charcoal)}
+
+/* homepage estimate form */
+.hef-sec{background:var(--white);border-top:1px solid var(--border)}
+.hef-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:72px;align-items:start}
+.hef-copy h2{margin-bottom:14px}
+.hef-copy p{margin-bottom:18px;max-width:28em}
+.hef-ph a{font-size:26px;font-weight:700;color:var(--cobalt)}
+.hef-small{font-size:16px;color:var(--text-lt)}
+.hef-small a{color:var(--cobalt);text-decoration:underline}
+.hef{border-top:3px solid var(--cobalt);background:var(--bg);padding:32px}
+.hef-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.hef-f{display:block;margin-bottom:16px}
+.hef-lb{display:block;font-size:15px;font-weight:600;color:var(--charcoal);margin-bottom:6px}
+.hef-lb i{font-style:normal;color:#C0392B}
+.hef input[type=text],.hef input[type=email],.hef input[type=tel],.hef textarea{width:100%;font-family:var(--font-body);font-size:17px;color:var(--text);background:#fff;border:1.5px solid var(--border);padding:13px 14px;border-radius:0;resize:none;appearance:none}
+.hef textarea{height:52px;line-height:1.5;overflow:hidden}
+.hef input:focus,.hef textarea:focus{outline:none;border-color:var(--cobalt)}
+.hef fieldset{border:0;margin:0 0 22px;padding:0}
+.hef legend{font-size:15px;font-weight:600;color:var(--charcoal);margin-bottom:8px}
+.hef-pills{display:flex;flex-wrap:wrap;gap:8px}
+.hef-pills label{position:relative;cursor:pointer}
+.hef-pills input{position:absolute;opacity:0;width:1px;height:1px}
+.hef-pills span{display:block;padding:10px 18px;border:1.5px solid var(--border);background:#fff;font-size:16px;font-weight:500}
+.hef-pills input:checked+span{background:var(--cobalt);border-color:var(--cobalt);color:#fff}
+.hef-pills input:focus-visible+span{outline:3px solid var(--cobalt);outline-offset:2px}
+.hef button[data-submit-button]{width:100%;font-family:var(--font-body);font-size:17px;font-weight:600;background:var(--cobalt);color:#fff;border:0;padding:17px;cursor:pointer}
+.hef button[data-submit-button]:hover{background:var(--cobalt-dk)}
+.hef-note{font-size:14px;color:var(--text-lt);margin-top:12px}
+.pac-container{z-index:9999}
+
+@media (max-width:1180px){
+  .nav-links{gap:22px}
+  .nav-links a,.nav-phone a{font-size:16px}
+  .logo-img{height:56px}
+}
+@media (max-width:1000px){ .nav-phone{display:none} }
+@media (max-width:1100px){
+  .rp-grid{grid-template-columns:repeat(2,1fr)}
+  .rp-review{grid-row:auto;grid-column:1/-1}
+  .hef-grid{grid-template-columns:1fr;gap:32px}
+}
+@media (max-width:860px){
+  .hero-left-inner{padding:36px 0 32px;gap:28px}
+  .hero-left-inner h1.hero-tagline{font-size:clamp(44px,12vw,64px)}
+  .hef-row{grid-template-columns:1fr;gap:0}
+  .hef{padding:24px 18px}
+}
+@media (max-width:600px){ .rp-grid{grid-template-columns:1fr} }
