@@ -2,5 +2,15 @@
 http://www.forthrightvt.com/*   https://forthrightvt.com/:splat  301!
 https://www.forthrightvt.com/*  https://forthrightvt.com/:splat  301!
 http://forthrightvt.com/*       https://forthrightvt.com/:splat  301!
-/commercial    /services    302
-/commercial.html    /services    302
+/services                              /                        301
+/services.html                         /                        301
+/commercial-siding-vermont             /commercial#siding       301
+/commercial-siding-vermont.html        /commercial#siding       301
+/commercial-roofing-vermont            /commercial#roofing      301
+/commercial-roofing-vermont.html       /commercial#roofing      301
+/commercial-framing-vermont            /commercial#framing      301
+/commercial-framing-vermont.html       /commercial#framing      301
+/commercial-storefronts-vermont        /commercial#storefronts  301
+/commercial-storefronts-vermont.html   /commercial#storefronts  301
+/commercial-drywall-vermont            /commercial#drywall      301
+/commercial-drywall-vermont.html       /commercial#drywall      301
