@@ -3,3 +3,4 @@ http://www.forthrightvt.com/*   https://forthrightvt.com/:splat  301!
 https://www.forthrightvt.com/*  https://forthrightvt.com/:splat  301!
 http://forthrightvt.com/*       https://forthrightvt.com/:splat  301!
 /commercial    /services    302
+/commercial.html    /services    302
