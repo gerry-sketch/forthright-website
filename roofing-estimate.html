@@ -465,14 +465,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="field"><label for="f-phone">Phone <span style="color:#E24B4A">*</span></label><input type="tel" id="f-phone" placeholder="(802) 555-0100" autocomplete="tel" inputmode="tel"></div>
     <div class="field"><label for="f-email">Email <span style="color:#E24B4A">*</span></label><input type="email" id="f-email" placeholder="you@email.com" autocomplete="email" inputmode="email"></div>
-    <div class="consent-box">
-      <div class="consent-q">Can we text you updates?</div>
-      <div class="consent-fine">By providing your number, you agree to receive text messages from Forthright Construction. Message and data rates may apply. Reply STOP to opt out at any time. <a href="privacy-policy.html">Privacy Policy</a></div>
-      <div class="consent-opts">
-        <div class="copt" onclick="pickSMS('yes',this)"><div class="copt-radio"></div><div class="copt-label">Yes, text me updates</div></div>
-        <div class="copt" onclick="pickSMS('no',this)"><div class="copt-radio"></div><div class="copt-label">No thanks</div></div>
-      </div>
-    </div>
     <button class="btn btn-primary" id="btn5" onclick="submitForm()" style="margin-top:28px">See My Rough Estimate →</button>
     <p class="btn-hint">Free · No obligation · Registered &amp; insured</p>
   </div>
@@ -948,7 +940,6 @@ async function submitForm(){
     'Timeline: '+(TL[S.timeline]||S.timeline),
     'Estimate range: '+fmt(loR)+' to '+fmt(hiR),
     'Est. squares: '+sd.lo+'-'+sd.hi,
-    'SMS consent: '+(S.smsConsent==='yes'?'Yes':'No'),
   ].join('\n');
 
   // Submit to JobTread (via Netlify function)
