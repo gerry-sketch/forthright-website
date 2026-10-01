@@ -1319,3 +1319,6 @@ h3{font-size:clamp(22px,1.9vw,26px);font-weight:600;line-height:1.25;letter-spac
   .faq-compare-col+.faq-compare-col{border-top:1px solid var(--border)}
 }
 @media (min-width:861px){ .hero-photo{width:50%} }
+
+/* Headline tagline period, slightly smaller than the headline */
+.tag-dot { font-size: 85%; }
