@@ -1328,3 +1328,11 @@ h3{font-size:clamp(22px,1.9vw,26px);font-weight:600;line-height:1.25;letter-spac
 .sp-town p { margin-bottom: 18px; }
 .sp-town p a { color: var(--cobalt); text-decoration: underline; text-underline-offset: 3px; }
 .sp-town p a:hover { color: var(--charcoal); }
+
+/* Town pages: show the whole hero photo, shorter band (ph-hero-photo--town) */
+.ph-hero-photo--town { height: 420px; background: var(--charcoal); }
+.ph-hero-photo--town img { object-fit: contain; }
+@media (max-width: 767px) {
+  .ph-hero-photo--town { height: auto !important; }
+  .ph-hero-photo--town img { height: auto; }
+}
